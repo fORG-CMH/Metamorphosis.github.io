@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>PokeGuia</title>
+  <title>PokeGuía</title>
 
   <!-- Fuente -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,47 +58,38 @@
       </section>
     </section>
 
-    <!-- Vista: Elite Four (entrenadores por región) -->
+    <!-- Vista: Elite Four -->
     <section id="eliteView" class="view">
-      <!-- Cabecera con breadcrumb y controles de región -->
       <div class="elite-header header-split">
         <div class="left">
           <button class="back" id="backBtn" type="button" aria-label="Back">←</button>
           <span class="crumb">Regions</span>
         </div>
         <div class="right">
-          <!-- NUEVOS botones para cambiar de región -->
-          <button class="btn round" id="prevRegionBtn" type="button" aria-label="Previous region" title="Previous region">‹</button>
-          <button class="btn round" id="nextRegionBtn" type="button" aria-label="Next region" title="Next region">›</button>
+          <button class="btn round" id="prevRegionBtn" title="Región anterior">‹</button>
+          <button class="btn round" id="nextRegionBtn" title="Siguiente región">›</button>
         </div>
       </div>
 
       <h1 id="eliteTitle">Kanto</h1>
-
-      <div class="trainers" id="trainersList">
-        <!-- Se llena por JS -->
-      </div>
+      <div class="trainers" id="trainersList"></div>
     </section>
 
     <!-- Vista: Pokémon del entrenador -->
     <section id="pokemonView" class="view">
-      <!-- Cabecera con breadcrumb y pager de entrenadores -->
       <div class="elite-header header-split">
         <div class="left">
-          <button class="back" id="backToEliteBtn" type="button" aria-label="Back to Elite">←</button>
-          <span class="crumb" id="crumbPath">Region › Trainer</span>
+          <button class="back" id="backToEliteBtn" type="button" aria-label="Back">←</button>
+          <span class="crumb" id="crumbPath">Kanto › Lance</span>
         </div>
         <div class="right">
-          <button class="btn round" id="prevTrainerBtn" type="button" aria-label="Previous trainer" title="Previous trainer">‹</button>
-          <button class="btn round" id="nextTrainerBtn" type="button" aria-label="Next trainer" title="Next trainer">›</button>
+          <button class="btn round" id="prevTrainerBtn" title="Entrenador anterior">‹</button>
+          <button class="btn round" id="nextTrainerBtn" title="Siguiente entrenador">›</button>
         </div>
       </div>
 
-      <h1 id="pokemonTitle">Team Trainer</h1>
-
-      <div class="pokemon-grid" id="pokemonList">
-        <!-- Se llena por JS -->
-      </div>
+      <h1 id="pokemonTitle">Team Lance</h1>
+      <div id="pokemonList" class="pokemon-grid"></div>
     </section>
   </main>
 
