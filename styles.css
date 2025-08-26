@@ -6,7 +6,7 @@
   --card: #ffffff;
   --text: #0f172a;
   --muted: #4b5563;
-  --accent: #e11d48;
+  --accent: #e11d48;      /* rojo frambuesa */
   --accent-press: #be123c;
   --border: rgba(15,23,42,.12);
 }
@@ -68,11 +68,10 @@ body{
 .btn.primary{
   background: var(--accent);
   color:#fff;
-  min-width: 150px;        /* 🔹 ancho mínimo del botón */
-  text-align: center;      /* 🔹 centra el texto */
-  display: inline-block;   /* asegura que respete el ancho */
+  width: 180px;           /* 🔹 ancho fijo suficiente */
+  text-align: center;
+  white-space: nowrap;    /* 🔹 evita salto de línea */
 }
-
 .btn.primary:hover{filter: brightness(1.02)}
 .btn.primary:active{background: var(--accent-press)}
 
@@ -139,4 +138,3 @@ h1{
   border-top:1px solid var(--border);
   background: var(--surface);
 }
-
