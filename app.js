@@ -73,7 +73,7 @@ const REGION_NAMES = {
 
 // Rellena tú los equipos aquí (POKEMON/<Nombre>.png)
 const TRAINER_POKEMON = {
-  'Lorelei': ['JetDragon','JetDragon','JetDragon','JetDragon','JetDragon','JetDragon','JetDragon','JetDragon'],
+  'Lorelei': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
   'Bruno': [],
   'Agatha': [],
   'Lance': [],
@@ -100,8 +100,8 @@ const TRAINER_POKEMON = {
 
 // ===== Estado de navegación actual =====
 let currentRegion = null;
-let currentTrainerNames = [];  // array de nombres (orden en la pantalla)
-let currentTrainerIndex = -1;  // índice del entrenador dentro del array
+let currentTrainerNames = [];
+let currentTrainerIndex = -1;
 
 // ===== Vistas =====
 function showRegions(){
@@ -122,7 +122,6 @@ function showElite(region){
   const ids   = REGION_IMAGES[region] || [];
   const names = REGION_NAMES[region]  || [];
 
-  // guarda el orden para el pager
   currentTrainerNames = names.slice();
   currentTrainerIndex = -1;
 
@@ -174,7 +173,7 @@ function showElite(region){
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Delegación: click en cualquier card de entrenador
+// Delegación: click y teclado en lista de entrenadores
 trainersList.addEventListener('click', (e) => {
   const card = e.target.closest('.trainer');
   if (!card) return;
@@ -200,12 +199,9 @@ function showPokemon(trainerName, region){
   pokemonTitle.textContent = trainerName;
   if (crumbPath) crumbPath.textContent = `${region} › ${trainerName}`;
 
-  // setear index por nombre si no vino por click
   if (currentTrainerIndex < 0) {
     currentTrainerIndex = currentTrainerNames.indexOf(trainerName);
   }
-
-  // Habilitar/Deshabilitar pager
   updatePagerButtons();
 
   const mons = TRAINER_POKEMON[trainerName] || [];
@@ -219,30 +215,32 @@ function showPokemon(trainerName, region){
     help.style.padding = '10px 0 6px';
     help.innerHTML = `
       <strong>Sin equipo aún.</strong><br/>
+      Edita <code>TRAINER_POKEMON['${trainerName}'] = ['Pikachu','Charizard',...]</code>
+      y pon las imágenes en <code>POKEMON/&lt;Nombre&gt;.png</code>
     `;
     pokemonList.appendChild(help);
   }
 
+  // Render de cards: nombre arriba + imagen dentro
   mons.forEach(monName => {
     const monCard = document.createElement('div');
     monCard.className = 'pokemon-card';
+
+    const nameBar = document.createElement('div');
+    nameBar.className = 'pname';
+    nameBar.textContent = monName;
 
     const portrait = document.createElement('div');
     portrait.className = 'portrait';
 
     const img = document.createElement('img');
-    img.src = `POKEMONES/${encodeURIComponent(monName)}.png`;
+    img.src = `POKEMON/${encodeURIComponent(monName)}.png`;
     img.alt = monName;
 
     portrait.appendChild(img);
 
-    const pname = document.createElement('div');
-    pname.className = 'pname';
-    pname.textContent = monName;
-
-    monCard.appendChild(portrait);
-    monCard.appendChild(pname);
-
+    monCard.appendChild(nameBar);   // 🔹 nombre primero
+    monCard.appendChild(portrait);  // 🔹 imagen debajo
     pokemonList.appendChild(monCard);
   });
 
@@ -277,7 +275,7 @@ if (prevTrainerBtn && nextTrainerBtn) {
   });
 }
 
-// Teclas ← y → para navegar entre entrenadores cuando estás en la vista de Pokémon
+// Teclas ← y → para navegar entre entrenadores en la vista de Pokémon
 document.addEventListener('keydown', (e) => {
   if (!pokemonView || !pokemonView.classList.contains('active')) return;
   if (e.key === 'ArrowLeft' && currentTrainerIndex > 0) {
