@@ -4,9 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>PokeGuía • Regiones</title>
+
+  <!-- Fuente con pesos 400/500/700 para controlar grosores -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -17,43 +20,44 @@
     </div>
 
     <div class="actions">
-      <button class="btn ghost" id="selectRegion">Seleccionar región</button>
+      <button class="btn ghost" id="selectRegion">Select Region</button>
       <button class="btn icon" id="themeToggle" aria-label="Cambiar tema" title="Cambiar tema">🌙</button>
     </div>
   </header>
 
   <main class="container">
-    <h1>Elige una Región</h1>
-    <p class="subtitle">Selecciona una región para ver su Alto Mando y Campeón.</p>
+    <h1>Choose a Region</h1>
+    <p class="subtitle">Select a region to see its Elite Four and Champion.</p>
 
     <section class="grid">
       <article class="card">
         <h2>Kanto</h2>
-        <a class="btn primary" href="#">Ver Alto Mando</a>
+        <a class="btn primary" href="#">View Elite Four</a>
       </article>
 
       <article class="card">
         <h2>Johto</h2>
-        <a class="btn primary" href="#">Ver Alto Mando</a>
+        <a class="btn primary" href="#">View Elite Four</a>
       </article>
 
       <article class="card">
         <h2>Hoenn</h2>
-        <a class="btn primary" href="#">Ver Alto Mando</a>
+        <a class="btn primary" href="#">View Elite Four</a>
       </article>
 
       <article class="card">
         <h2>Sinnoh</h2>
-        <a class="btn primary" href="#">Ver Alto Mando</a>
+        <a class="btn primary" href="#">View Elite Four</a>
       </article>
 
       <article class="card">
         <h2>Unova</h2>
-        <a class="btn primary" href="#">Ver Alto Mando</a>
+        <a class="btn primary" href="#">View Elite Four</a>
       </article>
     </section>
   </main>
 
+  <!-- Tu app.js de antes sigue funcionando para el tema -->
   <script src="app.js"></script>
 </body>
 </html>
