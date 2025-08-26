@@ -74,7 +74,7 @@ const REGION_NAMES = {
 
 const TRAINER_POKEMON = {
   // Kanto
-  'Lorelei': [],
+  'Lorelei': [xd],
   'Bruno':   [],
   'Agatha':  [],
   'Lance':   [],
