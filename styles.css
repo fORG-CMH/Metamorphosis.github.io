@@ -54,21 +54,21 @@ body{
   cursor:pointer;
   background: var(--card);
   color: var(--text);
-  text-decoration:none;    /* sin subrayado en <a> */
+  text-decoration:none;    
   display:inline-block;
   line-height:1;
 }
 
-/* Botón principal — como tu ejemplo */
+/* Botón principal */
 .btn.primary{
   background: var(--accent);
   color:#fff;
-  padding: 8px 18px;     /* compacto */
-  font-size: 14px;
-  font-weight: 500;      /* negrita ligera */
-  border-radius: 8px;    /* esquinas suaves (no pill) */
+  padding: 10px 20px;    /* 🔹 más alto y cómodo */
+  font-size: 13px;       /* 🔹 texto un poco más pequeño */
+  font-weight: 500;      
+  border-radius: 8px;    
   text-align: center;
-  white-space: nowrap;   /* evita salto de línea */
+  white-space: nowrap;
 }
 .btn.primary:hover{filter: brightness(1.02)}
 .btn.primary:active{background: var(--accent-press)}
