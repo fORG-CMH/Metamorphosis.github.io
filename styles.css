@@ -64,6 +64,12 @@ body{
 .btn.primary:active{background: var(--accent-press)}
 .btn.ghost{padding:8px 12px; border:1px solid var(--border); border-radius:10px; background: transparent;}
 .btn.icon{width:40px; height:40px; display:grid; place-items:center; font-size:18px; border-radius:10px; border:1px solid var(--border); background: transparent;}
+.btn.round{
+  width:38px; height:38px; border-radius:50%;
+  border:1px solid var(--border); background:transparent;
+  display:grid; place-items:center; font-size:20px; line-height:1;
+}
+.btn.round:disabled{opacity:.35; cursor:not-allowed}
 
 /* ====== Contenido ====== */
 .container{max-width:1200px; margin-inline:auto; padding:36px 20px 60px;}
@@ -73,6 +79,21 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
 /* ====== Vistas SPA ====== */
 .view{display:none}
 .view.active{display:block}
+
+/* ====== Encabezados divididos ====== */
+.elite-header{
+  display:flex; align-items:center; gap:8px; margin-bottom:8px; color:var(--muted);
+  font-weight:500;
+}
+.header-split{justify-content:space-between}
+.header-split .left{display:flex; align-items:center; gap:8px}
+.header-split .right{display:flex; align-items:center; gap:8px}
+
+.back{
+  border:1px solid var(--border); background:transparent; color:var(--text);
+  border-radius:10px; padding:8px 12px; cursor:pointer;
+}
+.crumb{opacity:.9}
 
 /* ====== Grid regiones — 5 por fila ====== */
 .grid{
@@ -97,21 +118,7 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
 .card h2{margin:6px 0 4px 0; font-size:26px; font-weight:700;}
 
 /* ====== Vista Elite Four ====== */
-.elite-header{
-  display:flex; align-items:center; gap:8px; margin-bottom:8px; color:var(--muted);
-  font-weight:500;
-}
-.back{
-  border:1px solid var(--border); background:transparent; color:var(--text);
-  border-radius:10px; padding:8px 12px; cursor:pointer;
-}
-.crumb{opacity:.9}
-
-#eliteTitle{
-  letter-spacing:.5px;
-  margin-top:4px;
-  margin-bottom:22px;
-}
+#eliteTitle{letter-spacing:.5px; margin-top:4px; margin-bottom:22px}
 
 /* ====== Grid de entrenadores ====== */
 .trainers{
@@ -132,8 +139,6 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   position: relative;
   z-index: 0;
 }
-
-/* 🔥 Halo circular DETRÁS (rojo) */
 .trainer::before{
   content:"";
   position:absolute;
@@ -154,7 +159,6 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
 }
 .trainer:hover::before{ opacity: 1; }
 
-/* Marco principal (card) */
 .trainer .portrait{
   width: 220px;
   height: 300px;
@@ -167,14 +171,10 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   z-index: 2;
   transition: border-color .28s ease, box-shadow .28s ease;
 }
-
-/* ⭐ Efecto de marco rojo */
 .trainer:hover .portrait{
   border-color: #e11d48;
   box-shadow: 0 0 22px rgba(225,29,72,.40), 0 12px 28px rgba(0,0,0,.45);
 }
-
-/* Degradado interno */
 .trainer .portrait::after{
   content:"";
   position:absolute; inset:0;
@@ -187,8 +187,6 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   pointer-events:none;
   z-index: 1;
 }
-
-/* Imagen */
 .trainer .portrait img{
   width: 100%;
   height: 100%;
@@ -198,8 +196,8 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   transition: transform 0.35s ease;
   z-index: 0;
 }
+.trainer .portrait:hover img{ transform: scale(1.08); }
 
-/* Texto */
 .trainer .info{
   position:absolute;
   left:18px;
@@ -218,25 +216,14 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   color:#ffffff;
   transition: color .25s ease, text-shadow .25s ease;
 }
-.trainer .info .role{
-  font-size:16px;
-  opacity:.9;
-}
-
-/* Hover efectos */
-.trainer .portrait:hover img{ transform: scale(1.08); }
+.trainer .info .role{ font-size:16px; opacity:.9 }
 .trainer:hover .info .name{
   color:#e11d48;
   text-shadow: 0 1px 12px rgba(225,29,72,.45);
 }
+.trainer > .name, .trainer > .role { display:none; }
 
-/* Ocultar labels antiguos */
-.trainer > .name, 
-.trainer > .role { display:none; }
-
-/* ========================================================= */
-/* ====== NUEVO: Grid y cards de POKÉMON (6 por fila) ====== */
-/* ========================================================= */
+/* ====== Grid y cards de POKÉMON (6 por fila) ====== */
 .pokemon-grid{
   display:grid;
   grid-template-columns: repeat(6, 1fr);
@@ -250,7 +237,6 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
 @media (max-width:560px){.pokemon-grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:380px){.pokemon-grid{grid-template-columns:1fr}}
 
-/* Card de Pokémon (mismo look, tamaño reducido) */
 .pokemon-card{
   position: relative;
   z-index: 0;
@@ -259,8 +245,6 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   align-items:center;
   gap:8px;
 }
-
-/* Glow rojo suave detrás */
 .pokemon-card::before{
   content:"";
   position:absolute;
@@ -281,7 +265,6 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
 }
 .pokemon-card:hover::before{ opacity:1; }
 
-/* Marco reducido */
 .pokemon-card .portrait{
   width: 160px;
   height: 220px;
@@ -293,17 +276,12 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   overflow:hidden;
   z-index: 2;
   transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
-  cursor: default;
 }
-
-/* Brillito rojo al hover */
 .pokemon-card:hover .portrait{
   border-color: #e11d48;
   box-shadow: 0 0 18px rgba(225,29,72,.35), 0 10px 20px rgba(0,0,0,.45);
   transform: translateY(-2px);
 }
-
-/* Imagen del Pokémon */
 .pokemon-card .portrait img{
   width: 100%;
   height: 100%;
@@ -313,8 +291,6 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   transition: transform .25s ease;
 }
 .pokemon-card:hover .portrait img{ transform: scale(1.05); }
-
-/* Degradado para texto (por si agregas nombre encima) */
 .pokemon-card .portrait::after{
   content:"";
   position:absolute; inset:0;
@@ -322,8 +298,6 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   pointer-events:none;
   z-index: 1;
 }
-
-/* Nombre opcional debajo */
 .pokemon-card .pname{
   margin-top:6px;
   font-size: 14px;
