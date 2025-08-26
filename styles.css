@@ -1,29 +1,29 @@
 /* ====== Variables de tema ====== */
 :root{
   /* Light */
-  --bg: #0f172a0a; /* no usado en light acá, pero lo dejamos */
+  --bg: #f7f8fb;
   --surface: #ffffff;
   --card: #ffffff;
   --text: #0f172a;
   --muted: #4b5563;
-  --accent: #e11d48;      /* rojo frambuesa (no lo cambiamos) */
+  --accent: #e11d48;
   --accent-press: #be123c;
-  --border: rgba(15,23,42,.10);
+  --border: rgba(15,23,42,.12);
 }
 
 html[data-theme="dark"]{
-  /* Oscuro estilo de tu captura (azul muy oscuro) */
-  --bg: #0b1220;        /* fondo */
-  --surface: #0f1628;   /* barra superior / bloques grandes */
-  --card: #121a2b;      /* tarjetas */
-  --text: #f3f7ff;
-  --muted: #a6b1c2;
-  --accent: #e11d48;    /* mismo color del botón */
+  /* Dark en negro real */
+  --bg: #0a0a0a;       /* fondo */
+  --surface: #0f0f0f;  /* barra superior */
+  --card: #141414;     /* tarjetas */
+  --text: #f5f5f5;
+  --muted: #b0b0b0;
+  --accent: #e11d48;
   --accent-press: #be123c;
-  --border: rgba(255,255,255,.08);
+  --border: rgba(255,255,255,.10);
 }
 
-/* ====== Base ====== */
+/* ====== Reset & base ====== */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
@@ -48,7 +48,7 @@ body{
 .brand img{width:26px; height:26px; image-rendering:pixelated}
 .actions{display:flex; gap:10px}
 
-/* ====== Botones base ====== */
+/* ====== Botones ====== */
 .btn{
   border:0;
   cursor:pointer;
@@ -58,6 +58,20 @@ body{
   display:inline-block;
   line-height:1;
 }
+
+/* Botón principal */
+.btn.primary{
+  background: var(--accent);
+  color:#fff;
+  padding: 6px 18px;
+  font-size: 12.5px;
+  font-weight: 400;
+  border-radius: 9999px;
+  text-align:center;
+  white-space: nowrap;
+}
+.btn.primary:hover{filter: brightness(1.02)}
+.btn.primary:active{background: var(--accent-press)}
 
 /* Ghost (barra superior) */
 .btn.ghost{
@@ -73,21 +87,7 @@ body{
   border-radius:10px; border:1px solid var(--border); background: transparent;
 }
 
-/* ====== Botón principal estilo captura ====== */
-.btn.primary{
-  background: var(--accent);
-  color:#fff;
-  padding: 6px 18px;     /* bajo y compacto */
-  font-size: 12.5px;     /* texto pequeño */
-  font-weight: 400;      /* texto delgado */
-  border-radius: 9999px; /* forma pill */
-  text-align:center;
-  white-space: nowrap;   /* sin saltos de línea */
-}
-.btn.primary:hover{filter: brightness(1.02)}
-.btn.primary:active{background: var(--accent-press)}
-
-/* ====== Contenido ====== */
+/* ====== Main ====== */
 .container{
   max-width:1100px;
   margin-inline:auto;
@@ -105,29 +105,29 @@ h1{
   margin:0 0 28px;
 }
 
-/* ====== Grid (como en tu screenshot: 4 por fila en desktop) ====== */
+/* ====== Grid (5 columnas en escritorio) ====== */
 .grid{
   display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
+  grid-template-columns:repeat(5,minmax(0,1fr));
   gap:22px;
 }
 @media (max-width:1000px){.grid{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:460px){.grid{grid-template-columns:1fr}}
 
-/* ====== Card (cuadro) compacto como tu captura ====== */
+/* ====== Card ====== */
 .card{
   background: var(--card);
   border:1px solid var(--border);
   border-radius:14px;
-  padding:18px 18px;         /* compacto */
+  padding:18px 18px;
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:14px;                  /* espacio entre título y botón */
+  gap:14px;
 }
 .card h2{
   margin:6px 0 4px 0;
-  font-size:26px;            /* título fuerte */
+  font-size:26px;
   font-weight:700;
 }
