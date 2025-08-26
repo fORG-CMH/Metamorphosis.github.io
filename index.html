@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PokéGuía • Elite Four</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Toggle de tema (checkbox hack, no JS) -->
+  <input type="checkbox" id="theme-toggle" aria-label="Cambiar tema" />
+
+  <div class="app">
+    <header class="site-header">
+      <div class="brand">
+        <span class="brand-logo" aria-hidden="true">⚡</span>
+        <span class="brand-name">PokéGuía</span>
+      </div>
+
+      <div class="header-actions">
+        <label for="theme-toggle" class="theme-switch" title="Cambiar tema">
+          <span class="icon-sun" aria-hidden="true">☀</span>
+          <span class="icon-moon" aria-hidden="true">🌙</span>
+          <span class="sr-only">Cambiar entre modo claro/oscuro</span>
+        </label>
+      </div>
+    </header>
+
+    <main class="container">
+      <h1 class="title">Choose a Region</h1>
+      <p class="subtitle">Select a region to see its Elite Four and Champion.</p>
+
+      <section class="grid">
+        <!-- Card -->
+        <article class="card">
+          <h2 class="region">Kanto</h2>
+          <a class="btn" href="#" aria-label="Ver Elite Four de Kanto">View Elite Four</a>
+        </article>
+
+        <article class="card">
+          <h2 class="region">Johto</h2>
+          <a class="btn" href="#" aria-label="Ver Elite Four de Johto">View Elite Four</a>
+        </article>
+
+        <article class="card">
+          <h2 class="region">Hoenn</h2>
+          <a class="btn" href="#" aria-label="Ver Elite Four de Hoenn">View Elite Four</a>
+        </article>
+
+        <article class="card">
+          <h2 class="region">Sinnoh</h2>
+          <a class="btn" href="#" aria-label="Ver Elite Four de Sinnoh">View Elite Four</a>
+        </article>
+
+        <article class="card">
+          <h2 class="region">Unova</h2>
+          <a class="btn" href="#" aria-label="Ver Elite Four de Unova">View Elite Four</a>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <small>© 2025 PokéGuía — demo UI</small>
+    </footer>
+  </div>
+</body>
+</html>
