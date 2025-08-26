@@ -73,29 +73,29 @@ const REGION_NAMES = {
 
 // Rellena tú los equipos aquí (POKEMON/<Nombre>.png)
 const TRAINER_POKEMON = {
-  'Lorelei': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Bruno': [],
-  'Agatha': [],
-  'Lance': [],
-  'Blue': [],
-  'Will': [],
-  'Koga': [],
-  'Karen': [],
-  'Sidney': [],
-  'Phoebe': [],
-  'Glacia': [],
-  'Drake': [],
-  'Wallace': [],
-  'Aaron': [],
-  'Bertha': [],
-  'Flint': [],
-  'Lucian': [],
-  'Cynthia': [],
-  'Shauntal': [],
-  'Grimsley': [],
-  'Caitlin': [],
-  'Marshal': [],
-  'Alder': []
+  'Lorelei': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
+  'Bruno': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
+  'Agatha': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
+  'Lance': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
+  'Blue': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
+  'Will': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
+  'Koga': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
+  'Karen': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
+  'Sidney': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
+  'Phoebe': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
+  'Glacia': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
+  'Drake': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
+  'Wallace': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
+  'Aaron': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
+  'Bertha': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
+  'Flint': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
+  'Lucian': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
+  'Cynthia': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
+  'Shauntal': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
+  'Grimsley': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
+  'Caitlin': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
+  'Marshal': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
+  'Alder': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis']
 };
 
 // ===== Estado de navegación actual =====
@@ -215,8 +215,6 @@ function showPokemon(trainerName, region){
     help.style.padding = '10px 0 6px';
     help.innerHTML = `
       <strong>Sin equipo aún.</strong><br/>
-      Edita <code>TRAINER_POKEMON['${trainerName}'] = ['Pikachu','Charizard',...]</code>
-      y pon las imágenes en <code>POKEMON/&lt;Nombre&gt;.png</code>
     `;
     pokemonList.appendChild(help);
   }
@@ -234,7 +232,7 @@ function showPokemon(trainerName, region){
     portrait.className = 'portrait';
 
     const img = document.createElement('img');
-    img.src = `POKEMON/${encodeURIComponent(monName)}.png`;
+    img.src = `POKEMONES/${encodeURIComponent(monName)}.png`;
     img.alt = monName;
 
     portrait.appendChild(img);
