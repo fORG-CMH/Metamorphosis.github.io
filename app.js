@@ -73,7 +73,7 @@ const REGION_NAMES = {
 
 // Rellena tú los equipos aquí (POKEMON/<Nombre>.png)
 const TRAINER_POKEMON = {
-  'Lorelei': [], 'Bruno': [], 'Agatha': [], 'Lance': [], 'Blue': [],
+  'Lorelei': [JetDragon,JetDragon,JetDragon,JetDragon,JetDragon,JetDragon,JetDragon,JetDragon], 'Bruno': [], 'Agatha': [], 'Lance': [], 'Blue': [],
   'Will': [], 'Koga': [], 'Karen': [],
   'Sidney': [], 'Phoebe': [], 'Glacia': [], 'Drake': [], 'Wallace': [],
   'Aaron': [], 'Bertha': [], 'Flint': [], 'Lucian': [], 'Cynthia': [],
