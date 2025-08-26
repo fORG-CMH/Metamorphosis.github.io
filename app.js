@@ -7,7 +7,7 @@
     root.setAttribute('data-theme', saved);
     btn.textContent = saved === 'dark' ? '🌙' : '☀️';
   }
-  btn.addEventListener('click', () => {
+  btn?.addEventListener('click', () => {
     const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     root.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
@@ -16,26 +16,26 @@
 })();
 
 // ===== Referencias a vistas / nodos =====
-const regionsView = document.getElementById('regionsView');
-const eliteView    = document.getElementById('eliteView');
-const trainersList = document.getElementById('trainersList');
-const eliteTitle   = document.getElementById('eliteTitle');
-const backBtn      = document.getElementById('backBtn');
+const regionsView     = document.getElementById('regionsView');
+const eliteView       = document.getElementById('eliteView');
+const trainersList    = document.getElementById('trainersList');
+const eliteTitle      = document.getElementById('eliteTitle');
+const backBtn         = document.getElementById('backBtn');
 
 // Vista Pokémon del entrenador
-const pokemonView  = document.getElementById('pokemonView');
-const pokemonTitle = document.getElementById('pokemonTitle');
-const pokemonList  = document.getElementById('pokemonList');
-const backToEliteBtn = document.getElementById('backToEliteBtn');
-const crumbPath = document.getElementById('crumbPath');
+const pokemonView     = document.getElementById('pokemonView');
+const pokemonTitle    = document.getElementById('pokemonTitle');
+const pokemonList     = document.getElementById('pokemonList');
+const backToEliteBtn  = document.getElementById('backToEliteBtn');
+const crumbPath       = document.getElementById('crumbPath');
 
 // Pager entrenadores
-const prevTrainerBtn = document.getElementById('prevTrainerBtn');
-const nextTrainerBtn = document.getElementById('nextTrainerBtn');
+const prevTrainerBtn  = document.getElementById('prevTrainerBtn');
+const nextTrainerBtn  = document.getElementById('nextTrainerBtn');
 
 // Pager regiones (en Elite)
-const prevRegionBtn = document.getElementById('prevRegionBtn');
-const nextRegionBtn = document.getElementById('nextRegionBtn');
+const prevRegionBtn   = document.getElementById('prevRegionBtn');
+const nextRegionBtn   = document.getElementById('nextRegionBtn');
 
 // Botón "Select Region" (topbar)
 const selectRegionBtn = document.getElementById('selectRegionBtn');
@@ -59,7 +59,7 @@ const REGION_NAMES = {
   Unova:  ['Shauntal', 'Grimsley', 'Caitlin', 'Marshal', 'Alder']
 };
 
-// Rellena tú los equipos aquí (POKEMON/<Nombre>.png)
+// Rellena tú los equipos aquí (POKEMONES/<Nombre>.png)
 const TRAINER_POKEMON = {
   'Lorelei': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
   'Bruno': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
@@ -86,16 +86,6 @@ const TRAINER_POKEMON = {
   'Alder': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion']
 };
 
-// ===== Opcional: Badges por Pokémon (texto y color) =====
-// Estructura: { Entrenador: { Pokemon: 'texto' | { text: '...', color: 'blue|orange|purple' } } }
-const POKEMON_BADGES = {
-  // Ejemplo:
-  // 'Lorelei': {
-  //   'JetDragon': { text: 'trick', color: 'blue' },
-  //   'Anubis': 'switch'
-  // }
-};
-
 // ===== Estado =====
 let currentRegion = null;
 let currentRegionIndex = -1;
@@ -109,18 +99,16 @@ function showRegions(){
   currentTrainerNames = [];
   currentTrainerIndex = -1;
 
-  if (pokemonView) pokemonView.classList.remove('active');
+  pokemonView?.classList.remove('active');
   eliteView.classList.remove('active');
   regionsView.classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function showElite(region){
-  // Fija región e índice
   currentRegion = region;
   currentRegionIndex = REGIONS.indexOf(region);
 
-  // Título
   eliteTitle.textContent = region;
 
   const ids   = REGION_IMAGES[region] || [];
@@ -129,7 +117,6 @@ function showElite(region){
   currentTrainerNames = names.slice();
   currentTrainerIndex = -1;
 
-  // Render entrenadores
   trainersList.innerHTML = '';
   ids.forEach((id, idx) => {
     const nameText = names[idx] || `entrenador${id}`;
@@ -172,7 +159,7 @@ function showElite(region){
   });
 
   regionsView.classList.remove('active');
-  if (pokemonView) pokemonView.classList.remove('active');
+  pokemonView?.classList.remove('active');
   eliteView.classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -225,23 +212,6 @@ function showPokemon(trainerName, region){
 
     monCard.appendChild(nameBar);   // nombre arriba
     monCard.appendChild(portrait);  // imagen debajo
-
-    // ---- Badge opcional (abajo) ----
-    const badgeMeta =
-      (POKEMON_BADGES[trainerName] && POKEMON_BADGES[trainerName][monName]) || null;
-
-    if (badgeMeta) {
-      const badge = document.createElement('div');
-      badge.className = 'badge';
-      if (typeof badgeMeta === 'string') {
-        badge.textContent = badgeMeta;
-      } else {
-        badge.textContent = badgeMeta.text || '';
-        if (badgeMeta.color) badge.classList.add(badgeMeta.color); // 'blue'|'orange'|'purple'
-      }
-      monCard.appendChild(badge);
-    }
-
     pokemonList.appendChild(monCard);
   });
 
@@ -254,9 +224,7 @@ function showPokemon(trainerName, region){
 // ===== Listeners base =====
 
 // Botón "Select Region" (header)
-if (selectRegionBtn) {
-  selectRegionBtn.addEventListener('click', showRegions);
-}
+selectRegionBtn?.addEventListener('click', showRegions);
 
 // Click en "View Elite Four" de cada región
 document.querySelectorAll('.view-elite').forEach(a => {
@@ -268,18 +236,14 @@ document.querySelectorAll('.view-elite').forEach(a => {
 });
 
 // Back a regiones
-if (backBtn) {
-  backBtn.addEventListener('click', showRegions);
-}
+backBtn?.addEventListener('click', showRegions);
 
 // Back a Elite desde Pokémon
-if (backToEliteBtn) {
-  backToEliteBtn.addEventListener('click', () => {
-    pokemonView.classList.remove('active');
-    eliteView.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-}
+backToEliteBtn?.addEventListener('click', () => {
+  pokemonView.classList.remove('active');
+  eliteView.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 
 // Delegación: click y teclado en lista de entrenadores
 if (trainersList) {
@@ -329,22 +293,18 @@ if (prevTrainerBtn && nextTrainerBtn) {
 }
 
 // ===== Pager regiones (botones en Elite) =====
-if (prevRegionBtn) {
-  prevRegionBtn.addEventListener('click', () => {
-    if (currentRegionIndex > 0) {
-      const target = REGIONS[currentRegionIndex - 1];
-      showElite(target);
-    }
-  });
-}
-if (nextRegionBtn) {
-  nextRegionBtn.addEventListener('click', () => {
-    if (currentRegionIndex < REGIONS.length - 1) {
-      const target = REGIONS[currentRegionIndex + 1];
-      showElite(target);
-    }
-  });
-}
+prevRegionBtn?.addEventListener('click', () => {
+  if (currentRegionIndex > 0) {
+    const target = REGIONS[currentRegionIndex - 1];
+    showElite(target);
+  }
+});
+nextRegionBtn?.addEventListener('click', () => {
+  if (currentRegionIndex < REGIONS.length - 1) {
+    const target = REGIONS[currentRegionIndex + 1];
+    showElite(target);
+  }
+});
 
 // ===== Teclas ← / → =====
 document.addEventListener('keydown', (e) => {
