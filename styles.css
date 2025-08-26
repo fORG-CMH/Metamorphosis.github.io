@@ -120,6 +120,11 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
 /* ====== Vista Elite Four ====== */
 #eliteTitle{letter-spacing:.5px; margin-top:4px; margin-bottom:22px}
 
+/* ====== NUEVO: separación título Pokémon ====== */
+#pokemonTitle {
+  margin-bottom: 28px; /* Ajusta este valor según el espacio que quieras */
+}
+
 /* ====== Grid de entrenadores ====== */
 .trainers{
   display:grid;
