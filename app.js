@@ -86,6 +86,16 @@ const TRAINER_POKEMON = {
   'Alder': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion']
 };
 
+// ===== Opcional: Badges por Pokémon (texto y color) =====
+// Estructura: { Entrenador: { Pokemon: 'texto' | { text: '...', color: 'blue|orange|purple' } } }
+const POKEMON_BADGES = {
+  // Ejemplo:
+  // 'Lorelei': {
+  //   'JetDragon': { text: 'trick', color: 'blue' },
+  //   'Anubis': 'switch'
+  // }
+};
+
 // ===== Estado =====
 let currentRegion = null;
 let currentRegionIndex = -1;
@@ -215,6 +225,23 @@ function showPokemon(trainerName, region){
 
     monCard.appendChild(nameBar);   // nombre arriba
     monCard.appendChild(portrait);  // imagen debajo
+
+    // ---- Badge opcional (abajo) ----
+    const badgeMeta =
+      (POKEMON_BADGES[trainerName] && POKEMON_BADGES[trainerName][monName]) || null;
+
+    if (badgeMeta) {
+      const badge = document.createElement('div');
+      badge.className = 'badge';
+      if (typeof badgeMeta === 'string') {
+        badge.textContent = badgeMeta;
+      } else {
+        badge.textContent = badgeMeta.text || '';
+        if (badgeMeta.color) badge.classList.add(badgeMeta.color); // 'blue'|'orange'|'purple'
+      }
+      monCard.appendChild(badge);
+    }
+
     pokemonList.appendChild(monCard);
   });
 
