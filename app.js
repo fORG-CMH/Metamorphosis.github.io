@@ -71,7 +71,7 @@ const REGION_NAMES = {
   Unova:  ['Shauntal', 'Grimsley', 'Caitlin', 'Marshal', 'Alder']
 };
 
-// Rellena tú los equipos aquí (POKEMON/<Nombre>.png)
+// Rellena tú los equipos aquí (POKEMONES/<Nombre>.png)
 const TRAINER_POKEMON = {
   'Lorelei': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
   'Bruno': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
@@ -196,7 +196,9 @@ trainersList.addEventListener('keydown', (e) => {
 function showPokemon(trainerName, region){
   if (!pokemonView) return;
 
-  pokemonTitle.textContent = trainerName;
+  // 🔹 Aquí ponemos "Team <Entrenador>"
+  pokemonTitle.textContent = `Team ${trainerName}`;
+
   if (crumbPath) crumbPath.textContent = `${region} › ${trainerName}`;
 
   if (currentTrainerIndex < 0) {
@@ -237,8 +239,8 @@ function showPokemon(trainerName, region){
 
     portrait.appendChild(img);
 
-    monCard.appendChild(nameBar);   // 🔹 nombre primero
-    monCard.appendChild(portrait);  // 🔹 imagen debajo
+    monCard.appendChild(nameBar);   // nombre primero
+    monCard.appendChild(portrait);  // imagen debajo
     pokemonList.appendChild(monCard);
   });
 
