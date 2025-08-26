@@ -72,14 +72,6 @@ const REGION_NAMES = {
   Unova:  ['Shauntal', 'Grimsley', 'Caitlin', 'Marshal', 'Alder']
 };
 
-/**
- * ===== PON TÚ LOS EQUIPOS AQUÍ =====
- * - Clave: nombre exacto del entrenador (como aparece en pantalla)
- * - Valor: array de nombres de Pokémon (como se llamará el PNG en /POKEMON)
- * - Ejemplo:
- *   TRAINER_POKEMON['Lorelei'] = ['Dewgong','Cloyster','Slowbro','Jynx','Lapras'];
- *   (esto cargará: POKEMON/Dewgong.png, ... )
- */
 const TRAINER_POKEMON = {
   // Kanto
   'Lorelei': [],
