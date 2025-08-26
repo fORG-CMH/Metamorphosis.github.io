@@ -128,24 +128,24 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   z-index: 0;                      /* por debajo del marco */
 }
 
-/* 🔥 Halo circular DETRÁS y alrededor de toda la card */
+/* 🔥 Halo circular DETRÁS y alrededor de toda la card (tu configuración) */
 .trainer::before{
   content:"";
   position:absolute;
   left:50%; top:50%;
   transform: translate(-50%, -50%);
-  width: calc(55% + 60px);       /* mucho más ancho que la card */
-  height: calc(55% + 60px);      /* mucho más alto que la card */
-  border-radius: 40px;             /* esquinas suaves (coincide con la card) */
+  width: calc(55% + 60px);
+  height: calc(55% + 60px);
+  border-radius: 40px;
   background: radial-gradient(circle at center,
               rgba(34,211,238,.55) 0%,
               rgba(34,211,238,.26) 40%,
               rgba(34,211,238,0) 75%);
-  filter: blur(70px);              /* halo suave grande */
-  opacity: 0;                      /* oculto, aparece en hover */
+  filter: blur(70px);
+  opacity: 0;
   transition: opacity .35s ease;
   pointer-events: none;
-  z-index: 0;                      /* detrás del marco */
+  z-index: 0;
 }
 .trainer:hover::before{
   opacity: 1;
@@ -157,11 +157,18 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   height: 300px;
   border-radius: 20px;
   background: #11161f;
-  border: 1px solid rgba(255,255,255,.08);
+  border: 2px solid rgba(255,255,255,.08);           /* ← subo a 2px para que el cambio de color luzca */
   box-shadow: 0 12px 28px rgba(0,0,0,.45);
   position: relative;
   overflow:hidden;
-  z-index: 2;                      /* por encima del halo */
+  z-index: 2;                                        /* por encima del halo */
+  transition: border-color .28s ease, box-shadow .28s ease;
+}
+
+/* ⭐ Efecto de marco azul al pasar el mouse (tipo la imagen que enviaste) */
+.trainer:hover .portrait{
+  border-color: #22d3ee;
+  box-shadow: 0 0 22px rgba(34,211,238,.40), 0 12px 28px rgba(0,0,0,.45);
 }
 
 /* Degradado interno para legibilidad del texto */
@@ -217,7 +224,7 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
 .trainer .portrait:hover img{
   transform: scale(1.08);
 }
-.trainer .portrait:hover .info .name{
+.trainer .portrait:hover ~ .info .name{
   color:#22d3ee;
   text-shadow: 0 1px 12px rgba(34,211,238,.35);
 }
