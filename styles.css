@@ -131,7 +131,6 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   transition: opacity .3s ease;
 }
 .card::after{
-  /* degradado sutil como los portraits */
   content:"";
   position:absolute; inset:0;
   background: linear-gradient(to top, rgba(0,0,0,.35) 0%, rgba(0,0,0,.15) 45%, rgba(0,0,0,0) 70%);
@@ -139,7 +138,6 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
 }
 .card h2{margin:6px 0 4px 0; font-size:26px; font-weight:700; z-index:1}
 .card .btn{ z-index:1 }
-
 .card:hover{
   border-color: var(--accent);
   box-shadow: 0 0 22px rgba(225,29,72,.40), 0 12px 28px rgba(0,0,0,.45);
@@ -299,7 +297,11 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   opacity: 0; pointer-events:none; z-index:0;
   transition: opacity .3s ease;
 }
-.pokemon-card:hover{ border-color: var(--accent); box-shadow: 0 0 18px rgba(225,29,72,.35), 0 10px 20px rgba(0,0,0,.45); transform: translateY(-2px); }
+.pokemon-card:hover{
+  border-color: var(--accent);
+  box-shadow: 0 0 18px rgba(225,29,72,.35), 0 10px 20px rgba(0,0,0,.45);
+  transform: translateY(-2px);
+}
 .pokemon-card:hover::before{ opacity:1; }
 
 .pokemon-card .pname{
@@ -325,3 +327,27 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
 }
 .pokemon-card:hover .pname{ color: var(--accent); text-shadow: 0 1px 12px rgba(225,29,72,.45); }
 .pokemon-card:hover .portrait img{ transform: scale(1.05); }
+
+/* ====== Badge opcional para notas en la card de Pokémon ====== */
+.pk-badge{
+  position:absolute;
+  left:10px;
+  bottom:10px;
+  max-width: calc(100% - 20px);
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.08);
+  color:#e8eef2;
+  font-size:12px;
+  line-height:1.2;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+  backdrop-filter: blur(2px);
+}
+.pk-badge .star{
+  display:inline-block;
+  margin-right:6px;
+  width:14px; height:14px; line-height:14px;
+  text-align:center; border-radius:50%;
+  background:#3b82f6; color:#fff; font-weight:700;
+  font-size:10px;
+}
