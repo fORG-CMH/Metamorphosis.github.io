@@ -134,8 +134,8 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   position:absolute;
   left:50%; top:50%;
   transform: translate(-50%, -50%);
-  width: calc(70% + 70px);       /* mucho más ancho que la card */
-  height: calc(100% + 100px);      /* mucho más alto que la card */
+  width: calc(55% + 60px);       /* mucho más ancho que la card */
+  height: calc(55% + 60px);      /* mucho más alto que la card */
   border-radius: 40px;             /* esquinas suaves (coincide con la card) */
   background: radial-gradient(circle at center,
               rgba(34,211,238,.55) 0%,
