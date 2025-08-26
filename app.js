@@ -49,11 +49,11 @@ const REGION_IMAGES = {
 
 // ===== Nombres de entrenadores (del 1 al 25) =====
 const REGION_NAMES = {
-  Kanto:  ['entrenador1', 'entrenador2', 'entrenador3', 'entrenador4', 'entrenador5'],
-  Johto:  ['entrenador6', 'entrenador7', 'entrenador8', 'entrenador9', 'entrenador10'],
-  Hoenn:  ['entrenador11', 'entrenador12', 'entrenador13', 'entrenador14', 'entrenador15'],
-  Sinnoh: ['entrenador16', 'entrenador17', 'entrenador18', 'entrenador19', 'entrenador20'],
-  Unova:  ['entrenador21', 'entrenador22', 'entrenador23', 'entrenador24', 'entrenador25']
+  Kanto:  ['Lorelei', 'Bruno', 'Agatha', 'Lance', 'Blue'],
+  Johto:  ['Will', 'Koga', 'Bruno', 'Karen', 'Lance'],
+  Hoenn:  ['Sidney', 'Phoebe', 'Glacia', 'Drake', 'Wallace'],
+  Sinnoh: ['Aaron', 'Bertha', 'Flint', 'Lucian', 'Cynthia'],
+  Unova:  ['Shauntal', 'Grimsley', 'Caitlin', 'Marshal', 'Alder']
 };
 
 function showRegions(){
