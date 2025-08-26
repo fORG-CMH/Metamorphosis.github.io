@@ -72,11 +72,17 @@
       </div>
     </section>
 
-    <!-- ✅ Vista: Pokémon del entrenador (FALTABA) -->
+    <!-- Vista: Pokémon del entrenador -->
     <section id="pokemonView" class="view">
-      <div class="elite-header">
-        <button class="back" id="backToEliteBtn" type="button" aria-label="Back">←</button>
-        <span class="crumb" id="crumbPath">Regions › Elite</span>
+      <div class="elite-header header-split">
+        <div class="left">
+          <button class="back" id="backToEliteBtn" type="button" aria-label="Back">←</button>
+          <span class="crumb" id="crumbPath">Regions › Elite</span>
+        </div>
+        <div class="right pager">
+          <button class="btn round" id="prevTrainerBtn" title="Entrenador anterior" aria-label="Anterior">‹</button>
+          <button class="btn round" id="nextTrainerBtn" title="Entrenador siguiente" aria-label="Siguiente">›</button>
+        </div>
       </div>
 
       <h1 id="pokemonTitle">Trainer</h1>
