@@ -316,7 +316,7 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   text-align:center;
   transition: color .25s ease, text-shadow .25s ease;
 }
-.pokemon-card:hover .pname{ color: var(--accent); text-shadow: 0 1px 12px rgba(225,29,72,.45); }
+.pokemon-card:hover .pname{ color: #3b82f6; text-shadow: 0 1px 12px rgba(225,29,72,.45); }
 
 .pokemon-card .portrait{
   flex: 1; min-height: 0; position: relative; padding: 4px 6px 10px;
@@ -332,3 +332,4 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   pointer-events:none;
 }
 .pokemon-card:hover .portrait img{ transform: scale(1.05); }
+
