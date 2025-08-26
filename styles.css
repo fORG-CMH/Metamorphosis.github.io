@@ -283,8 +283,8 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
 
 /* ====== Card de Pokémon — DISEÑO NUEVO (como la imagen) ====== */
 .pokemon-card{
-  width: 210px;              /* un poco más ancha, como referencia */
-  height: 260px;
+  width: 170px;              /* un poco más ancha, como referencia */
+  height: 200px;
   border-radius: 18px;
   position: relative;
   overflow: hidden;
@@ -354,3 +354,4 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   background: radial-gradient(90% 60% at 50% 100%, var(--poke-vignette) 0%, rgba(0,0,0,0) 60%);
   pointer-events:none;
 }
+
