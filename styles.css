@@ -70,12 +70,17 @@ body{
 .btn.primary{
   background: var(--accent);
   color:#fff;
-  width: 180px;              /* ancho fijo */
-  text-align: center;
-  white-space: nowrap;       /* evita saltos de línea */
+  padding: 8px 22px;     /* 🔹 ancho controlado por padding */
+  font-size:14px;
+  font-weight:400;
+  border-radius:10px;
+  text-align:center;
+  white-space: nowrap;   /* evita salto de línea */
+  display:inline-block;
 }
 .btn.primary:hover{filter: brightness(1.02)}
 .btn.primary:active{background: var(--accent-press)}
+
 
 .btn.ghost{
   background: transparent;
@@ -142,3 +147,4 @@ h1{
   border-top:1px solid var(--border);
   background: var(--surface);
 }
+
