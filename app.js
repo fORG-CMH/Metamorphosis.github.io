@@ -1,307 +1,276 @@
-/* ====== Tema (dark real) ====== */
-:root{
-  /* Light */
-  --bg: #f7f8fb;
-  --surface: #ffffff;
-  --card: #ffffff;
-  --text: #0f172a;
-  --muted: #4b5563;
-  --accent: #e11d48;   /* 🔴 Rojo original */
-  --accent-press: #be123c;
-  --border: rgba(15,23,42,.12);
-}
-html[data-theme="dark"]{
-  --bg: #0a0a0a;
-  --surface: #0f0f0f;
-  --card: #141414;
-  --text: #f5f5f5;
-  --muted: #b0b0b0;
-  --accent: #e11d48;   /* 🔴 Rojo original */
-  --accent-press: #be123c;
-  --border: rgba(255,255,255,.10);
+// ===== Tema dark/light (persistente) =====
+(function () {
+  const root = document.documentElement;
+  const btn = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('theme');
+  if (saved === 'light' || saved === 'dark') {
+    root.setAttribute('data-theme', saved);
+    btn.textContent = saved === 'dark' ? '🌙' : '☀️';
+  }
+  btn.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    btn.textContent = next === 'dark' ? '🌙' : '☀️';
+  });
+})();
+
+// ===== Navegación SPA =====
+const regionsView = document.getElementById('regionsView');
+const eliteView    = document.getElementById('eliteView');
+const trainersList = document.getElementById('trainersList');
+const eliteTitle   = document.getElementById('eliteTitle');
+const backBtn      = document.getElementById('backBtn');
+
+// Vista Pokémon del entrenador
+const pokemonView  = document.getElementById('pokemonView');
+const pokemonTitle = document.getElementById('pokemonTitle');
+const pokemonList  = document.getElementById('pokemonList');
+const backToEliteBtn = document.getElementById('backToEliteBtn');
+const crumbPath = document.getElementById('crumbPath');
+
+// Pager (anterior / siguiente)
+const prevTrainerBtn = document.getElementById('prevTrainerBtn');
+const nextTrainerBtn = document.getElementById('nextTrainerBtn');
+
+// Botón "Select Region" vuelve a regiones
+document.getElementById('selectRegionBtn').addEventListener('click', showRegions);
+
+// Click en "View Elite Four" de cada región
+document.querySelectorAll('.view-elite').forEach(a => {
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    const region = a.dataset.region || 'Region';
+    showElite(region);
+  });
+});
+
+backBtn.addEventListener('click', showRegions);
+if (backToEliteBtn) {
+  backToEliteBtn.addEventListener('click', () => {
+    pokemonView.classList.remove('active');
+    eliteView.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 }
 
-/* ====== Base ====== */
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  font-family:"Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  -webkit-font-smoothing: antialiased;
-  line-height: 1.35;
+// ===== Datos base =====
+const REGION_IMAGES = {
+  Kanto:  [1, 2, 3, 4, 5],
+  Johto:  [6, 7, 8, 9, 10],
+  Hoenn:  [11, 12, 13, 14, 15],
+  Sinnoh: [16, 17, 18, 19, 20],
+  Unova:  [21, 22, 23, 24, 25]
+};
+
+const REGION_NAMES = {
+  Kanto:  ['Lorelei', 'Bruno', 'Agatha', 'Lance', 'Blue'],
+  Johto:  ['Will', 'Koga', 'Bruno', 'Karen', 'Lance'],
+  Hoenn:  ['Sidney', 'Phoebe', 'Glacia', 'Drake', 'Wallace'],
+  Sinnoh: ['Aaron', 'Bertha', 'Flint', 'Lucian', 'Cynthia'],
+  Unova:  ['Shauntal', 'Grimsley', 'Caitlin', 'Marshal', 'Alder']
+};
+
+// Rellena tú los equipos aquí (POKEMON/<Nombre>.png)
+const TRAINER_POKEMON = {
+  'Lorelei': [], 'Bruno': [], 'Agatha': [], 'Lance': [], 'Blue': [],
+  'Will': [], 'Koga': [], 'Karen': [],
+  'Sidney': [], 'Phoebe': [], 'Glacia': [], 'Drake': [], 'Wallace': [],
+  'Aaron': [], 'Bertha': [], 'Flint': [], 'Lucian': [], 'Cynthia': [],
+  'Shauntal': [], 'Grimsley': [], 'Caitlin': [], 'Marshal': [], 'Alder': []
+};
+
+// ===== Estado de navegación actual =====
+let currentRegion = null;
+let currentTrainerNames = [];  // array de nombres (orden en la pantalla)
+let currentTrainerIndex = -1;  // índice del entrenador dentro del array
+
+// ===== Vistas =====
+function showRegions(){
+  currentRegion = null;
+  currentTrainerNames = [];
+  currentTrainerIndex = -1;
+
+  if (pokemonView) pokemonView.classList.remove('active');
+  eliteView.classList.remove('active');
+  regionsView.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-/* ====== Topbar ====== */
-.topbar{
-  position: sticky; top:0; z-index:10;
-  display:flex; align-items:center; justify-content:space-between;
-  gap:12px; padding:12px 20px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-}
-.brand{display:flex; align-items:center; gap:10px; font-weight:700}
-.brand img{width:26px; height:26px; image-rendering:pixelated}
-.actions{display:flex; gap:10px}
+function showElite(region){
+  currentRegion = region;
+  eliteTitle.textContent = region;
 
-/* ====== Botones ====== */
-.btn{
-  border:0; cursor:pointer; background: var(--card); color: var(--text);
-  text-decoration:none; display:inline-block; line-height:1;
-  transition: all 0.25s ease;
-}
-.btn.primary{
-  background: var(--accent); color:#fff;
-  padding: 15px 20px; font-size: 13px; font-weight: 500;
-  border-radius: 8px; text-align:center; white-space: nowrap;
-  transition: transform 0.2s ease, filter 0.2s ease;
-}
-.btn.primary:hover{
-  filter: brightness(1.05);
-  transform: scale(1.05);
-}
-.btn.primary:active{background: var(--accent-press)}
-.btn.ghost{padding:8px 12px; border:1px solid var(--border); border-radius:10px; background: transparent;}
-.btn.icon{width:40px; height:40px; display:grid; place-items:center; font-size:18px; border-radius:10px; border:1px solid var(--border); background: transparent;}
-.btn.round{
-  width:38px; height:38px; border-radius:50%;
-  border:1px solid var(--border); background:transparent;
-  display:grid; place-items:center; font-size:20px; line-height:1;
-}
-.btn.round:disabled{opacity:.35; cursor:not-allowed}
+  const ids   = REGION_IMAGES[region] || [];
+  const names = REGION_NAMES[region]  || [];
 
-/* ====== Contenido ====== */
-.container{max-width:1200px; margin-inline:auto; padding:36px 20px 60px;}
-h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-weight:700;}
-.subtitle{text-align:center; color:var(--muted); margin:0 0 28px;}
+  // guarda el orden para el pager
+  currentTrainerNames = names.slice();
+  currentTrainerIndex = -1;
 
-/* ====== Vistas SPA ====== */
-.view{display:none}
-.view.active{display:block}
+  trainersList.innerHTML = '';
 
-/* ====== Encabezados divididos ====== */
-.elite-header{
-  display:flex; align-items:center; gap:8px; margin-bottom:8px; color:var(--muted);
-  font-weight:500;
-}
-.header-split{justify-content:space-between}
-.header-split .left{display:flex; align-items:center; gap:8px}
-.header-split .right{display:flex; align-items:center; gap:8px}
+  ids.forEach((id, idx) => {
+    const nameText = names[idx] || `entrenador${id}`;
 
-.back{
-  border:1px solid var(--border); background:transparent; color:var(--text);
-  border-radius:10px; padding:8px 12px; cursor:pointer;
-}
-.crumb{opacity:.9}
+    const card = document.createElement('div');
+    card.className = 'trainer';
+    card.dataset.trainer = nameText;
+    card.dataset.region = region;
+    card.dataset.index = String(idx);
 
-/* ====== Grid regiones — 5 por fila ====== */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(5,minmax(0,1fr));
-  gap:22px;
-}
-@media (max-width:1100px){.grid{grid-template-columns:repeat(4,1fr)}}
-@media (max-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:680px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:460px){.grid{grid-template-columns:1fr}}
+    const portrait = document.createElement('div');
+    portrait.className = 'portrait';
 
-/* ====== Tarjeta región ====== */
-.card{
-  background: var(--card);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:18px;
-  display:flex; flex-direction:column; align-items:center; gap:14px;
-  height: 160px;
-}
-.card h2{margin:6px 0 4px 0; font-size:26px; font-weight:700;}
+    const img = document.createElement('img');
+    img.src = `ENTRENADORES/${encodeURIComponent(nameText)}.png`;
+    img.alt = nameText;
 
-/* ====== Vista Elite Four ====== */
-#eliteTitle{letter-spacing:.5px; margin-top:4px; margin-bottom:22px}
+    const info = document.createElement('div');
+    info.className = 'info';
 
-/* ====== Grid de entrenadores ====== */
-.trainers{
-  display:grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap:28px;
-  align-items:end;
-  justify-items:center;
-}
-@media (max-width:1400px){.trainers{grid-template-columns:repeat(4,1fr)}}
-@media (max-width:1100px){.trainers{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:800px){.trainers{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:500px){.trainers{grid-template-columns:1fr}}
+    const name = document.createElement('div');
+    name.className = 'name';
+    name.textContent = nameText;
 
-/* ====== Card de entrenador ====== */
-.trainer{
-  display:flex; flex-direction:column; align-items:center; gap:10px;
-  position: relative;
-  z-index: 0;
-}
-.trainer::before{
-  content:"";
-  position:absolute;
-  left:50%; top:50%;
-  transform: translate(-50%, -50%);
-  width: calc(55% + 60px);
-  height: calc(55% + 60px);
-  border-radius: 40px;
-  background: radial-gradient(circle at center,
-              rgba(225,29,72,.55) 0%,
-              rgba(225,29,72,.26) 40%,
-              rgba(225,29,72,0) 75%);
-  filter: blur(70px);
-  opacity: 0;
-  transition: opacity .35s ease;
-  pointer-events: none;
-  z-index: 0;
-}
-.trainer:hover::before{ opacity: 1; }
+    const role = document.createElement('div');
+    role.className = 'role';
+    role.textContent = (idx === 4) ? 'Champion' : 'Elite-Four';
 
-.trainer .portrait{
-  width: 220px;
-  height: 300px;
-  border-radius: 20px;
-  background: #11161f;
-  border: 2px solid rgba(255,255,255,.08);
-  box-shadow: 0 12px 28px rgba(0,0,0,.45);
-  position: relative;
-  overflow:hidden;
-  z-index: 2;
-  transition: border-color .28s ease, box-shadow .28s ease;
-}
-.trainer:hover .portrait{
-  border-color: #e11d48;
-  box-shadow: 0 0 22px rgba(225,29,72,.40), 0 12px 28px rgba(0,0,0,.45);
-}
-.trainer .portrait::after{
-  content:"";
-  position:absolute; inset:0;
-  background: linear-gradient(
-    to top,
-    rgba(0,0,0,.65) 0%,
-    rgba(0,0,0,.35) 45%,
-    rgba(0,0,0,0) 70%
-  );
-  pointer-events:none;
-  z-index: 1;
-}
-.trainer .portrait img{
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  image-rendering: -webkit-optimize-contrast;
-  transform-origin: center bottom;
-  transition: transform 0.35s ease;
-  z-index: 0;
-}
-.trainer .portrait:hover img{ transform: scale(1.08); }
+    info.appendChild(name);
+    info.appendChild(role);
+    portrait.appendChild(img);
+    portrait.appendChild(info);
+    card.appendChild(portrait);
 
-.trainer .info{
-  position:absolute;
-  left:18px;
-  right:18px;
-  bottom:18px;
-  z-index:3;
-  color:#fff;
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-.trainer .info .name{
-  font-weight:700;
-  font-size:24px;
-  line-height:1.1;
-  color:#ffffff;
-  transition: color .25s ease, text-shadow .25s ease;
-}
-.trainer .info .role{ font-size:16px; opacity:.9 }
-.trainer:hover .info .name{
-  color:#e11d48;
-  text-shadow: 0 1px 12px rgba(225,29,72,.45);
-}
-.trainer > .name, .trainer > .role { display:none; }
+    card.style.cursor = 'pointer';
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
 
-/* ====== Grid y cards de POKÉMON (6 por fila) ====== */
-.pokemon-grid{
-  display:grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap:22px;
-  align-items:end;
-  justify-items:center;
-}
-@media (max-width:1200px){.pokemon-grid{grid-template-columns:repeat(5,1fr)}}
-@media (max-width:1000px){.pokemon-grid{grid-template-columns:repeat(4,1fr)}}
-@media (max-width:780px){.pokemon-grid{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:560px){.pokemon-grid{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:380px){.pokemon-grid{grid-template-columns:1fr}}
+    trainersList.appendChild(card);
+  });
 
-.pokemon-card{
-  position: relative;
-  z-index: 0;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
+  regionsView.classList.remove('active');
+  if (pokemonView) pokemonView.classList.remove('active');
+  eliteView.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-.pokemon-card::before{
-  content:"";
-  position:absolute;
-  left:50%; top:50%;
-  transform: translate(-50%, -50%);
-  width: calc(55% + 40px);
-  height: calc(55% + 40px);
-  border-radius: 16px;
-  background: radial-gradient(circle at center,
-              rgba(225,29,72,.45) 0%,
-              rgba(225,29,72,.22) 40%,
-              rgba(225,29,72,0) 75%);
-  filter: blur(50px);
-  opacity: 0;
-  transition: opacity .3s ease;
-  pointer-events: none;
-  z-index: 0;
-}
-.pokemon-card:hover::before{ opacity:1; }
 
-.pokemon-card .portrait{
-  width: 160px;
-  height: 220px;
-  border-radius: 14px;
-  background: #11161f;
-  border: 2px solid rgba(255,255,255,.08);
-  box-shadow: 0 10px 20px rgba(0,0,0,.45);
-  position: relative;
-  overflow:hidden;
-  z-index: 2;
-  transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+// Delegación: click en cualquier card de entrenador
+trainersList.addEventListener('click', (e) => {
+  const card = e.target.closest('.trainer');
+  if (!card) return;
+  const trainerName = card.dataset.trainer;
+  const idx = Number(card.dataset.index);
+  if (!Number.isNaN(idx)) currentTrainerIndex = idx;
+  if (trainerName) showPokemon(trainerName, currentRegion);
+});
+trainersList.addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const card = e.target.closest('.trainer');
+  if (!card) return;
+  e.preventDefault();
+  const trainerName = card.dataset.trainer;
+  const idx = Number(card.dataset.index);
+  if (!Number.isNaN(idx)) currentTrainerIndex = idx;
+  if (trainerName) showPokemon(trainerName, currentRegion);
+});
+
+function showPokemon(trainerName, region){
+  if (!pokemonView) return;
+
+  pokemonTitle.textContent = trainerName;
+  if (crumbPath) crumbPath.textContent = `${region} › ${trainerName}`;
+
+  // setear index por nombre si no vino por click
+  if (currentTrainerIndex < 0) {
+    currentTrainerIndex = currentTrainerNames.indexOf(trainerName);
+  }
+
+  // Habilitar/Deshabilitar pager
+  updatePagerButtons();
+
+  const mons = TRAINER_POKEMON[trainerName] || [];
+  pokemonList.innerHTML = '';
+
+  if (!mons.length){
+    const help = document.createElement('div');
+    help.style.color = 'var(--muted)';
+    help.style.textAlign = 'center';
+    help.style.gridColumn = '1 / -1';
+    help.style.padding = '10px 0 6px';
+    help.innerHTML = `
+      <strong>Sin equipo aún.</strong><br/>
+      Edita <code>TRAINER_POKEMON['${trainerName}'] = ['Pikachu','Charizard',...]</code>
+      y pon las imágenes en <code>POKEMON/&lt;Nombre&gt;.png</code>
+    `;
+    pokemonList.appendChild(help);
+  }
+
+  mons.forEach(monName => {
+    const monCard = document.createElement('div');
+    monCard.className = 'pokemon-card';
+
+    const portrait = document.createElement('div');
+    portrait.className = 'portrait';
+
+    const img = document.createElement('img');
+    img.src = `POKEMON/${encodeURIComponent(monName)}.png`;
+    img.alt = monName;
+
+    portrait.appendChild(img);
+
+    const pname = document.createElement('div');
+    pname.className = 'pname';
+    pname.textContent = monName;
+
+    monCard.appendChild(portrait);
+    monCard.appendChild(pname);
+
+    pokemonList.appendChild(monCard);
+  });
+
+  eliteView.classList.remove('active');
+  regionsView.classList.remove('active');
+  pokemonView.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-.pokemon-card:hover .portrait{
-  border-color: #e11d48;
-  box-shadow: 0 0 18px rgba(225,29,72,.35), 0 10px 20px rgba(0,0,0,.45);
-  transform: translateY(-2px);
+
+function updatePagerButtons(){
+  if (!prevTrainerBtn || !nextTrainerBtn) return;
+  const total = currentTrainerNames.length;
+  prevTrainerBtn.disabled = currentTrainerIndex <= 0;
+  nextTrainerBtn.disabled = currentTrainerIndex >= total - 1;
 }
-.pokemon-card .portrait img{
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  image-rendering: -webkit-optimize-contrast;
-  transform-origin: center bottom;
-  transition: transform .25s ease;
+
+// Botones Anterior / Siguiente
+if (prevTrainerBtn && nextTrainerBtn) {
+  prevTrainerBtn.addEventListener('click', () => {
+    if (currentTrainerIndex > 0) {
+      currentTrainerIndex--;
+      const name = currentTrainerNames[currentTrainerIndex];
+      showPokemon(name, currentRegion);
+    }
+  });
+  nextTrainerBtn.addEventListener('click', () => {
+    if (currentTrainerIndex < currentTrainerNames.length - 1) {
+      currentTrainerIndex++;
+      const name = currentTrainerNames[currentTrainerIndex];
+      showPokemon(name, currentRegion);
+    }
+  });
 }
-.pokemon-card:hover .portrait img{ transform: scale(1.05); }
-.pokemon-card .portrait::after{
-  content:"";
-  position:absolute; inset:0;
-  background: linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,.25) 45%, rgba(0,0,0,0) 70%);
-  pointer-events:none;
-  z-index: 1;
-}
-.pokemon-card .pname{
-  margin-top:6px;
-  font-size: 14px;
-  color:#fff;
-  opacity:.95;
-  text-align:center;
-}
+
+// Teclas ← y → para navegar entre entrenadores cuando estás en la vista de Pokémon
+document.addEventListener('keydown', (e) => {
+  if (!pokemonView || !pokemonView.classList.contains('active')) return;
+  if (e.key === 'ArrowLeft' && currentTrainerIndex > 0) {
+    currentTrainerIndex--;
+    const name = currentTrainerNames[currentTrainerIndex];
+    showPokemon(name, currentRegion);
+  } else if (e.key === 'ArrowRight' && currentTrainerIndex < currentTrainerNames.length - 1) {
+    currentTrainerIndex++;
+    const name = currentTrainerNames[currentTrainerIndex];
+    showPokemon(name, currentRegion);
+  }
+});
