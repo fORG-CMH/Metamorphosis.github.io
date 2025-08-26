@@ -10,12 +10,11 @@
   --accent-press: #be123c;
   --border: rgba(15,23,42,.12);
 
-  /* Paleta para cards Pokémon estilo referencia */
-  --poke-deg-top: #121826;          /* azul noche */
-  --poke-deg-mid: #0d1420;          /* casi negro azulado */
-  --poke-deg-bottom: #0a0f18;       /* base */
-  --poke-vignette: rgba(0,0,0,.55); /* viñeta */
-  --poke-ambient: rgba(52, 211, 235, .14); /* resplandor frío */
+  /* tonos suaves y transparentes para cards Pokémon */
+  --poke-deg-top:    rgba(15, 23, 42, .18);
+  --poke-deg-mid:    rgba(15, 23, 42, .12);
+  --poke-deg-bottom: rgba(15, 23, 42, .06);
+  --poke-ambient:    rgba(56, 189, 248, .12); 
 }
 html[data-theme="dark"]{
   --bg: #0a0a0a;
@@ -23,15 +22,9 @@ html[data-theme="dark"]{
   --card: #141414;
   --text: #f5f5f5;
   --muted: #b0b0b0;
-  --accent: #e11d48;   /* 🔴 Rojo */
+  --accent: #e11d48;
   --accent-press: #be123c;
   --border: rgba(255,255,255,.10);
-
-  --poke-deg-top: #0e1624;
-  --poke-deg-mid: #0a111b;
-  --poke-deg-bottom: #080d15;
-  --poke-vignette: rgba(0,0,0,.62);
-  --poke-ambient: rgba(59, 130, 246, .14); /* azul tenue */
 }
 
 /* ====== Base ====== */
@@ -116,7 +109,7 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
 @media (max-width:680px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:460px){.grid{grid-template-columns:1fr}}
 
-/* ====== Tarjeta región (igual estética que entrenadores) ====== */
+/* ====== Tarjeta región (mismo look que entrenador) ====== */
 .card{
   position:relative;
   background: #11161f;
@@ -151,6 +144,7 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
 }
 .card h2{margin:6px 0 4px 0; font-size:26px; font-weight:700; z-index:1}
 .card .btn{ z-index:1 }
+
 .card:hover{
   border-color: var(--accent);
   box-shadow: 0 0 22px rgba(225,29,72,.40), 0 12px 28px rgba(0,0,0,.45);
@@ -267,7 +261,7 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
 }
 .trainer > .name, .trainer > .role { display:none; }
 
-/* ====== Grid de POKÉMON (6 por fila) ====== */
+/* ====== Grid y cards de POKÉMON (6 por fila) ====== */
 .pokemon-grid{
   display:grid;
   grid-template-columns: repeat(6, 1fr);
@@ -281,77 +275,60 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
 @media (max-width:560px){.pokemon-grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:380px){.pokemon-grid{grid-template-columns:1fr}}
 
-/* ====== Card de Pokémon — DISEÑO NUEVO (como la imagen) ====== */
+/* ====== Card de Pokémon — diseño transparente ====== */
 .pokemon-card{
-  width: 170px;              /* un poco más ancha, como referencia */
+  width: 170px;
   height: 200px;
   border-radius: 18px;
   position: relative;
   overflow: hidden;
 
-  /* Fondo con degradado + viñeta interior */
   background:
-    radial-gradient(120% 90% at 50% 20%, rgba(255,255,255,.06) 0%, rgba(255,255,255,0) 35%),
+    radial-gradient(120% 90% at 50% 20%, rgba(255,255,255,.03) 0%, rgba(255,255,255,0) 35%),
     radial-gradient(120% 120% at 50% 90%, var(--poke-ambient) 0%, transparent 55%),
     linear-gradient(180deg, var(--poke-deg-top) 0%, var(--poke-deg-mid) 55%, var(--poke-deg-bottom) 100%);
 
-  /* Borde suave e iluminación interior */
-  border: 1px solid rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.05);
   box-shadow:
     inset 0 0 0 1px rgba(255,255,255,.02),
-    0 10px 24px rgba(0,0,0,.45);
+    0 8px 18px rgba(0,0,0,.18);
 
   display: flex;
   flex-direction: column;
+  backdrop-filter: saturate(120%) blur(2px);
+
   transform: translateZ(0);
-  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background .25s ease;
 }
-
-/* resplandor exterior al hover */
 .pokemon-card:hover{
-  transform: translateY(-3px);
-  border-color: rgba(225,29,72,.65);
+  transform: translateY(-2px) scale(1.02);
+  border-color: rgba(255,255,255,.10);
   box-shadow:
-    0 0 22px rgba(225,29,72,.35),
-    0 10px 24px rgba(0,0,0,.5);
+    0 0 20px rgba(56,189,248,.20),
+    0 10px 22px rgba(0,0,0,.22);
 }
 
-/* Pequeño borde brillante en el contorno (imitando glow sutil) */
-.pokemon-card::after{
-  content:"";
-  position:absolute; inset:0;
-  border-radius:18px;
-  pointer-events:none;
-  box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 0 32px rgba(59,130,246,.08) inset;
-}
-
-/* Título dentro de la card (arriba) */
 .pokemon-card .pname{
-  padding: 12px 12px 6px;
+  padding: 10px 10px 6px;
   font-weight:700;
-  font-size:16px;
-  color:#eef3ff;
-  text-align:left;
-  text-shadow: 0 2px 10px rgba(255,255,255,.2);
-  letter-spacing:.2px;
-  z-index:2;
+  font-size:14px;
+  color:#ffffff;
+  text-align:center;
+  transition: color .25s ease, text-shadow .25s ease;
 }
+.pokemon-card:hover .pname{ color: var(--accent); text-shadow: 0 1px 12px rgba(225,29,72,.45); }
 
-/* Contenedor de la imagen */
 .pokemon-card .portrait{
-  flex: 1; min-height: 0; position: relative; padding: 8px 12px 16px;
+  flex: 1; min-height: 0; position: relative; padding: 4px 6px 10px;
 }
 .pokemon-card .portrait img{
   width: 100%; height: 100%; object-fit: contain;
   image-rendering: -webkit-optimize-contrast;
   transform-origin: center bottom; transition: transform .25s ease;
 }
-.pokemon-card:hover .portrait img{ transform: scale(1.05); }
-
-/* Viñeta inferior para contraste */
-.pokemon-card .portrait::before{
+.pokemon-card .portrait::after{
   content:""; position:absolute; inset:0;
-  background: radial-gradient(90% 60% at 50% 100%, var(--poke-vignette) 0%, rgba(0,0,0,0) 60%);
+  background: linear-gradient(to top, rgba(0,0,0,.35) 0%, rgba(0,0,0,.15) 45%, rgba(0,0,0,0) 70%);
   pointer-events:none;
 }
-
+.pokemon-card:hover .portrait img{ transform: scale(1.05); }
