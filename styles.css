@@ -63,7 +63,7 @@ body{
 .btn.primary{
   background: var(--accent);
   color:#fff;
-  padding: 10px 20px;    /* 🔹 más alto y cómodo */
+  padding: 15px 20px;    /* 🔹 más alto y cómodo */
   font-size: 13px;       /* 🔹 texto un poco más pequeño */
   font-weight: 500;      
   border-radius: 8px;    
@@ -131,3 +131,4 @@ h1{
   font-size:26px;
   font-weight:700;
 }
+
