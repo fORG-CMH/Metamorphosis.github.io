@@ -59,31 +59,31 @@ const REGION_NAMES = {
   Unova:  ['Shauntal', 'Grimsley', 'Caitlin', 'Marshal', 'Alder']
 };
 
-// Rellena tú los equipos aquí (POKEMONES/<Nombre>.png)
+// Rellena tú los equipos aquí (POKEMON/<Nombre>.png)
 const TRAINER_POKEMON = {
-  'Lorelei': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Bruno': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Agatha': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Lance': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Blue': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Will': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Koga': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Karen': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Sidney': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Phoebe': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Glacia': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Drake': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Wallace': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Aaron': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Bertha': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Flint': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Lucian': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Cynthia': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Shauntal': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Grimsley': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Caitlin': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Marshal': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Alder': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis']
+  'Lorelei': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
+  'Bruno': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
+  'Agatha': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
+  'Lance': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
+  'Blue': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
+  'Will': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
+  'Koga': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
+  'Karen': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
+  'Sidney': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
+  'Phoebe': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
+  'Glacia': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
+  'Drake': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
+  'Wallace': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
+  'Aaron': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
+  'Bertha': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
+  'Flint': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
+  'Lucian': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
+  'Cynthia': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
+  'Shauntal': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
+  'Grimsley': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
+  'Caitlin': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
+  'Marshal': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion'],
+  'Alder': ['JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion','JetDragon','Anubis','Astegon','Jormuntide_Ignis','Grizzbolt','Frostallion']
 };
 
 // ===== Estado =====
