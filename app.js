@@ -219,8 +219,6 @@ function showPokemon(trainerName, region){
     help.style.padding = '10px 0 6px';
     help.innerHTML = `
       <strong>Sin equipo aún.</strong><br/>
-      Edita <code>TRAINER_POKEMON['${trainerName}'] = ['Pikachu','Charizard',...]</code>
-      y pon las imágenes en <code>POKEMON/&lt;Nombre&gt;.png</code>
     `;
     pokemonList.appendChild(help);
   }
