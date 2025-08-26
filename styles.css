@@ -52,11 +52,18 @@ body{
 
 /* ====== Buttons (sin sombras ni glow) ====== */
 .btn{
-  border:0; padding:10px 14px; border-radius:12px; font-weight:600; cursor:pointer;
-  background: var(--card); color: var(--text);
+  border:0;
+  padding:10px 14px;
+  border-radius:12px;
+  font-weight:600;
+  cursor:pointer;
+  background: var(--card);
+  color: var(--text);
   transition: background .15s ease, transform .02s ease;
+  text-decoration: none;       /* 🚫 quita subrayado */
+  display:inline-block;        /* asegura buen render */
 }
-.btn:hover{transform:none}         /* sin elevación */
+.btn:hover{transform:none}     /* sin elevación */
 .btn:active{transform:none}
 
 .btn.primary{
@@ -76,12 +83,29 @@ body{
 }
 
 /* ====== Main ====== */
-.container{max-width:1100px; margin-inline:auto; padding:40px 20px 64px}
-h1{margin:10px 0 6px; text-align:center; font-size:clamp(28px,3.2vw,40px); letter-spacing:.5px}
-.subtitle{text-align:center; color:var(--muted); margin:0 0 34px}
+.container{
+  max-width:1100px;
+  margin-inline:auto;
+  padding:40px 20px 64px;
+}
+h1{
+  margin:10px 0 6px;
+  text-align:center;
+  font-size:clamp(28px,3.2vw,40px);
+  letter-spacing:.5px;
+}
+.subtitle{
+  text-align:center;
+  color:var(--muted);
+  margin:0 0 34px;
+}
 
 /* ====== Grid ====== */
-.grid{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:20px}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:20px;
+}
 @media (max-width:1000px){.grid{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:460px){.grid{grid-template-columns:1fr}}
@@ -92,14 +116,23 @@ h1{margin:10px 0 6px; text-align:center; font-size:clamp(28px,3.2vw,40px); lette
   border: 1px solid var(--border);
   border-radius:18px;
   padding:28px 24px;
-  display:flex; flex-direction:column; align-items:center; gap:16px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:16px;
   transition: border-color .15s ease, background .15s ease;
 }
 .card:hover{border-color: var(--border)}
-.card h2{margin:0; font-size:clamp(22px,2.6vw,28px)}
+.card h2{
+  margin:0;
+  font-size:clamp(22px,2.6vw,28px);
+}
 
 /* ====== Footer ====== */
 .footer{
-  text-align:center; padding:20px; color:var(--muted);
-  border-top:1px solid var(--border); background: var(--surface);
+  text-align:center;
+  padding:20px;
+  color:var(--muted);
+  border-top:1px solid var(--border);
+  background: var(--surface);
 }
