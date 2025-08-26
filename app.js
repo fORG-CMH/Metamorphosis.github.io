@@ -233,7 +233,7 @@ function showPokemon(trainerName, region){
     portrait.className = 'portrait';
 
     const img = document.createElement('img');
-    img.src = `POKEMON/${encodeURIComponent(monName)}.png`;
+    img.src = `POKEMONES/${encodeURIComponent(monName)}.png`;
     img.alt = monName;
 
     portrait.appendChild(img);
