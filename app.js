@@ -15,7 +15,7 @@
   });
 })();
 
-// ===== Navegación SPA =====
+// ===== Referencias a vistas / nodos =====
 const regionsView = document.getElementById('regionsView');
 const eliteView    = document.getElementById('eliteView');
 const trainersList = document.getElementById('trainersList');
@@ -29,13 +29,16 @@ const pokemonList  = document.getElementById('pokemonList');
 const backToEliteBtn = document.getElementById('backToEliteBtn');
 const crumbPath = document.getElementById('crumbPath');
 
-// Pager (anterior / siguiente) entrenadores
+// Pager entrenadores
 const prevTrainerBtn = document.getElementById('prevTrainerBtn');
 const nextTrainerBtn = document.getElementById('nextTrainerBtn');
 
-// Botones para cambiar de región
+// Pager regiones (en Elite)
 const prevRegionBtn = document.getElementById('prevRegionBtn');
 const nextRegionBtn = document.getElementById('nextRegionBtn');
+
+// Botón "Select Region" (topbar)
+const selectRegionBtn = document.getElementById('selectRegionBtn');
 
 // ===== Datos base =====
 const REGIONS = ["Kanto", "Johto", "Hoenn", "Sinnoh", "Unova"];
@@ -56,7 +59,7 @@ const REGION_NAMES = {
   Unova:  ['Shauntal', 'Grimsley', 'Caitlin', 'Marshal', 'Alder']
 };
 
-// Rellena tú los equipos aquí (POKEMONES/<Nombre>.png)
+// Rellena tú los equipos (POKEMONES/<Nombre>.png)
 const TRAINER_POKEMON = {
   'Lorelei': ['JetDragon','Anubis'],
   'Bruno': ['JetDragon','Anubis'],
@@ -83,13 +86,13 @@ const TRAINER_POKEMON = {
   'Alder': ['JetDragon','Anubis']
 };
 
-// ===== Estado de navegación actual =====
+// ===== Estado =====
 let currentRegion = null;
 let currentRegionIndex = -1;
 let currentTrainerNames = [];
 let currentTrainerIndex = -1;
 
-// ===== Funciones de navegación =====
+// ===== Navegación entre vistas =====
 function showRegions(){
   currentRegion = null;
   currentRegionIndex = -1;
@@ -103,18 +106,21 @@ function showRegions(){
 }
 
 function showElite(region){
+  // Fija región e índice
   currentRegion = region;
   currentRegionIndex = REGIONS.indexOf(region);
 
+  // Título
   eliteTitle.textContent = region;
+
   const ids   = REGION_IMAGES[region] || [];
   const names = REGION_NAMES[region]  || [];
 
   currentTrainerNames = names.slice();
   currentTrainerIndex = -1;
 
+  // Render entrenadores
   trainersList.innerHTML = '';
-
   ids.forEach((id, idx) => {
     const nameText = names[idx] || `entrenador${id}`;
 
@@ -164,14 +170,19 @@ function showElite(region){
 function showPokemon(trainerName, region){
   if (!pokemonView) return;
 
+  // Título: Team <Entrenador>
   pokemonTitle.textContent = `Team ${trainerName}`;
+
+  // Breadcrumb
   if (crumbPath) crumbPath.textContent = `${region} › ${trainerName}`;
 
+  // Índice del entrenador (para pager/teclas)
   if (currentTrainerIndex < 0) {
     currentTrainerIndex = currentTrainerNames.indexOf(trainerName);
   }
   updateTrainerPagerButtons();
 
+  // Render Pokémon
   const mons = TRAINER_POKEMON[trainerName] || [];
   pokemonList.innerHTML = '';
 
@@ -202,8 +213,8 @@ function showPokemon(trainerName, region){
 
     portrait.appendChild(img);
 
-    monCard.appendChild(nameBar);
-    monCard.appendChild(portrait);
+    monCard.appendChild(nameBar);   // nombre arriba
+    monCard.appendChild(portrait);  // imagen debajo
     pokemonList.appendChild(monCard);
   });
 
@@ -213,9 +224,14 @@ function showPokemon(trainerName, region){
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ===== Eventos =====
-document.getElementById('selectRegionBtn').addEventListener('click', showRegions);
+// ===== Listeners base =====
 
+// Botón "Select Region" (header)
+if (selectRegionBtn) {
+  selectRegionBtn.addEventListener('click', showRegions);
+}
+
+// Click en "View Elite Four" de cada región
 document.querySelectorAll('.view-elite').forEach(a => {
   a.addEventListener('click', (e) => {
     e.preventDefault();
@@ -224,14 +240,48 @@ document.querySelectorAll('.view-elite').forEach(a => {
   });
 });
 
-backBtn.addEventListener('click', showRegions);
+// Back a regiones
+if (backBtn) {
+  backBtn.addEventListener('click', showRegions);
+}
 
+// Back a Elite desde Pokémon
 if (backToEliteBtn) {
   backToEliteBtn.addEventListener('click', () => {
     pokemonView.classList.remove('active');
     eliteView.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+}
+
+// Delegación: click y teclado en lista de entrenadores
+if (trainersList) {
+  trainersList.addEventListener('click', (e) => {
+    const card = e.target.closest('.trainer');
+    if (!card) return;
+    const trainerName = card.dataset.trainer;
+    const idx = Number(card.dataset.index);
+    if (!Number.isNaN(idx)) currentTrainerIndex = idx;
+    if (trainerName) showPokemon(trainerName, currentRegion);
+  });
+  trainersList.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const card = e.target.closest('.trainer');
+    if (!card) return;
+    e.preventDefault();
+    const trainerName = card.dataset.trainer;
+    const idx = Number(card.dataset.index);
+    if (!Number.isNaN(idx)) currentTrainerIndex = idx;
+    if (trainerName) showPokemon(trainerName, currentRegion);
+  });
+}
+
+// ===== Pager entrenadores (botones) =====
+function updateTrainerPagerButtons(){
+  if (!prevTrainerBtn || !nextTrainerBtn) return;
+  const total = currentTrainerNames.length;
+  prevTrainerBtn.disabled = currentTrainerIndex <= 0;
+  nextTrainerBtn.disabled = currentTrainerIndex >= total - 1;
 }
 
 if (prevTrainerBtn && nextTrainerBtn) {
@@ -251,31 +301,72 @@ if (prevTrainerBtn && nextTrainerBtn) {
   });
 }
 
-// Teclas ← → en vista de Pokémon para cambiar de entrenador
+// ===== Pager regiones (botones en Elite) =====
+if (prevRegionBtn) {
+  prevRegionBtn.addEventListener('click', () => {
+    if (currentRegionIndex > 0) {
+      const target = REGIONS[currentRegionIndex - 1];
+      showElite(target);
+    }
+  });
+}
+if (nextRegionBtn) {
+  nextRegionBtn.addEventListener('click', () => {
+    if (currentRegionIndex < REGIONS.length - 1) {
+      const target = REGIONS[currentRegionIndex + 1];
+      showElite(target);
+    }
+  });
+}
+
+// ===== Teclas ← / → =====
 document.addEventListener('keydown', (e) => {
+  // no interferir si algún día agregas inputs/textarea
+  const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
+  if (tag === 'input' || tag === 'textarea' || e.metaKey || e.ctrlKey || e.altKey) return;
+
+  // Vista Pokémon: ←/→ cambia de entrenador
   if (pokemonView && pokemonView.classList.contains('active')) {
     if (e.key === 'ArrowLeft' && currentTrainerIndex > 0) {
       currentTrainerIndex--;
       const name = currentTrainerNames[currentTrainerIndex];
       showPokemon(name, currentRegion);
+      e.preventDefault();
+      return;
     } else if (e.key === 'ArrowRight' && currentTrainerIndex < currentTrainerNames.length - 1) {
       currentTrainerIndex++;
       const name = currentTrainerNames[currentTrainerIndex];
       showPokemon(name, currentRegion);
+      e.preventDefault();
+      return;
     }
-  } else if (regionsView && regionsView.classList.contains('active')) {
-    if (e.key === 'ArrowLeft') {
-      // ir a región anterior
-      if (currentRegionIndex > 0) {
-        currentRegionIndex--;
-        showElite(REGIONS[currentRegionIndex]);
+  }
+
+  // Vista Elite: ←/→ cambia de región
+  if (eliteView && eliteView.classList.contains('active')) {
+    if (e.key === 'ArrowLeft' && currentRegionIndex > 0) {
+      showElite(REGIONS[currentRegionIndex - 1]);
+      e.preventDefault();
+      return;
+    } else if (e.key === 'ArrowRight' && currentRegionIndex < REGIONS.length - 1) {
+      showElite(REGIONS[currentRegionIndex + 1]);
+      e.preventDefault();
+      return;
+    }
+  }
+
+  // Vista Regiones: ←/→ salta región y entra a Elite
+  if (regionsView && regionsView.classList.contains('active')) {
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      if (currentRegionIndex < 0) currentRegionIndex = 0;
+      if (e.key === 'ArrowLeft') {
+        currentRegionIndex = Math.max(0, currentRegionIndex - 1);
+      } else {
+        currentRegionIndex = Math.min(REGIONS.length - 1, currentRegionIndex + 1);
       }
-    } else if (e.key === 'ArrowRight') {
-      // ir a región siguiente
-      if (currentRegionIndex < REGIONS.length - 1) {
-        currentRegionIndex++;
-        showElite(REGIONS[currentRegionIndex]);
-      }
+      showElite(REGIONS[currentRegionIndex]);
+      e.preventDefault();
+      return;
     }
   }
 });
