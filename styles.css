@@ -6,7 +6,7 @@
   --card: #ffffff;
   --text: #0f172a;
   --muted: #4b5563;
-  --accent: #e11d48;   /* 🔴 Rojo original */
+  --accent: #e11d48;   /* 🔴 Rojo */
   --accent-press: #be123c;
   --border: rgba(15,23,42,.12);
 }
@@ -16,7 +16,7 @@ html[data-theme="dark"]{
   --card: #141414;
   --text: #f5f5f5;
   --muted: #b0b0b0;
-  --accent: #e11d48;   /* 🔴 Rojo original */
+  --accent: #e11d48;   /* 🔴 Rojo */
   --accent-press: #be123c;
   --border: rgba(255,255,255,.10);
 }
@@ -57,10 +57,7 @@ body{
   border-radius: 8px; text-align:center; white-space: nowrap;
   transition: transform 0.2s ease, filter 0.2s ease;
 }
-.btn.primary:hover{
-  filter: brightness(1.05);
-  transform: scale(1.05);
-}
+.btn.primary:hover{ filter: brightness(1.05); transform: scale(1.05); }
 .btn.primary:active{background: var(--accent-press)}
 .btn.ghost{padding:8px 12px; border:1px solid var(--border); border-radius:10px; background: transparent;}
 .btn.icon{width:40px; height:40px; display:grid; place-items:center; font-size:18px; border-radius:10px; border:1px solid var(--border); background: transparent;}
@@ -106,16 +103,49 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
 @media (max-width:680px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:460px){.grid{grid-template-columns:1fr}}
 
-/* ====== Tarjeta región ====== */
+/* ====== Tarjeta región (mismo look que entrenador) ====== */
 .card{
-  background: var(--card);
-  border:1px solid var(--border);
-  border-radius:14px;
+  position:relative;
+  background: #11161f; /* mismo fondo que portrait */
+  border: 2px solid rgba(255,255,255,.08);
+  border-radius:20px;
   padding:18px;
   display:flex; flex-direction:column; align-items:center; gap:14px;
-  height: 160px;
+  height:160px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.45);
+  overflow:hidden;
+  transition: border-color .28s ease, box-shadow .28s ease, transform .2s ease;
 }
-.card h2{margin:6px 0 4px 0; font-size:26px; font-weight:700;}
+.card::before{
+  content:"";
+  position:absolute; left:50%; top:50%;
+  transform: translate(-50%,-50%);
+  width: 70%; height: 70%;
+  border-radius: 24px;
+  background: radial-gradient(circle at center,
+              rgba(225,29,72,.45) 0%,
+              rgba(225,29,72,.22) 40%,
+              rgba(225,29,72,0) 75%);
+  filter: blur(50px);
+  opacity: 0; pointer-events:none; z-index:0;
+  transition: opacity .3s ease;
+}
+.card::after{
+  /* degradado sutil como los portraits */
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(to top, rgba(0,0,0,.35) 0%, rgba(0,0,0,.15) 45%, rgba(0,0,0,0) 70%);
+  pointer-events:none; z-index: 0;
+}
+.card h2{margin:6px 0 4px 0; font-size:26px; font-weight:700; z-index:1}
+.card .btn{ z-index:1 }
+
+.card:hover{
+  border-color: var(--accent);
+  box-shadow: 0 0 22px rgba(225,29,72,.40), 0 12px 28px rgba(0,0,0,.45);
+  transform: translateY(-2px);
+}
+.card:hover::before{ opacity: 1; }
 
 /* ====== Vista Elite Four ====== */
 #eliteTitle{letter-spacing:.5px; margin-top:4px; margin-bottom:22px}
@@ -243,7 +273,7 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
 /* ====== Card de Pokémon (nombre arriba + imagen) ====== */
 .pokemon-card{
   width: 160px;
-  height: 230px;                 /* un pelín más alta para el nombre */
+  height: 230px;
   border-radius: 14px;
   background: #11161f;
   border: 2px solid rgba(255,255,255,.08);
@@ -252,73 +282,46 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   overflow:hidden;
   z-index: 2;
   display:flex;
-  flex-direction:column;          /* nombre arriba, imagen abajo */
+  flex-direction:column;
   transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
 }
-
-/* Glow rojo detrás (como entrenadores) */
 .pokemon-card::before{
   content:"";
-  position:absolute;
-  left:50%; top:50%;
+  position:absolute; left:50%; top:50%;
   transform: translate(-50%, -50%);
-  width: calc(55% + 40px);
-  height: calc(55% + 40px);
+  width: 70%; height: 70%;
   border-radius: 16px;
   background: radial-gradient(circle at center,
               rgba(225,29,72,.45) 0%,
               rgba(225,29,72,.22) 40%,
               rgba(225,29,72,0) 75%);
   filter: blur(50px);
-  opacity: 0;
+  opacity: 0; pointer-events:none; z-index:0;
   transition: opacity .3s ease;
-  pointer-events: none;
-  z-index: -1;
 }
+.pokemon-card:hover{ border-color: var(--accent); box-shadow: 0 0 18px rgba(225,29,72,.35), 0 10px 20px rgba(0,0,0,.45); transform: translateY(-2px); }
 .pokemon-card:hover::before{ opacity:1; }
 
-/* Nombre arriba, dentro del card */
 .pokemon-card .pname{
   padding: 10px 10px 6px;
   font-weight:700;
   font-size:14px;
-  color:#ffffff;                  /* blanco normal */
+  color:#ffffff;
   text-align:center;
   transition: color .25s ease, text-shadow .25s ease;
 }
-
-/* Contenedor de imagen debajo del nombre */
 .pokemon-card .portrait{
-  flex: 1;
-  min-height: 0;
-  position: relative;
-  padding: 4px 6px 10px;          /* respiro abajo */
+  flex: 1; min-height: 0; position: relative; padding: 4px 6px 10px;
 }
 .pokemon-card .portrait img{
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  width: 100%; height: 100%; object-fit: contain;
   image-rendering: -webkit-optimize-contrast;
-  transform-origin: center bottom;
-  transition: transform .25s ease;
+  transform-origin: center bottom; transition: transform .25s ease;
 }
-
-/* Degradado sutil sobre imagen (coherente con entrenadores) */
 .pokemon-card .portrait::after{
-  content:"";
-  position:absolute; inset:0;
+  content:""; position:absolute; inset:0;
   background: linear-gradient(to top, rgba(0,0,0,.35) 0%, rgba(0,0,0,.15) 45%, rgba(0,0,0,0) 70%);
   pointer-events:none;
 }
-
-/* Hover igual que entrenadores */
-.pokemon-card:hover{
-  border-color: var(--accent);
-  box-shadow: 0 0 18px rgba(225,29,72,.35), 0 10px 20px rgba(0,0,0,.45);
-  transform: translateY(-2px);
-}
-.pokemon-card:hover .pname{
-  color: var(--accent);           /* rojo al hover */
-  text-shadow: 0 1px 12px rgba(225,29,72,.45);
-}
+.pokemon-card:hover .pname{ color: var(--accent); text-shadow: 0 1px 12px rgba(225,29,72,.45); }
 .pokemon-card:hover .portrait img{ transform: scale(1.05); }
