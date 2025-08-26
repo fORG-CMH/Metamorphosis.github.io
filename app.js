@@ -52,7 +52,7 @@ const REGION_NAMES = {
   Kanto:  ['Lorelei', 'Bruno', 'Agatha', 'Lance', 'Blue'],
   Johto:  ['Will', 'Koga', 'Bruno', 'Karen', 'Lance'],
   Hoenn:  ['Sidney', 'Phoebe', 'Glacia', 'Drake', 'Wallace'],
-  Sinnoh: ['Aaron', 'Bertha', 'FLint', 'Lucian', 'Cynthia'],
+  Sinnoh: ['Aaron', 'Bertha', 'Flint', 'Lucian', 'Cynthia'],
   Unova:  ['Shauntal', 'Grimsley', 'Caitlin', 'Marshal', 'Alder']
 };
 
