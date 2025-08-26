@@ -120,10 +120,8 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
 /* ====== Vista Elite Four ====== */
 #eliteTitle{letter-spacing:.5px; margin-top:4px; margin-bottom:22px}
 
-/* ====== NUEVO: separación título Pokémon ====== */
-#pokemonTitle {
-  margin-bottom: 28px; /* Ajusta este valor según el espacio que quieras */
-}
+/* ====== separación título Pokémon ====== */
+#pokemonTitle { margin-bottom: 28px; }
 
 /* ====== Grid de entrenadores ====== */
 .trainers{
@@ -242,14 +240,23 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
 @media (max-width:560px){.pokemon-grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:380px){.pokemon-grid{grid-template-columns:1fr}}
 
+/* ====== Card de Pokémon (nombre arriba + imagen) ====== */
 .pokemon-card{
+  width: 160px;
+  height: 230px;                 /* un pelín más alta para el nombre */
+  border-radius: 14px;
+  background: #11161f;
+  border: 2px solid rgba(255,255,255,.08);
+  box-shadow: 0 10px 20px rgba(0,0,0,.45);
   position: relative;
-  z-index: 0;
+  overflow:hidden;
+  z-index: 2;
   display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
+  flex-direction:column;          /* nombre arriba, imagen abajo */
+  transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
 }
+
+/* Glow rojo detrás (como entrenadores) */
 .pokemon-card::before{
   content:"";
   position:absolute;
@@ -266,26 +273,26 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   opacity: 0;
   transition: opacity .3s ease;
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
 }
 .pokemon-card:hover::before{ opacity:1; }
 
-.pokemon-card .portrait{
-  width: 160px;
-  height: 220px;
-  border-radius: 14px;
-  background: #11161f;
-  border: 2px solid rgba(255,255,255,.08);
-  box-shadow: 0 10px 20px rgba(0,0,0,.45);
-  position: relative;
-  overflow:hidden;
-  z-index: 2;
-  transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+/* Nombre arriba, dentro del card */
+.pokemon-card .pname{
+  padding: 10px 10px 6px;
+  font-weight:700;
+  font-size:14px;
+  color:#ffffff;                  /* blanco normal */
+  text-align:center;
+  transition: color .25s ease, text-shadow .25s ease;
 }
-.pokemon-card:hover .portrait{
-  border-color: #e11d48;
-  box-shadow: 0 0 18px rgba(225,29,72,.35), 0 10px 20px rgba(0,0,0,.45);
-  transform: translateY(-2px);
+
+/* Contenedor de imagen debajo del nombre */
+.pokemon-card .portrait{
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  padding: 4px 6px 10px;          /* respiro abajo */
 }
 .pokemon-card .portrait img{
   width: 100%;
@@ -295,18 +302,23 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   transform-origin: center bottom;
   transition: transform .25s ease;
 }
-.pokemon-card:hover .portrait img{ transform: scale(1.05); }
+
+/* Degradado sutil sobre imagen (coherente con entrenadores) */
 .pokemon-card .portrait::after{
   content:"";
   position:absolute; inset:0;
-  background: linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,.25) 45%, rgba(0,0,0,0) 70%);
+  background: linear-gradient(to top, rgba(0,0,0,.35) 0%, rgba(0,0,0,.15) 45%, rgba(0,0,0,0) 70%);
   pointer-events:none;
-  z-index: 1;
 }
-.pokemon-card .pname{
-  margin-top:6px;
-  font-size: 14px;
-  color:#fff;
-  opacity:.95;
-  text-align:center;
+
+/* Hover igual que entrenadores */
+.pokemon-card:hover{
+  border-color: var(--accent);
+  box-shadow: 0 0 18px rgba(225,29,72,.35), 0 10px 20px rgba(0,0,0,.45);
+  transform: translateY(-2px);
 }
+.pokemon-card:hover .pname{
+  color: var(--accent);           /* rojo al hover */
+  text-shadow: 0 1px 12px rgba(225,29,72,.45);
+}
+.pokemon-card:hover .portrait img{ transform: scale(1.05); }
