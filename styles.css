@@ -124,11 +124,11 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
 /* ====== Card de entrenador ====== */
 .trainer{
   display:flex; flex-direction:column; align-items:center; gap:10px;
-  position: relative;              /* contexto para el halo */
-  z-index: 0;                      /* por debajo del marco */
+  position: relative;
+  z-index: 0;
 }
 
-/* 🔥 Halo circular DETRÁS y alrededor de toda la card (tu configuración) */
+/* 🔥 Halo circular DETRÁS */
 .trainer::before{
   content:"";
   position:absolute;
@@ -157,21 +157,21 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   height: 300px;
   border-radius: 20px;
   background: #11161f;
-  border: 2px solid rgba(255,255,255,.08);           /* ← subo a 2px para que el cambio de color luzca */
+  border: 2px solid rgba(255,255,255,.08);
   box-shadow: 0 12px 28px rgba(0,0,0,.45);
   position: relative;
   overflow:hidden;
-  z-index: 2;                                        /* por encima del halo */
+  z-index: 2;
   transition: border-color .28s ease, box-shadow .28s ease;
 }
 
-/* ⭐ Efecto de marco azul al pasar el mouse (tipo la imagen que enviaste) */
+/* ⭐ Efecto de marco azul */
 .trainer:hover .portrait{
   border-color: #22d3ee;
   box-shadow: 0 0 22px rgba(34,211,238,.40), 0 12px 28px rgba(0,0,0,.45);
 }
 
-/* Degradado interno para legibilidad del texto */
+/* Degradado interno */
 .trainer .portrait::after{
   content:"";
   position:absolute; inset:0;
@@ -220,11 +220,11 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   opacity:.9;
 }
 
-/* Hover efectos (zoom + color nombre) */
+/* Hover efectos */
 .trainer .portrait:hover img{
   transform: scale(1.08);
 }
-.trainer .portrait:hover ~ .info .name{
+.trainer:hover .info .name{
   color:#22d3ee;
   text-shadow: 0 1px 12px rgba(34,211,238,.35);
 }
