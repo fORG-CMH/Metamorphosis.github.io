@@ -22,7 +22,7 @@ const trainersList = document.getElementById('trainersList');
 const eliteTitle   = document.getElementById('eliteTitle');
 const backBtn      = document.getElementById('backBtn');
 
-// Nueva vista: Pokémon del entrenador
+// Vista Pokémon del entrenador
 const pokemonView  = document.getElementById('pokemonView');
 const pokemonTitle = document.getElementById('pokemonTitle');
 const pokemonList  = document.getElementById('pokemonList');
@@ -30,9 +30,7 @@ const backToEliteBtn = document.getElementById('backToEliteBtn');
 const crumbPath = document.getElementById('crumbPath');
 
 // Botón "Select Region" vuelve a regiones
-document.getElementById('selectRegionBtn').addEventListener('click', () => {
-  showRegions();
-});
+document.getElementById('selectRegionBtn').addEventListener('click', showRegions);
 
 // Click en "View Elite Four" de cada región
 document.querySelectorAll('.view-elite').forEach(a => {
@@ -44,17 +42,15 @@ document.querySelectorAll('.view-elite').forEach(a => {
 });
 
 backBtn.addEventListener('click', showRegions);
-
 if (backToEliteBtn) {
   backToEliteBtn.addEventListener('click', () => {
-    // Volver desde Pokémon a la lista de entrenadores
     pokemonView.classList.remove('active');
     eliteView.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 }
 
-// ===== Mapeo de imágenes por región (IDs 1..25) =====
+// ===== Datos base =====
 const REGION_IMAGES = {
   Kanto:  [1, 2, 3, 4, 5],
   Johto:  [6, 7, 8, 9, 10],
@@ -63,7 +59,6 @@ const REGION_IMAGES = {
   Unova:  [21, 22, 23, 24, 25]
 };
 
-// ===== Nombres de entrenadores por región =====
 const REGION_NAMES = {
   Kanto:  ['Lorelei', 'Bruno', 'Agatha', 'Lance', 'Blue'],
   Johto:  ['Will', 'Koga', 'Bruno', 'Karen', 'Lance'],
@@ -72,39 +67,16 @@ const REGION_NAMES = {
   Unova:  ['Shauntal', 'Grimsley', 'Caitlin', 'Marshal', 'Alder']
 };
 
+// Rellena tú los equipos aquí (se usan POKEMON/<Nombre>.png)
 const TRAINER_POKEMON = {
-  // Kanto
-  'Lorelei': [xd],
-  'Bruno':   [],
-  'Agatha':  [],
-  'Lance':   [],
-  'Blue':    [],
-  // Johto
-  'Will':    [],
-  'Koga':    [],
-  'Karen':   [],
-  // Bruno y Lance ya declarados arriba
-  // Hoenn
-  'Sidney':  [],
-  'Phoebe':  [],
-  'Glacia':  [],
-  'Drake':   [],
-  'Wallace': [],
-  // Sinnoh
-  'Aaron':   [],
-  'Bertha':  [],
-  'Flint':   [],
-  'Lucian':  [],
-  'Cynthia': [],
-  // Unova
-  'Shauntal':[],
-  'Grimsley':[],
-  'Caitlin': [],
-  'Marshal': [],
-  'Alder':   []
+  'Lorelei': [], 'Bruno': [], 'Agatha': [], 'Lance': [], 'Blue': [],
+  'Will': [], 'Koga': [], 'Karen': [],
+  'Sidney': [], 'Phoebe': [], 'Glacia': [], 'Drake': [], 'Wallace': [],
+  'Aaron': [], 'Bertha': [], 'Flint': [], 'Lucian': [], 'Cynthia': [],
+  'Shauntal': [], 'Grimsley': [], 'Caitlin': [], 'Marshal': [], 'Alder': []
 };
 
-// ===== Navegación =====
+// ===== Vistas =====
 function showRegions(){
   if (pokemonView) pokemonView.classList.remove('active');
   eliteView.classList.remove('active');
@@ -125,10 +97,9 @@ function showElite(region){
 
     const card = document.createElement('div');
     card.className = 'trainer';
-    card.setAttribute('data-trainer', nameText);
-    card.setAttribute('data-region', region);
+    card.dataset.trainer = nameText;
+    card.dataset.region = region;
 
-    // ---- Card visual (con overlay interno) ----
     const portrait = document.createElement('div');
     portrait.className = 'portrait';
 
@@ -149,17 +120,16 @@ function showElite(region){
 
     info.appendChild(name);
     info.appendChild(role);
-
     portrait.appendChild(img);
     portrait.appendChild(info);
-
     card.appendChild(portrait);
-    trainersList.appendChild(card);
 
-    // 🔗 Click en el entrenador -> abrir sus Pokémon
-    card.addEventListener('click', () => {
-      showPokemon(nameText, region);
-    });
+    // Accesibilidad: cursor y role botón
+    card.style.cursor = 'pointer';
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+
+    trainersList.appendChild(card);
   });
 
   regionsView.classList.remove('active');
@@ -168,23 +138,38 @@ function showElite(region){
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// ✅ Delegación de eventos: captura cualquier click dentro de trainersList
+// (más robusto que asignar un listener por card)
+trainersList.addEventListener('click', (e) => {
+  const card = e.target.closest('.trainer');
+  if (!card) return;
+  const trainerName = card.dataset.trainer;
+  const region = card.dataset.region;
+  if (trainerName) showPokemon(trainerName, region);
+});
+
+// También permite Enter/Espacio con el foco
+trainersList.addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const card = e.target.closest('.trainer');
+  if (!card) return;
+  e.preventDefault();
+  const trainerName = card.dataset.trainer;
+  const region = card.dataset.region;
+  if (trainerName) showPokemon(trainerName, region);
+});
+
 function showPokemon(trainerName, region){
-  if (!pokemonView) {
-    alert('Falta agregar la sección #pokemonView en tu HTML.');
-    return;
-  }
+  if (!pokemonView) return;
 
-  // Migas/crumbs y título
   pokemonTitle.textContent = trainerName;
-  crumbPath.textContent = `${region} › ${trainerName}`;
+  if (crumbPath) crumbPath.textContent = `${region} › ${trainerName}`;
 
-  // Lista de Pokémon desde tu tabla
   const mons = TRAINER_POKEMON[trainerName] || [];
 
   pokemonList.innerHTML = '';
 
   if (!mons.length){
-    // Mensaje de ayuda si aún no llenas
     const help = document.createElement('div');
     help.style.color = 'var(--muted)';
     help.style.textAlign = 'center';
@@ -193,12 +178,11 @@ function showPokemon(trainerName, region){
     help.innerHTML = `
       <strong>Sin equipo aún.</strong><br/>
       Edita <code>TRAINER_POKEMON['${trainerName}'] = ['Pikachu','Charizard',...]</code>
-      y asegúrate de tener las imágenes en <code>POKEMON/&lt;Nombre&gt;.png</code>
+      y pon las imágenes en <code>POKEMON/&lt;Nombre&gt;.png</code>
     `;
     pokemonList.appendChild(help);
   }
 
-  // Render de cards
   mons.forEach(monName => {
     const monCard = document.createElement('div');
     monCard.className = 'pokemon-card';
@@ -222,7 +206,6 @@ function showPokemon(trainerName, region){
     pokemonList.appendChild(monCard);
   });
 
-  // Mostrar vista Pokémon
   eliteView.classList.remove('active');
   regionsView.classList.remove('active');
   pokemonView.classList.add('active');
