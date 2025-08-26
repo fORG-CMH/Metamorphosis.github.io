@@ -73,11 +73,29 @@ const REGION_NAMES = {
 
 // Rellena tú los equipos aquí (POKEMON/<Nombre>.png)
 const TRAINER_POKEMON = {
-  'Lorelei': ['JetDragon','JetDragon','JetDragon','JetDragon','JetDragon','JetDragon','JetDragon','JetDragon'], 'Bruno': [], 'Agatha': [], 'Lance': [], 'Blue': [],
-  'Will': [], 'Koga': [], 'Karen': [],
-  'Sidney': [], 'Phoebe': [], 'Glacia': [], 'Drake': [], 'Wallace': [],
-  'Aaron': [], 'Bertha': [], 'Flint': [], 'Lucian': [], 'Cynthia': [],
-  'Shauntal': [], 'Grimsley': [], 'Caitlin': [], 'Marshal': [], 'Alder': []
+  'Lorelei': ['JetDragon','JetDragon','JetDragon','JetDragon','JetDragon','JetDragon','JetDragon','JetDragon'],
+  'Bruno': [],
+  'Agatha': [],
+  'Lance': [],
+  'Blue': [],
+  'Will': [],
+  'Koga': [],
+  'Karen': [],
+  'Sidney': [],
+  'Phoebe': [],
+  'Glacia': [],
+  'Drake': [],
+  'Wallace': [],
+  'Aaron': [],
+  'Bertha': [],
+  'Flint': [],
+  'Lucian': [],
+  'Cynthia': [],
+  'Shauntal': [],
+  'Grimsley': [],
+  'Caitlin': [],
+  'Marshal': [],
+  'Alder': []
 };
 
 // ===== Estado de navegación actual =====
