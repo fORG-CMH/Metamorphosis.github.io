@@ -87,7 +87,7 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   border-radius:14px;
   padding:18px;
   display:flex; flex-direction:column; align-items:center; gap:14px;
-  height: 160px;  /* alto fijo */
+  height: 160px;
 }
 .card h2{margin:6px 0 4px 0; font-size:26px; font-weight:700;}
 
@@ -116,39 +116,55 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   align-items:end;
   justify-items:center;
 }
-@media (max-width:1100px){.trainers{grid-template-columns:repeat(4,1fr)}}
-@media (max-width:900px){.trainers{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:680px){.trainers{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:460px){.trainers{grid-template-columns:1fr}}
+@media (max-width:1400px){.trainers{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:1100px){.trainers{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:800px){.trainers{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:500px){.trainers{grid-template-columns:1fr}}
 
-/* ====== Card de entrenador (estilo de la imagen de referencia) ====== */
+/* ====== Card de entrenador ====== */
 .trainer{
   display:flex; flex-direction:column; align-items:center; gap:10px;
+  position: relative;              /* contexto para el halo */
+  z-index: 0;                      /* por debajo del marco */
 }
 
-/* Marco principal: más alto, borde suave y sombra ligera */
+/* 🔥 Halo circular DETRÁS y alrededor de toda la card */
+.trainer::before{
+  content:"";
+  position:absolute;
+  left:50%; top:50%;
+  transform: translate(-50%, -50%);
+  width: calc(70% + 70px);       /* mucho más ancho que la card */
+  height: calc(100% + 100px);      /* mucho más alto que la card */
+  border-radius: 40px;             /* esquinas suaves (coincide con la card) */
+  background: radial-gradient(circle at center,
+              rgba(34,211,238,.55) 0%,
+              rgba(34,211,238,.26) 40%,
+              rgba(34,211,238,0) 75%);
+  filter: blur(70px);              /* halo suave grande */
+  opacity: 0;                      /* oculto, aparece en hover */
+  transition: opacity .35s ease;
+  pointer-events: none;
+  z-index: 0;                      /* detrás del marco */
+}
+.trainer:hover::before{
+  opacity: 1;
+}
+
+/* Marco principal (card) */
 .trainer .portrait{
-  width: 220px;                   /* puedes ajustar */
-  height: 300px;                  /* puedes ajustar */
-  border-radius: 18px;
-  background: #11161f;            /* base para dark */
+  width: 220px;
+  height: 300px;
+  border-radius: 20px;
+  background: #11161f;
   border: 1px solid rgba(255,255,255,.08);
-  box-shadow: 0 8px 24px rgba(0,0,0,.35);
+  box-shadow: 0 12px 28px rgba(0,0,0,.45);
   position: relative;
   overflow:hidden;
+  z-index: 2;                      /* por encima del halo */
 }
 
-/* Imagen dentro */
-.trainer .portrait img{
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  image-rendering: -webkit-optimize-contrast;
-  transform-origin: center bottom;
-  transition: transform 0.35s ease;
-}
-
-/* Degradado inferior para que el texto sea legible */
+/* Degradado interno para legibilidad del texto */
 .trainer .portrait::after{
   content:"";
   position:absolute; inset:0;
@@ -159,35 +175,53 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
     rgba(0,0,0,0) 70%
   );
   pointer-events:none;
+  z-index: 1;
 }
 
-/* Texto dentro de la card (abajo izq) */
+/* Imagen */
+.trainer .portrait img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+  transform-origin: center bottom;
+  transition: transform 0.35s ease;
+  z-index: 0;
+}
+
+/* Texto */
 .trainer .info{
   position:absolute;
-  left:16px;
-  right:16px;
-  bottom:14px;
-  z-index:2;
+  left:18px;
+  right:18px;
+  bottom:18px;
+  z-index:3;
   color:#fff;
   display:flex;
   flex-direction:column;
-  gap:4px;
+  gap:6px;
 }
 .trainer .info .name{
   font-weight:700;
-  font-size:22px;
+  font-size:24px;
   line-height:1.1;
+  color:#ffffff;
+  transition: color .25s ease, text-shadow .25s ease;
 }
 .trainer .info .role{
-  font-size:14px;
+  font-size:16px;
   opacity:.9;
 }
 
-/* Hover: pequeño zoom */
+/* Hover efectos (zoom + color nombre) */
 .trainer .portrait:hover img{
-  transform: scale(1.06);
+  transform: scale(1.08);
+}
+.trainer .portrait:hover .info .name{
+  color:#22d3ee;
+  text-shadow: 0 1px 12px rgba(34,211,238,.35);
 }
 
-/* Ya no usamos los labels fuera de la card: los ocultamos por si el DOM aún los trae */
+/* Ocultar labels antiguos */
 .trainer > .name, 
 .trainer > .role { display:none; }
