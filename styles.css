@@ -1,28 +1,29 @@
-/* ====== Tema por variables ====== */
+/* ====== Variables de tema ====== */
 :root{
   /* Light */
-  --bg: #f7f8fb;
+  --bg: #0f172a0a; /* no usado en light acá, pero lo dejamos */
   --surface: #ffffff;
   --card: #ffffff;
   --text: #0f172a;
   --muted: #4b5563;
-  --accent: #e11d48;      /* rojo frambuesa */
+  --accent: #e11d48;      /* rojo frambuesa (no lo cambiamos) */
   --accent-press: #be123c;
-  --border: rgba(15,23,42,.12);
+  --border: rgba(15,23,42,.10);
 }
 
 html[data-theme="dark"]{
-  --bg: #0a0a0a;
-  --surface: #0f0f0f;
-  --card: #141414;
-  --text: #f5f5f5;
-  --muted: #b0b0b0;
-  --accent: #e11d48;
+  /* Oscuro estilo de tu captura (azul muy oscuro) */
+  --bg: #0b1220;        /* fondo */
+  --surface: #0f1628;   /* barra superior / bloques grandes */
+  --card: #121a2b;      /* tarjetas */
+  --text: #f3f7ff;
+  --muted: #a6b1c2;
+  --accent: #e11d48;    /* mismo color del botón */
   --accent-press: #be123c;
-  --border: rgba(255,255,255,.10);
+  --border: rgba(255,255,255,.08);
 }
 
-/* ====== Reset & base ====== */
+/* ====== Base ====== */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
@@ -31,105 +32,102 @@ body{
   background: var(--bg);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
 /* ====== Topbar ====== */
 .topbar{
   position: sticky; top:0; z-index:10;
   display:flex; align-items:center; justify-content:space-between;
-  gap:12px; padding:14px 20px;
+  gap:12px; padding:12px 20px;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
 }
 
 .brand{display:flex; align-items:center; gap:10px; font-weight:700}
-.brand img{width:28px; height:28px; image-rendering:pixelated}
-.brand span{letter-spacing:.3px}
-
+.brand img{width:26px; height:26px; image-rendering:pixelated}
 .actions{display:flex; gap:10px}
 
-/* ====== Buttons ====== */
+/* ====== Botones base ====== */
 .btn{
   border:0;
-  border-radius:8px;
   cursor:pointer;
   background: var(--card);
   color: var(--text);
-  transition: background .15s ease;
-  text-decoration: none;  
+  text-decoration:none;
   display:inline-block;
-  line-height: 1.2;
+  line-height:1;
 }
 
-/* Botón principal como la referencia: bajo, algo ancho, texto fino */
+/* Ghost (barra superior) */
+.btn.ghost{
+  padding:8px 12px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background: transparent;
+}
+
+/* Icono toggle */
+.btn.icon{
+  width:40px; height:40px; display:grid; place-items:center; font-size:18px;
+  border-radius:10px; border:1px solid var(--border); background: transparent;
+}
+
+/* ====== Botón principal estilo captura ====== */
 .btn.primary{
   background: var(--accent);
   color:#fff;
-  padding: 6px 34px;       /* altura menor + ancho cómodo */
-  font-size: 13px;         /* texto más pequeño */
-  font-weight: 400;        /* texto delgado */
-  border-radius: 6px;      /* esquinas un poco más rectas */
-  text-align: center;
-  white-space: nowrap;     /* sin saltos */
+  padding: 6px 18px;     /* bajo y compacto */
+  font-size: 12.5px;     /* texto pequeño */
+  font-weight: 400;      /* texto delgado */
+  border-radius: 9999px; /* forma pill */
+  text-align:center;
+  white-space: nowrap;   /* sin saltos de línea */
 }
 .btn.primary:hover{filter: brightness(1.02)}
 .btn.primary:active{background: var(--accent-press)}
 
-.btn.ghost{
-  padding:8px 14px;
-  background: transparent;
-  border:1px solid var(--border);
-}
-
-.btn.icon{
-  width:42px; height:42px; display:grid; place-items:center; font-size:18px;
-}
-
-/* ====== Main ====== */
+/* ====== Contenido ====== */
 .container{
   max-width:1100px;
   margin-inline:auto;
-  padding:40px 20px 64px;
+  padding:36px 20px 60px;
 }
 h1{
-  margin:10px 0 6px;
+  margin:6px 0 6px;
   text-align:center;
-  font-size:clamp(28px,3.2vw,40px);
-  font-weight:700;           
-  letter-spacing:.5px;
+  font-size:clamp(26px,3vw,36px);
+  font-weight:700;
 }
 .subtitle{
   text-align:center;
   color:var(--muted);
-  margin:0 0 34px;
+  margin:0 0 28px;
 }
 
-/* ====== Grid (5 columnas en escritorio) ====== */
+/* ====== Grid (como en tu screenshot: 4 por fila en desktop) ====== */
 .grid{
   display:grid;
-  grid-template-columns:repeat(5,minmax(0,1fr));
-  gap:20px;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:22px;
 }
 @media (max-width:1000px){.grid{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:460px){.grid{grid-template-columns:1fr}}
 
-/* ====== Card (cuadro de región) ====== */
+/* ====== Card (cuadro) compacto como tu captura ====== */
 .card{
   background: var(--card);
   border:1px solid var(--border);
-  border-radius:12px;      
-  padding:24px 20px;       
+  border-radius:14px;
+  padding:18px 18px;         /* compacto */
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:20px;                /* espacio entre título y botón */
-  transition: border-color .15s ease, background .15s ease;
+  gap:14px;                  /* espacio entre título y botón */
 }
-.card:hover{border-color: var(--border)}
 .card h2{
-  margin:0;
-  font-size:22px;          
-  font-weight:700;         
+  margin:6px 0 4px 0;
+  font-size:26px;            /* título fuerte */
+  font-weight:700;
 }
