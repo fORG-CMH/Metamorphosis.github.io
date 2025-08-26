@@ -1,157 +1,105 @@
+/* ====== Tema por variables ====== */
 :root{
-  --bg: #0b1220;
-  --surface: #121a2b;
-  --text: #e8eef6;
-  --muted: #a6b1c2;
-  --card: #161f33;
-  --accent: #ff3b53;
-  --accent-press: #e0354a;
-  --ring: #3b82f6;
-  --shadow: 0 10px 24px rgba(0,0,0,.35);
-}
-
-html[data-theme="light"]{
+  /* Light */
   --bg: #f7f8fb;
   --surface: #ffffff;
+  --card: #ffffff;
   --text: #0f172a;
   --muted: #4b5563;
-  --card: #ffffff;
-  --accent: #ef4444;
-  --accent-press: #dc2626;
-  --ring: #2563eb;
-  --shadow: 0 6px 16px rgba(2,6,23,.08);
+  --accent: #e11d48;      /* rojo frambuesa */
+  --accent-press: #be123c;
+  --border: rgba(15,23,42,.12);
 }
 
+html[data-theme="dark"]{
+  /* Dark con negros reales */
+  --bg: #0a0a0a;          /* fondo casi negro */
+  --surface: #0f0f0f;     /* barra superior */
+  --card: #141414;        /* tarjetas */
+  --text: #f5f5f5;
+  --muted: #b0b0b0;
+  --accent: #e11d48;
+  --accent-press: #be123c;
+  --border: rgba(255,255,255,.10);
+}
+
+/* ====== Reset & base ====== */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
   margin:0;
-  font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-family:"Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
   line-height: 1.4;
 }
 
-/* Topbar */
+/* ====== Topbar ====== */
 .topbar{
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap: 12px;
-  padding: 14px 20px;
+  position: sticky; top:0; z-index:10;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; padding:14px 20px;
   background: var(--surface);
-  border-bottom: 1px solid rgba(255,255,255,.06);
+  border-bottom: 1px solid var(--border);
 }
 
-.brand{display:flex;align-items:center;gap:10px;font-weight:700}
-.brand img{width:28px;height:28px;image-rendering:pixelated}
+.brand{display:flex; align-items:center; gap:10px; font-weight:700}
+.brand img{width:28px; height:28px; image-rendering:pixelated}
 .brand span{letter-spacing:.3px}
 
-.actions{display:flex;gap:10px}
+.actions{display:flex; gap:10px}
 
-/* Buttons */
+/* ====== Buttons (sin sombras ni glow) ====== */
 .btn{
-  border:0;
-  padding:10px 14px;
-  border-radius:12px;
-  font-weight:600;
-  cursor:pointer;
-  transition: transform .06s ease, background .2s ease, box-shadow .2s ease;
-  box-shadow: var(--shadow);
-  color: var(--text);
-  background: var(--card);
+  border:0; padding:10px 14px; border-radius:12px; font-weight:600; cursor:pointer;
+  background: var(--card); color: var(--text);
+  transition: background .15s ease, transform .02s ease;
 }
-.btn:hover{transform: translateY(-1px)}
-.btn:active{transform: translateY(0)}
+.btn:hover{transform:none}         /* sin elevación */
+.btn:active{transform:none}
 
 .btn.primary{
   background: var(--accent);
-  color:#fff;
-  box-shadow: 0 10px 18px rgba(239,68,68,.35);
+  color: #fff;
 }
-.btn.primary:hover{filter: brightness(1.05)}
+.btn.primary:hover{filter: brightness(1.02)}
 .btn.primary:active{background: var(--accent-press)}
 
 .btn.ghost{
   background: transparent;
-  border:1px solid rgba(255,255,255,.12);
-}
-html[data-theme="light"] .btn.ghost{
-  border-color: rgba(15, 23, 42, .12);
+  border: 1px solid var(--border);
 }
 
 .btn.icon{
-  width:42px;height:42px;display:grid;place-items:center;font-size:18px;
+  width:42px; height:42px; display:grid; place-items:center; font-size:18px;
 }
 
-/* Main */
-.container{
-  max-width:1100px;
-  margin-inline:auto;
-  padding: 40px 20px 64px;
-}
+/* ====== Main ====== */
+.container{max-width:1100px; margin-inline:auto; padding:40px 20px 64px}
+h1{margin:10px 0 6px; text-align:center; font-size:clamp(28px,3.2vw,40px); letter-spacing:.5px}
+.subtitle{text-align:center; color:var(--muted); margin:0 0 34px}
 
-h1{
-  margin: 10px 0 6px;
-  text-align:center;
-  font-size: clamp(28px, 3.2vw, 40px);
-  letter-spacing:.5px;
-}
+/* ====== Grid ====== */
+.grid{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:20px}
+@media (max-width:1000px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:460px){.grid{grid-template-columns:1fr}}
 
-.subtitle{
-  text-align:center;
-  color: var(--muted);
-  margin: 0 0 34px;
-}
-
-/* Grid of cards */
-.grid{
-  display:grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap:20px;
-}
-@media (max-width: 1000px){
-  .grid{grid-template-columns: repeat(3, 1fr);}
-}
-@media (max-width: 720px){
-  .grid{grid-template-columns: repeat(2, 1fr);}
-}
-@media (max-width: 460px){
-  .grid{grid-template-columns: 1fr;}
-}
-
+/* ====== Card ====== */
 .card{
   background: var(--card);
-  border:1px solid rgba(255,255,255,.06);
+  border: 1px solid var(--border);
   border-radius:18px;
-  padding: 28px 24px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:16px;
-  box-shadow: var(--shadow);
-  transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+  padding:28px 24px;
+  display:flex; flex-direction:column; align-items:center; gap:16px;
+  transition: border-color .15s ease, background .15s ease;
 }
-html[data-theme="light"] .card{
-  border-color: rgba(15,23,42,.06);
-}
-.card:hover{
-  transform: translateY(-4px);
-}
-.card h2{
-  margin:0;
-  font-size: clamp(22px, 2.6vw, 28px);
-}
+.card:hover{border-color: var(--border)}
+.card h2{margin:0; font-size:clamp(22px,2.6vw,28px)}
 
-/* Footer */
+/* ====== Footer ====== */
 .footer{
-  text-align:center;
-  padding: 20px;
-  color: var(--muted);
-  border-top:1px solid rgba(255,255,255,.06);
-  background: var(--surface);
+  text-align:center; padding:20px; color:var(--muted);
+  border-top:1px solid var(--border); background: var(--surface);
 }
