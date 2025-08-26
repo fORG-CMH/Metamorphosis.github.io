@@ -133,7 +133,7 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   z-index: 0;
 }
 
-/* 🔥 Halo circular DETRÁS */
+/* 🔥 Halo circular DETRÁS (rojo) */
 .trainer::before{
   content:"";
   position:absolute;
@@ -143,7 +143,7 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   height: calc(55% + 60px);
   border-radius: 40px;
   background: radial-gradient(circle at center,
-              rgba(225,29,72,.55) 0%,     /* rojo glow */
+              rgba(225,29,72,.55) 0%,
               rgba(225,29,72,.26) 40%,
               rgba(225,29,72,0) 75%);
   filter: blur(70px);
@@ -152,9 +152,7 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   pointer-events: none;
   z-index: 0;
 }
-.trainer:hover::before{
-  opacity: 1;
-}
+.trainer:hover::before{ opacity: 1; }
 
 /* Marco principal (card) */
 .trainer .portrait{
@@ -226,9 +224,7 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
 }
 
 /* Hover efectos */
-.trainer .portrait:hover img{
-  transform: scale(1.08);
-}
+.trainer .portrait:hover img{ transform: scale(1.08); }
 .trainer:hover .info .name{
   color:#e11d48;
   text-shadow: 0 1px 12px rgba(225,29,72,.45);
@@ -237,3 +233,101 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
 /* Ocultar labels antiguos */
 .trainer > .name, 
 .trainer > .role { display:none; }
+
+/* ========================================================= */
+/* ====== NUEVO: Grid y cards de POKÉMON (6 por fila) ====== */
+/* ========================================================= */
+.pokemon-grid{
+  display:grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap:22px;
+  align-items:end;
+  justify-items:center;
+}
+@media (max-width:1200px){.pokemon-grid{grid-template-columns:repeat(5,1fr)}}
+@media (max-width:1000px){.pokemon-grid{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:780px){.pokemon-grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:560px){.pokemon-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:380px){.pokemon-grid{grid-template-columns:1fr}}
+
+/* Card de Pokémon (mismo look, tamaño reducido) */
+.pokemon-card{
+  position: relative;
+  z-index: 0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+}
+
+/* Glow rojo suave detrás */
+.pokemon-card::before{
+  content:"";
+  position:absolute;
+  left:50%; top:50%;
+  transform: translate(-50%, -50%);
+  width: calc(55% + 40px);
+  height: calc(55% + 40px);
+  border-radius: 16px;
+  background: radial-gradient(circle at center,
+              rgba(225,29,72,.45) 0%,
+              rgba(225,29,72,.22) 40%,
+              rgba(225,29,72,0) 75%);
+  filter: blur(50px);
+  opacity: 0;
+  transition: opacity .3s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.pokemon-card:hover::before{ opacity:1; }
+
+/* Marco reducido */
+.pokemon-card .portrait{
+  width: 160px;
+  height: 220px;
+  border-radius: 14px;
+  background: #11161f;
+  border: 2px solid rgba(255,255,255,.08);
+  box-shadow: 0 10px 20px rgba(0,0,0,.45);
+  position: relative;
+  overflow:hidden;
+  z-index: 2;
+  transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+  cursor: default;
+}
+
+/* Brillito rojo al hover */
+.pokemon-card:hover .portrait{
+  border-color: #e11d48;
+  box-shadow: 0 0 18px rgba(225,29,72,.35), 0 10px 20px rgba(0,0,0,.45);
+  transform: translateY(-2px);
+}
+
+/* Imagen del Pokémon */
+.pokemon-card .portrait img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+  transform-origin: center bottom;
+  transition: transform .25s ease;
+}
+.pokemon-card:hover .portrait img{ transform: scale(1.05); }
+
+/* Degradado para texto (por si agregas nombre encima) */
+.pokemon-card .portrait::after{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(to top, rgba(0,0,0,.55) 0%, rgba(0,0,0,.25) 45%, rgba(0,0,0,0) 70%);
+  pointer-events:none;
+  z-index: 1;
+}
+
+/* Nombre opcional debajo */
+.pokemon-card .pname{
+  margin-top:6px;
+  font-size: 14px;
+  color:#fff;
+  opacity:.95;
+  text-align:center;
+}
