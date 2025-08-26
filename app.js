@@ -29,32 +29,17 @@ const pokemonList  = document.getElementById('pokemonList');
 const backToEliteBtn = document.getElementById('backToEliteBtn');
 const crumbPath = document.getElementById('crumbPath');
 
-// Pager (anterior / siguiente)
+// Pager (anterior / siguiente) entrenadores
 const prevTrainerBtn = document.getElementById('prevTrainerBtn');
 const nextTrainerBtn = document.getElementById('nextTrainerBtn');
 
-// Botón "Select Region" vuelve a regiones
-document.getElementById('selectRegionBtn').addEventListener('click', showRegions);
-
-// Click en "View Elite Four" de cada región
-document.querySelectorAll('.view-elite').forEach(a => {
-  a.addEventListener('click', (e) => {
-    e.preventDefault();
-    const region = a.dataset.region || 'Region';
-    showElite(region);
-  });
-});
-
-backBtn.addEventListener('click', showRegions);
-if (backToEliteBtn) {
-  backToEliteBtn.addEventListener('click', () => {
-    pokemonView.classList.remove('active');
-    eliteView.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-}
+// Botones para cambiar de región
+const prevRegionBtn = document.getElementById('prevRegionBtn');
+const nextRegionBtn = document.getElementById('nextRegionBtn');
 
 // ===== Datos base =====
+const REGIONS = ["Kanto", "Johto", "Hoenn", "Sinnoh", "Unova"];
+
 const REGION_IMAGES = {
   Kanto:  [1, 2, 3, 4, 5],
   Johto:  [6, 7, 8, 9, 10],
@@ -73,44 +58,43 @@ const REGION_NAMES = {
 
 // Rellena tú los equipos aquí (POKEMONES/<Nombre>.png)
 const TRAINER_POKEMON = {
-  'Lorelei': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Bruno':   ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Agatha':  ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Lance':   ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Blue':    ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Will':    ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Koga':    ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Karen':   ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Sidney':  ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Phoebe':  ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Glacia':  ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Drake':   ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Wallace': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Aaron':   ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Bertha':  ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Flint':   ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Lucian':  ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Cynthia': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Shauntal':['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Grimsley':['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Caitlin': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Marshal': ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis'],
-  'Alder':   ['JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis','JetDragon','Anubis']
+  'Lorelei': ['JetDragon','Anubis'],
+  'Bruno': ['JetDragon','Anubis'],
+  'Agatha': ['JetDragon','Anubis'],
+  'Lance': ['JetDragon','Anubis'],
+  'Blue': ['JetDragon','Anubis'],
+  'Will': ['JetDragon','Anubis'],
+  'Koga': ['JetDragon','Anubis'],
+  'Karen': ['JetDragon','Anubis'],
+  'Sidney': ['JetDragon','Anubis'],
+  'Phoebe': ['JetDragon','Anubis'],
+  'Glacia': ['JetDragon','Anubis'],
+  'Drake': ['JetDragon','Anubis'],
+  'Wallace': ['JetDragon','Anubis'],
+  'Aaron': ['JetDragon','Anubis'],
+  'Bertha': ['JetDragon','Anubis'],
+  'Flint': ['JetDragon','Anubis'],
+  'Lucian': ['JetDragon','Anubis'],
+  'Cynthia': ['JetDragon','Anubis'],
+  'Shauntal': ['JetDragon','Anubis'],
+  'Grimsley': ['JetDragon','Anubis'],
+  'Caitlin': ['JetDragon','Anubis'],
+  'Marshal': ['JetDragon','Anubis'],
+  'Alder': ['JetDragon','Anubis']
 };
 
 // ===== Estado de navegación actual =====
-const REGIONS = ['Kanto','Johto','Hoenn','Sinnoh','Unova'];
 let currentRegion = null;
+let currentRegionIndex = -1;
 let currentTrainerNames = [];
 let currentTrainerIndex = -1;
-let currentRegionIndex = -1;
 
-// ===== Vistas =====
+// ===== Funciones de navegación =====
 function showRegions(){
   currentRegion = null;
+  currentRegionIndex = -1;
   currentTrainerNames = [];
   currentTrainerIndex = -1;
-  currentRegionIndex = -1;
 
   if (pokemonView) pokemonView.classList.remove('active');
   eliteView.classList.remove('active');
@@ -121,8 +105,8 @@ function showRegions(){
 function showElite(region){
   currentRegion = region;
   currentRegionIndex = REGIONS.indexOf(region);
-  eliteTitle.textContent = region;
 
+  eliteTitle.textContent = region;
   const ids   = REGION_IMAGES[region] || [];
   const names = REGION_NAMES[region]  || [];
 
@@ -177,38 +161,16 @@ function showElite(region){
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Delegación: click y teclado en lista de entrenadores
-trainersList.addEventListener('click', (e) => {
-  const card = e.target.closest('.trainer');
-  if (!card) return;
-  const trainerName = card.dataset.trainer;
-  const idx = Number(card.dataset.index);
-  if (!Number.isNaN(idx)) currentTrainerIndex = idx;
-  if (trainerName) showPokemon(trainerName, currentRegion);
-});
-trainersList.addEventListener('keydown', (e) => {
-  if (e.key !== 'Enter' && e.key !== ' ') return;
-  const card = e.target.closest('.trainer');
-  if (!card) return;
-  e.preventDefault();
-  const trainerName = card.dataset.trainer;
-  const idx = Number(card.dataset.index);
-  if (!Number.isNaN(idx)) currentTrainerIndex = idx;
-  if (trainerName) showPokemon(trainerName, currentRegion);
-});
-
 function showPokemon(trainerName, region){
   if (!pokemonView) return;
 
-  // Título "Team <Entrenador>"
   pokemonTitle.textContent = `Team ${trainerName}`;
-
   if (crumbPath) crumbPath.textContent = `${region} › ${trainerName}`;
 
   if (currentTrainerIndex < 0) {
     currentTrainerIndex = currentTrainerNames.indexOf(trainerName);
   }
-  updatePagerButtons();
+  updateTrainerPagerButtons();
 
   const mons = TRAINER_POKEMON[trainerName] || [];
   pokemonList.innerHTML = '';
@@ -223,7 +185,6 @@ function showPokemon(trainerName, region){
     pokemonList.appendChild(help);
   }
 
-  // Render de cards: nombre arriba + imagen dentro
   mons.forEach(monName => {
     const monCard = document.createElement('div');
     monCard.className = 'pokemon-card';
@@ -240,6 +201,7 @@ function showPokemon(trainerName, region){
     img.alt = monName;
 
     portrait.appendChild(img);
+
     monCard.appendChild(nameBar);
     monCard.appendChild(portrait);
     pokemonList.appendChild(monCard);
@@ -251,14 +213,27 @@ function showPokemon(trainerName, region){
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function updatePagerButtons(){
-  if (!prevTrainerBtn || !nextTrainerBtn) return;
-  const total = currentTrainerNames.length;
-  prevTrainerBtn.disabled = currentTrainerIndex <= 0;
-  nextTrainerBtn.disabled = currentTrainerIndex >= total - 1;
+// ===== Eventos =====
+document.getElementById('selectRegionBtn').addEventListener('click', showRegions);
+
+document.querySelectorAll('.view-elite').forEach(a => {
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    const region = a.dataset.region || 'Region';
+    showElite(region);
+  });
+});
+
+backBtn.addEventListener('click', showRegions);
+
+if (backToEliteBtn) {
+  backToEliteBtn.addEventListener('click', () => {
+    pokemonView.classList.remove('active');
+    eliteView.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 }
 
-// Botones Anterior / Siguiente de entrenador
 if (prevTrainerBtn && nextTrainerBtn) {
   prevTrainerBtn.addEventListener('click', () => {
     if (currentTrainerIndex > 0) {
@@ -276,9 +251,8 @@ if (prevTrainerBtn && nextTrainerBtn) {
   });
 }
 
-// ===== Teclas ← → =====
+// Teclas ← → en vista de Pokémon para cambiar de entrenador
 document.addEventListener('keydown', (e) => {
-  // Vista Pokémon (entrenadores)
   if (pokemonView && pokemonView.classList.contains('active')) {
     if (e.key === 'ArrowLeft' && currentTrainerIndex > 0) {
       currentTrainerIndex--;
@@ -289,32 +263,19 @@ document.addEventListener('keydown', (e) => {
       const name = currentTrainerNames[currentTrainerIndex];
       showPokemon(name, currentRegion);
     }
-    return;
-  }
-
-  // Vista Elite (cambiar región con ← →)
-  if (eliteView && eliteView.classList.contains('active')) {
+  } else if (regionsView && regionsView.classList.contains('active')) {
     if (e.key === 'ArrowLeft') {
-      const idx = currentRegionIndex > 0 ? currentRegionIndex - 1 : 0;
-      if (idx !== currentRegionIndex) showElite(REGIONS[idx]);
-    } else if (e.key === 'ArrowRight') {
-      const idx = currentRegionIndex < REGIONS.length - 1 ? currentRegionIndex + 1 : REGIONS.length - 1;
-      if (idx !== currentRegionIndex) showElite(REGIONS[idx]);
-    }
-    return;
-  }
-
-  // Vista Regiones (cambiar región y entrar a Elite)
-  if (regionsView && regionsView.classList.contains('active')) {
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-      // si no hay región actual, parte de la 1ra
-      if (currentRegionIndex < 0) currentRegionIndex = 0;
-      if (e.key === 'ArrowLeft') {
-        currentRegionIndex = Math.max(0, currentRegionIndex - 1);
-      } else {
-        currentRegionIndex = Math.min(REGIONS.length - 1, currentRegionIndex + 1);
+      // ir a región anterior
+      if (currentRegionIndex > 0) {
+        currentRegionIndex--;
+        showElite(REGIONS[currentRegionIndex]);
       }
-      showElite(REGIONS[currentRegionIndex]);
+    } else if (e.key === 'ArrowRight') {
+      // ir a región siguiente
+      if (currentRegionIndex < REGIONS.length - 1) {
+        currentRegionIndex++;
+        showElite(REGIONS[currentRegionIndex]);
+      }
     }
   }
 });
