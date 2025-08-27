@@ -181,15 +181,15 @@ const TRAINER_POKEMON = {
 // ======= BADGES DE POKÉMON (texto + color) =======
 // Colores permitidos: verde, amarillo, rojo, gris, marron, morado, azul, celeste, rosado
 const BADGE_COLORS = {
-  verde:   "#22c55e",
-  amarillo:"#f59e0b",
-  rojo:    "#ef4444",
-  gris:    "#6b7280",
-  marron:  "#8b5e3c",
-  morado:  "#8b5cf6",
-  azul:    "#3b82f6",
-  celeste: "#38bdf8",
-  rosado:  "#f472b6",
+  verde:   "#000000",
+  amarillo:"#000000",
+  rojo:    "#000000",
+  gris:    "#000000",
+  marron:  "#000000",
+  morado:  "#000000",
+  azul:    "#000000",
+  celeste: "#000000",
+  rosado:  "#000000",
 };
 
 // Configura aquí el texto y color por Pokémon (ejemplos)
