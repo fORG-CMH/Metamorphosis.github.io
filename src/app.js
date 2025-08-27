@@ -407,7 +407,7 @@ function showElite(region){
     portrait.className = 'portrait';
 
     const img = document.createElement('img');
-    img.src = `Entrenadores/${encodeURIComponent(nameText)}.png`;
+    img.src = `src/Entrenadores/${encodeURIComponent(nameText)}.png`;
     img.alt = nameText;
 
     const info = document.createElement('div');
@@ -481,7 +481,7 @@ function showPokemon(trainerName, region){
     portrait.className = 'portrait';
 
     const img = document.createElement('img');
-    img.src = `Pokemones/${encodeURIComponent(monName)}.png`;
+    img.src = `src/Pokemones/${encodeURIComponent(monName)}.gif`;
     img.alt = monName;
 
     portrait.appendChild(img);
