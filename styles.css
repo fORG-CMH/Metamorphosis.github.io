@@ -333,3 +333,44 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
 }
 .pokemon-card:hover .portrait img{ transform: scale(1.05); }
 
+/* === [Añadido] Hover de Pokémon igual a entrenadores === */
+.pokemon-card{
+  position: relative;
+  transition: border-color .28s ease, box-shadow .28s ease, transform .2s ease;
+}
+
+.pokemon-card::before{
+  content:"";
+  position:absolute;
+  left:50%; top:50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  border-radius: 28px;
+  background: radial-gradient(circle at center,
+            rgba(225,29,72,.25) 0%,
+            rgba(225,29,72,.10) 40%,
+            rgba(225,29,72,0) 75%);
+  filter: blur(50px);
+  opacity: 0;
+  pointer-events:none;
+  z-index:0;
+  transition: opacity .28s ease;
+}
+
+.pokemon-card:hover{
+  transform: translateY(-2px) scale(1.02);
+  border-color: #e11d48;
+  box-shadow:
+    0 0 22px rgba(225,29,72,.40),
+    0 12px 28px rgba(0,0,0,.45);
+}
+.pokemon-card:hover::before{ opacity: 1; }
+
+.pokemon-card .pname{
+  transition: color .25s ease, text-shadow .25s ease;
+}
+.pokemon-card:hover .pname{
+  color:#e11d48;
+  text-shadow: 0 1px 12px rgba(225,29,72,.45);
+}
