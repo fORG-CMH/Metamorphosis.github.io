@@ -85,12 +85,6 @@ const TRAINER_POKEMON = {
     'Hitmonlee','Gliscor','Electivire','Aggron','Hitmonchan','Salamence',
     'Seismitoad','Infernape','Rhyperior','Heracross','Krookodile','Hitmontop'
   ],
-  'Bruno': [
-    'Lucario','Slowbro','Muk','Ursaring','Steelix','Staraptor',
-    'Machamp','Darmanitan','Torterra','Blastoise','Eelektross','Metagross',
-    'Hitmonlee','Gliscor','Electivire','Aggron','Hitmonchan','Salamence',
-    'Seismitoad','Infernape','Rhyperior','Heracross','Krookodile','Hitmontop'
-  ],
   'Agatha': [
     'Golduck','Lucario','Muk','Seismitoad','Krookodile','Gyarados',
     'Rotom Horno','Shiftry','Gengar','Alakazam','Hydreigon','Arbok',
@@ -104,12 +98,6 @@ const TRAINER_POKEMON = {
     'Arcanine','Aerodactyl','Garchomp','Haxorus'
   ],
   'Lance_2': [
-    'Lapras','Dragonite','Lucario','Steelix','Eelektross','Metagross',
-    'Electivire','Infernape','Gyarados','Hydreigon','Arbok','Charizard',
-    'Scrafty','Feraligatr','Kingdra','Scizor','Tyranitar','Ampharos',
-    'Arcanine','Aerodactyl','Garchomp','Haxorus'
-  ],
-  'Lance': [
     'Lapras','Dragonite','Lucario','Steelix','Eelektross','Metagross',
     'Electivire','Infernape','Gyarados','Hydreigon','Arbok','Charizard',
     'Scrafty','Feraligatr','Kingdra','Scizor','Tyranitar','Ampharos',
