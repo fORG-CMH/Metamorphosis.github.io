@@ -52,8 +52,8 @@ const REGION_IMAGES = {
 };
 
 const REGION_NAMES = {
-  Kanto:  ['Lorelei', 'Bruno', 'Agatha', 'Lance', 'Blue'],
-  Johto:  ['Will', 'Koga', 'Bruno', 'Karen', 'Lance'],
+  Kanto:  ['Lorelei', 'Bruno_1', 'Agatha', 'Lance_1', 'Blue'],
+  Johto:  ['Will', 'Koga', 'Bruno_2', 'Karen', 'Lance_2'],
   Hoenn:  ['Sidney', 'Phoebe', 'Glacia', 'Drake', 'Wallace'],
   Sinnoh: ['Aaron', 'Bertha', 'Flint', 'Lucian', 'Cynthia'],
   Unova:  ['Shauntal', 'Grimsley', 'Caitlin', 'Marshal', 'Alder']
@@ -67,6 +67,20 @@ const TRAINER_POKEMON = {
     'Dragonite','Lucario','Articuno','Claydol','Slowbro','Raichu',
     'Vileplume','Chansey'
   ],
+  // === Bruno (copias separadas por región) ===
+  'Bruno_1': [
+    'Lucario','Slowbro','Muk','Ursaring','Steelix','Staraptor',
+    'Machamp','Darmanitan','Torterra','Blastoise','Eelektross','Metagross',
+    'Hitmonlee','Gliscor','Electivire','Aggron','Hitmonchan','Salamence',
+    'Seismitoad','Infernape','Rhyperior','Heracross','Krookodile','Hitmontop'
+  ],
+  'Bruno_2': [
+    'Lucario','Slowbro','Muk','Ursaring','Steelix','Staraptor',
+    'Machamp','Darmanitan','Torterra','Blastoise','Eelektross','Metagross',
+    'Hitmonlee','Gliscor','Electivire','Aggron','Hitmonchan','Salamence',
+    'Seismitoad','Infernape','Rhyperior','Heracross','Krookodile','Hitmontop'
+  ],
+  // Conservamos el original por si lo usas en otra parte
   'Bruno': [
     'Lucario','Slowbro','Muk','Ursaring','Steelix','Staraptor',
     'Machamp','Darmanitan','Torterra','Blastoise','Eelektross','Metagross',
@@ -79,6 +93,20 @@ const TRAINER_POKEMON = {
     'Rotom Lavadora','Umbreon','Marowak','Toxicroak','Mandibuzz','Houndoom',
     'Rotom Ventilador','Crobat'
   ],
+  // === Lance (copias separadas por región) ===
+  'Lance_1': [
+    'Lapras','Dragonite','Lucario','Steelix','Eelektross','Metagross',
+    'Electivire','Infernape','Gyarados','Hydreigon','Arbok','Charizard',
+    'Scrafty','Feraligatr','Kingdra','Scizor','Tyranitar','Ampharos',
+    'Arcanine','Aerodactyl','Garchomp','Haxorus'
+  ],
+  'Lance_2': [
+    'Lapras','Dragonite','Lucario','Steelix','Eelektross','Metagross',
+    'Electivire','Infernape','Gyarados','Hydreigon','Arbok','Charizard',
+    'Scrafty','Feraligatr','Kingdra','Scizor','Tyranitar','Ampharos',
+    'Arcanine','Aerodactyl','Garchomp','Haxorus'
+  ],
+  // Conservamos el original por si lo usas en otra parte
   'Lance': [
     'Lapras','Dragonite','Lucario','Steelix','Eelektross','Metagross',
     'Electivire','Infernape','Gyarados','Hydreigon','Arbok','Charizard',
