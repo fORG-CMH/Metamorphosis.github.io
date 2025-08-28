@@ -117,7 +117,7 @@ const TRAINER_POKEMON = {
   'Sidney': [
     'Magnezone','Hariyama','Darmanitan','Metagross','Electivire','Aggron',
     'Salamence','Gyarados','Shiftry','Toxicroak','Mandibuzz','Scrafty',
-    'Scizor','Garchomp','Sableye','Absol','Tencruel','Luxray',
+    'Scizor','Garchomp','Sableye','Absol','Tentacruel','Luxray',
     'Cacturne','Golurk','Mightyena','Spiritomb','Mienshao','Huntail',
     'Excadrill','Crawdaunt','Scolipede','Sharpedo'
   ],
@@ -133,7 +133,7 @@ const TRAINER_POKEMON = {
     'Vanilluxe','Gallade','Altaria','Glalie','Blissey','Beartic'
   ],
   'Drake': [
-    'Nidoking','Lapras','Lucario','Eelektross','Metagross','Aagron',
+    'Nidoking','Lapras','Lucario','Eelektross','Metagross','Aggron',
     'Salamence','Krookodile','Feraligatr','Kingdra','Ampharos','Haxorus',
     'Empoleon','Gallade','Altaria','Regirock','Torkoal','Seviper',
     'Floatzel','Sceptile','Flygon'
@@ -155,7 +155,7 @@ const TRAINER_POKEMON = {
     'Nidoking','Bronzong','Cloyster','Steelix','Blastoise','Gliscor',
     'Seismitoad','Rhyperior','Gengar','Skarmory','Golem','Sableye',
     'Absol','Walrein','Whiscash','Druddigon','Durant','Forretress',
-    'Tangrowt','Camerupt','Quagsire','Emboar','Sudowoodo','Parasect',
+    'Tangrowth','Camerupt','Quagsire','Emboar','Sudowoodo','Parasect',
     'Hippowdon','Amoonguss','Donphan'
   ],
   'Flint': [
@@ -176,7 +176,7 @@ const TRAINER_POKEMON = {
     'Metagross','Heracross','Umbreon','Mismagius','Tyranitar','Arcanine',
     'Aerodactyl','Garchomp','Glaceon','Spiritomb','Excadrill','Chandelure',
     'Serperior','Altaria','Milotic','Roserade','Jellicent',
-    'Braviary','Gastrodon','Licklicky','Bastiodon','Clefable',
+    'Braviary','Gastrodon','Lickilicky','Bastiodon','Clefable',
     'Rayquaza'
   ],
   'Shauntal': [
