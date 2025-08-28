@@ -75,7 +75,7 @@ const TRAINER_POKEMON = {
   ],
   'Agatha': [
     'Golduck','Lucario','Muk','Seismitoad','Krookodile','Gyarados',
-    'Rotom Horno','Shiftry','Gengar','Alakazam','Hydreigno','Arbok',
+    'Rotom Horno','Shiftry','Gengar','Alakazam','Hydreigon','Arbok',
     'Rotom Lavadora','Umbreon','Marowak','Toxicroak','Mandibuzz','Houndoom',
     'Rotom Ventilador','Crobat'
   ],
