@@ -83,7 +83,7 @@ const TRAINER_POKEMON = {
     'Lucario','Slowbro','Muk','Ursaring','Steelix','Staraptor',
     'Machamp','Darmanitan','Torterra','Blastoise','Eelektross','Metagross',
     'Hitmonlee','Gliscor','Electivire','Aggron','Hitmonchan','Salamence',
-    'Seismitoad','Seismitoad','Krookodile','Hitmontop','Poliwrath','Golem',
+    'Seismitoad','Krookodile','Hitmontop','Poliwrath','Golem',
     'Luxray','Blaziken','Heracross','Kangaskhan'
   ],
   'Agatha': [
