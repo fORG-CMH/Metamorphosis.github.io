@@ -15,6 +15,12 @@
   });
 })();
 
+// ===== Util =====
+function displayTrainerName(key){
+  // Muestra sin sufijo _1 / _2, etc.
+  return typeof key === 'string' ? key.replace(/_(\d+)$/, '') : key;
+}
+
 // ===== Referencias a vistas / nodos =====
 const regionsView     = document.getElementById('regionsView');
 const eliteView       = document.getElementById('eliteView');
@@ -67,7 +73,6 @@ const TRAINER_POKEMON = {
     'Dragonite','Lucario','Articuno','Claydol','Slowbro','Raichu',
     'Vileplume','Chansey'
   ],
-  // === Bruno (copias separadas por región) ===
   'Bruno_1': [
     'Lucario','Slowbro','Muk','Ursaring','Steelix','Staraptor',
     'Machamp','Darmanitan','Torterra','Blastoise','Eelektross','Metagross',
@@ -80,7 +85,6 @@ const TRAINER_POKEMON = {
     'Hitmonlee','Gliscor','Electivire','Aggron','Hitmonchan','Salamence',
     'Seismitoad','Infernape','Rhyperior','Heracross','Krookodile','Hitmontop'
   ],
-  // Conservamos el original por si lo usas en otra parte
   'Bruno': [
     'Lucario','Slowbro','Muk','Ursaring','Steelix','Staraptor',
     'Machamp','Darmanitan','Torterra','Blastoise','Eelektross','Metagross',
@@ -93,7 +97,6 @@ const TRAINER_POKEMON = {
     'Rotom Lavadora','Umbreon','Marowak','Toxicroak','Mandibuzz','Houndoom',
     'Rotom Ventilador','Crobat'
   ],
-  // === Lance (copias separadas por región) ===
   'Lance_1': [
     'Lapras','Dragonite','Lucario','Steelix','Eelektross','Metagross',
     'Electivire','Infernape','Gyarados','Hydreigon','Arbok','Charizard',
@@ -106,7 +109,6 @@ const TRAINER_POKEMON = {
     'Scrafty','Feraligatr','Kingdra','Scizor','Tyranitar','Ampharos',
     'Arcanine','Aerodactyl','Garchomp','Haxorus'
   ],
-  // Conservamos el original por si lo usas en otra parte
   'Lance': [
     'Lapras','Dragonite','Lucario','Steelix','Eelektross','Metagross',
     'Electivire','Infernape','Gyarados','Hydreigon','Arbok','Charizard',
@@ -256,7 +258,6 @@ const BADGE_COLORS = {
   rosado:  "#000000",
 };
 
-// Configura aquí el texto y color por Pokémon (ejemplos)
 const POKEMON_BADGES = {
   "Abomasnow": { text: "Leyenda", color: "amarillo" },
   "Absol": { text: "Leyenda", color: "marron" },
@@ -273,7 +274,7 @@ const POKEMON_BADGES = {
   "Banette": { text: "Leyenda", color: "marron" },
   "Beartic": { text: "Leyenda", color: "verde" },
   "Beautifly": { text: "Leyenda", color: "gris" },
-  "Beedrill": { text: "Leyenda", color: "amarillo" }, // (si no está en tus sprites, ignóralo)
+  "Beedrill": { text: "Leyenda", color: "amarillo" },
   "Bouffalant": { text: "Leyenda", color: "celeste" },
   "Braviary": { text: "Leyenda", color: "morado" },
   "Breloom": { text: "Leyenda", color: "amarillo" },
@@ -321,7 +322,7 @@ const POKEMON_BADGES = {
   "Golduck": { text: "Leyenda", color: "marron" },
   "Golurk": { text: "Leyenda", color: "marron" },
   "Gothitelle": { text: "Leyenda", color: "gris" },
-  "Groudon": { text: "Leyenda", color: "celeste" }, // (si no está en sprites, ignóralo)
+  "Groudon": { text: "Leyenda", color: "celeste" },
   "Gyarados": { text: "Leyenda", color: "marron" },
   "Haxorus": { text: "Leyenda", color: "azul" },
   "Heat Rotom": { text: "Leyenda", color: "rojo" },
@@ -339,7 +340,7 @@ const POKEMON_BADGES = {
   "Jolteon": { text: "Leyenda", color: "amarillo" },
   "Jynx": { text: "Leyenda", color: "rojo" },
   "Kabutops": { text: "Leyenda", color: "azul" },
-  "Karen": { text: "Leyenda", color: "morado" }, // (si aparece, lo puedes quitar)
+  "Karen": { text: "Leyenda", color: "morado" },
   "Kingdra": { text: "Leyenda", color: "marron" },
   "Kingler": { text: "Leyenda", color: "morado" },
   "Krookodile": { text: "Leyenda", color: "azul" },
@@ -415,7 +416,6 @@ const POKEMON_BADGES = {
   "Yanmega": { text: "Leyenda", color: "gris" }
 };
 
-
 function buildBadge(pokemonName){
   const cfg = POKEMON_BADGES[pokemonName];
   if(!cfg) return null;
@@ -459,11 +459,13 @@ function showElite(region){
 
   trainersList.innerHTML = '';
   ids.forEach((id, idx) => {
-    const nameText = names[idx] || `entrenador${id}`;
+    const keyName = names[idx] || `entrenador${id}`;
+    const displayName = displayTrainerName(keyName);
 
     const card = document.createElement('div');
     card.className = 'trainer';
-    card.dataset.trainer = nameText;
+    // dataset guarda el nombre "clave" (con _1/_2) para buscar equipos e imágenes
+    card.dataset.trainer = keyName;
     card.dataset.region = region;
     card.dataset.index = String(idx);
 
@@ -471,15 +473,15 @@ function showElite(region){
     portrait.className = 'portrait';
 
     const img = document.createElement('img');
-    img.src = `src/Entrenadores/${encodeURIComponent(nameText)}.png`;
-    img.alt = nameText;
+    img.src = `src/Entrenadores/${encodeURIComponent(keyName)}.png`; // usa el nombre con sufijo para el archivo
+    img.alt = displayName;
 
     const info = document.createElement('div');
     info.className = 'info';
 
     const name = document.createElement('div');
     name.className = 'name';
-    name.textContent = nameText;
+    name.textContent = displayName; // muestra sin _1/_2
 
     const role = document.createElement('div');
     role.className = 'role';
@@ -504,23 +506,22 @@ function showElite(region){
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function showPokemon(trainerName, region){
+function showPokemon(trainerKeyName, region){
   if (!pokemonView) return;
 
-  // Título: Team <Entrenador>
-  pokemonTitle.textContent = `Team ${trainerName}`;
-
-  // Breadcrumb
-  if (crumbPath) crumbPath.textContent = `${region} › ${trainerName}`;
+  // Mostrar título y breadcrumb sin sufijo
+  const displayName = displayTrainerName(trainerKeyName);
+  pokemonTitle.textContent = `Team ${displayName}`;
+  if (crumbPath) crumbPath.textContent = `${region} › ${displayName}`;
 
   // Índice del entrenador (para pager/teclas)
   if (currentTrainerIndex < 0) {
-    currentTrainerIndex = currentTrainerNames.indexOf(trainerName);
+    currentTrainerIndex = currentTrainerNames.indexOf(trainerKeyName);
   }
   updateTrainerPagerButtons();
 
   // Render Pokémon
-  const mons = TRAINER_POKEMON[trainerName] || [];
+  const mons = TRAINER_POKEMON[trainerKeyName] || [];
   pokemonList.innerHTML = '';
 
   if (!mons.length){
@@ -592,20 +593,20 @@ if (trainersList) {
   trainersList.addEventListener('click', (e) => {
     const card = e.target.closest('.trainer');
     if (!card) return;
-    const trainerName = card.dataset.trainer;
+    const trainerKeyName = card.dataset.trainer; // con sufijo
     const idx = Number(card.dataset.index);
     if (!Number.isNaN(idx)) currentTrainerIndex = idx;
-    if (trainerName) showPokemon(trainerName, currentRegion);
+    if (trainerKeyName) showPokemon(trainerKeyName, currentRegion);
   });
   trainersList.addEventListener('keydown', (e) => {
     if (e.key !== 'Enter' && e.key !== ' ') return;
     const card = e.target.closest('.trainer');
     if (!card) return;
     e.preventDefault();
-    const trainerName = card.dataset.trainer;
+    const trainerKeyName = card.dataset.trainer; // con sufijo
     const idx = Number(card.dataset.index);
     if (!Number.isNaN(idx)) currentTrainerIndex = idx;
-    if (trainerName) showPokemon(trainerName, currentRegion);
+    if (trainerKeyName) showPokemon(trainerKeyName, currentRegion);
   });
 }
 
@@ -621,15 +622,15 @@ if (prevTrainerBtn && nextTrainerBtn) {
   prevTrainerBtn.addEventListener('click', () => {
     if (currentTrainerIndex > 0) {
       currentTrainerIndex--;
-      const name = currentTrainerNames[currentTrainerIndex];
-      showPokemon(name, currentRegion);
+      const keyName = currentTrainerNames[currentTrainerIndex];
+      showPokemon(keyName, currentRegion);
     }
   });
   nextTrainerBtn.addEventListener('click', () => {
     if (currentTrainerIndex < currentTrainerNames.length - 1) {
       currentTrainerIndex++;
-      const name = currentTrainerNames[currentTrainerIndex];
-      showPokemon(name, currentRegion);
+      const keyName = currentTrainerNames[currentTrainerIndex];
+      showPokemon(keyName, currentRegion);
     }
   });
 }
@@ -658,14 +659,14 @@ document.addEventListener('keydown', (e) => {
   if (pokemonView && pokemonView.classList.contains('active')) {
     if (e.key === 'ArrowLeft' && currentTrainerIndex > 0) {
       currentTrainerIndex--;
-      const name = currentTrainerNames[currentTrainerIndex];
-      showPokemon(name, currentRegion);
+      const keyName = currentTrainerNames[currentTrainerIndex];
+      showPokemon(keyName, currentRegion);
       e.preventDefault();
       return;
     } else if (e.key === 'ArrowRight' && currentTrainerIndex < currentTrainerNames.length - 1) {
       currentTrainerIndex++;
-      const name = currentTrainerNames[currentTrainerIndex];
-      showPokemon(name, currentRegion);
+      const keyName = currentTrainerNames[currentTrainerIndex];
+      showPokemon(keyName, currentRegion);
       e.preventDefault();
       return;
     }
