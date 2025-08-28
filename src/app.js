@@ -83,7 +83,8 @@ const TRAINER_POKEMON = {
     'Lucario','Slowbro','Muk','Ursaring','Steelix','Staraptor',
     'Machamp','Darmanitan','Torterra','Blastoise','Eelektross','Metagross',
     'Hitmonlee','Gliscor','Electivire','Aggron','Hitmonchan','Salamence',
-    'Seismitoad','Infernape','Rhyperior','Heracross','Krookodile','Hitmontop'
+    'Seismitoad','Seismitoad','Krookodile','Hitmontop','Poliwrath','Golem',
+    'Luxray','Blaziken','Heracross','Kangaskhan'
   ],
   'Agatha': [
     'Golduck','Lucario','Muk','Seismitoad','Krookodile','Gyarados',
@@ -101,7 +102,7 @@ const TRAINER_POKEMON = {
     'Lapras','Dragonite','Lucario','Steelix','Eelektross','Metagross',
     'Electivire','Infernape','Gyarados','Hydreigon','Arbok','Charizard',
     'Scrafty','Feraligatr','Kingdra','Scizor','Tyranitar','Ampharos',
-    'Arcanine','Aerodactyl','Garchomp','Haxorus'
+    'Arcanine','Aerodactyl','Garchomp','Haxorus','Flygon','Kangaskhan'
   ],
   'Blue': [
     'Exeggutor','Magnezone','Nidoking','Machamp','Blastoise','Electivire',
