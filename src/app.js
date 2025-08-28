@@ -62,119 +62,155 @@ const REGION_NAMES = {
 // Rellena tú los equipos aquí (Pokemones/<Nombre>.png)
 const TRAINER_POKEMON = {
   'Lorelei': [
-    'Krookodile','Feraligatr','Banette','Lapras','Glalie','Scolipede',
-    'Golduck','Arbok','Chandelure','Reuniclus','Liepard','Snorlax',
-    'Raichu','Metagross','Claydol','Scizor','Jolteon','Tentacruel'
+    'Exeggutor','Magnezone','Golduck','Mantine','Nidoking','Lapras',
+    'Togekiss','Jynx','Hariyama','Nidoqueen','Bronzong','Weavile',
+    'Dragonite','Lucario','Articuno','Claydol','Slowbro','Raichu',
+    'Vileplume','Chansey'
   ],
   'Bruno': [
-    'Sawk','Weezing','Quagsire','Lanturn','Umbreon','Altaria',
-    'Tyranitar','Drifblim','Gallade','Haxorus','Magnezone','Abomasnow',
-    'Golduck','Beautifly','Machamp','Exeggutor','Arcanine','Liepard'
+    'Lucario','Slowbro','Muk','Ursaring','Steelix','Staraptor',
+    'Machamp','Darmanitan','Torterra','Blastoise','Eelektross','Metagross',
+    'Hitmonlee','Gliscor','Electivire','Aggron','Hitmonchan','Salamence',
+    'Seismitoad','Infernape','Rhyperior','Heracross','Krookodile','Hitmontop'
   ],
   'Agatha': [
-    'Musharna','Samurott','Lanturn','Crobat','Torterra','Charizard',
-    'Heracross','Froslass','Starmie','Banette','Sharpedo','Kingler',
-    'Luxray','Seviper','Mantine','Weavile','Snorlax','Scolipede'
+    'Golduck','Lucario','Muk','Seismitoad','Krookodile','Gyarados',
+    'Rotom Horno','Shiftry','Gengar','Alakazam','Hydreigno','Arbok',
+    'Rotom Lavadora','Umbreon','Marowak','Toxicroak','Mandibuzz','Houndoom',
+    'Rotom Ventilador','Crobat'
   ],
   'Lance': [
-    'Dragonite','Salamence','Garchomp','Haxorus','Kingdra','Rayquaza',
-    'Altaria','Girafig','Gyarados','Umbreon','Scrafty','Weavile',
-    'Glisscor','Honchkrow','Electrivire','Metagross','Vaporeon','Arcanine'
+    'Lapras','Dragonite','Lucario','Steelix','Eelektross','Metagross',
+    'Electivire','Infernape','Gyarados','Hydreigon','Arbok','Charizard',
+    'Scrafty','Feraligatr','Kingdra','Scizor','Tyranitar','Ampharos',
+    'Arcanine','Aerodactyl','Garchomp','Haxorus'
   ],
   'Blue': [
-    'Scyther','Sandslash','Absol','Druddigon','Claydol','Glaceon',
-    'Manectric','Camerupt','Gallade','Slowbro','Gengar','Banette',
-    'Umbreon','Starmie','Skuntank','Torterra','Tentacruel','Purugly'
+    'Exeggutor','Magnezone','Nidoking','Machamp','Blastoise','Electivire',
+    'Rhyperior','Gyarados','Alakazam','Umbreon','Charizard','Kingdra',
+    'Scizor','Tyranitar','Arcanine','Pidgeot','Espeon','Jolteon',
+    'Sandslash','Venusaur','Skarmory','Leafeon','Flareon','Poliwrath',
+    'Politoed','Vaporeon','Golem','Ninetales'
   ],
   'Will': [
-    'Mismagius','Hypno','Gothitelle','Musharna','Espeon','Reuniclus',
-    'Gardevoir','Banette','Slowking','Drifblim','Umbreon','Crobat',
-    'Jolteon','Licklicky','Arbok','Gyarados','Aggron','Machamp'
+    'Exeggutor','Magnezone','Golduck','Mantine','Jynx','Bronzong',
+    'Lucario','Claydol','Slowbro','Chansey','Electivire','Umbreon',
+    'Espeon','Jolteon','Flareon','Absol','Golurk','Empoleon',
+    'Altaria','Gardevoir','Liepard','Typhlosion','Girafarig','Clefable',
+    'Xatu','Hypno','Grumpig'
   ],
   'Koga': [
-    'Crobat','Ariados','Muk','Venomoth','Weezing','Skuntank',
-    'Drapion','Toxicroak','Scolipede','Tentacruel','Drifblim','Parasect',
-    'Liepard','Scrafty','Sharpedo','Houndoom','Cacturne','Dustox'
+    'Nidoking','Lapras','Nidoqueen','Lucario','Muk','Gliscor',
+    'Rhyperior','Gengar','Crobat','Scizor','Skarmory','Ninetales',
+    'Tentacruel','Sharpedo','Lanturn','Starmie','Bisharp','Samurott',
+    'Forretress','Skuntank','Ferrothorn','Tangrowth','Parasect','Magmortar',
+    'Hypno','Ariados','Ditto','Venomoth','Stunfisk','Swalot',
+    'Weezing','Electrode'
   ],
   'Karen': [
-    'Umbreon','Houndoom','Absol','Weavile','Honchkrow','Spiritomb',
-    'Toxicroak','Skuntank','Crobat','Luxray','Nidoking','Nidoqueen',
-    'Banette','Gengar','Mismagius','Drifblim','Liepard','Sableyee'
+    'Weavile','Lucario','Slowbro','Vileplume','Blastoise','Salamence',
+    'Rhyperior','Gyarados','Gengar','Hydreigon','Umbreon','Mismagius',
+    'Houndoom','Feraligatr','Tyranitar','Garchomp','Leafeon','Flareon',
+    'Flareon','Sableye','Absol','Luxray','Excadrill','Honchkrow','Gallade',
+    'Quagsire','Electrode','Primeape','Victreebel'
   ],
   'Sidney': [
-    'Houndoom','Umbreon','Cacturne','Drapion','Skuntank','Weavile',
-    'Absol','Sharpedo','Luxray','Spiritomb','Sandslash','Crobat',
-    'Torterra','Nidoking','Machamp','Glisscor','Breloom','Honchkrow'
+    'Magnezone','Hariyama','Darmanitan','Metagross','Electivire','Aggron',
+    'Salamence','Gyarados','Shiftry','Toxicroak','Mandibuzz','Scrafty',
+    'Scizor','Garchomp','Sableye','Absol','Tencruel','Luxray',
+    'Cacturne','Golurk','Mightyena','Spiritomb','Mienshao','Huntail',
+    'Excadrill','Crawdaunt','Scolipede','Sharpedo'
   ],
   'Phoebe': [
-    'Banette','Dusknor','Mismagius','Drifblim','Gengar','Spiritomb',
-    'Froslass','Mismagius','Sableyee','Gothitelle','Musharna','Cacturne',
-    'Arbok','Weavile','Drapion','Skuntank','Scrafty','Umbreon'
+    'Banette','Lucario','Raichu','Hydreigon','Rotom Lavadora','Umbreon',
+    'Mismagius','Mandibuzz','Houndoom','Arcanine','Ninetales','Sableye',
+    'Luxray','Mawile','Froslass','Dusknoir','Regice','Chandelure',
+    'Meganium','Honchkrow'
   ],
   'Glacia': [
-    'Froslass','Glalie','Abomasnow','Beartic','Walrein','Articuno',
-    'Vanilluxe','Lapras','Jynx','Vaporeon','Glisscor','Sandslash',
-    'Crobat','Dragonite','Salamence','Frost Rotom','Glaceon','Kingdra'
+    'Togekiss','Hariyama','Nidoqueen','Metagross','Mismagius','Skarmory',
+    'Mienshao','Froslass','Abomasnow','Walrein','Lanturn','Serperior',
+    'Vanilluxe','Gallade','Altaria','Glalie','Blissey','Beartic'
   ],
   'Drake': [
-    'Salamence','Dragonite','Haxorus','Garchomp','Kingdra','Altaria',
-    'Druddigon','Rayquaza','Flygon','Gyarados','Aerodactyl','Hydreigon',
-    'Girafig','Machamp','Arcanine','Lucario','Electrivire','Torterra'
+    'Nidoking','Lapras','Lucario','Eelektross','Metagross','Aagron',
+    'Salamence','Krookodile','Feraligatr','Kingdra','Ampharos','Haxorus',
+    'Empoleon','Gallade','Altaria','Regirock','Torkoal','Seviper',
+    'Floatzel','Sceptile','Flygon'
   ],
   'Wallace': [
-    'Milotic','Gyarados','Swampert','Ludicolo','Whishcash','Kingdra',
-    'Empoleon','Lapras','Politoed','Tentacruel','Starmie','Seismitoad',
-    'Seaking','Cloyster','Omastar','Kabutops','Huntail','Vaporeon'
+    'Togekiss','Dragonite','Eelektross','Metagross','Gyarados','Tentacruel',
+    'Mienshao','Empoleon','Walrein','Lanturn','Serperior','Altaria',
+    'Swampert','Registeel','Milotic','Seaking','Roserade','Wailord',
+    'Starmie','Ludicolo','Whiscash','Gardevoir'
   ],
   'Aaron': [
-    'Beautifly','Yanmega','Dustox','Vespiquen','Scizor','Heracross',
-    'Drapion','Skuntank','Cacturne','Parasect','Scyther','Accelgor',
-    'Crustle','Scolipede','Galvantula','Forretres','Volcarona','Beartic'
+    'Steelix','Gliscor','Heracross','Drapion','Scizor','Tyranitar',
+    'Kingler','Crawdaunt','Sceptile','Flygon','Volcarona','Escavalier',
+    'Vespiquen','Omastar','Durant','Kabutops','Forretress','Skuntank',
+    'Crustle','Octillery','Scyther','Gastrodon','Ferrothorn','Beautifly',
+    'Yanmega','Dustox',
   ],
   'Bertha': [
-    'Hippowdon','Golem','Donphan','Rhyperior','Seismitoad','Sandslash',
-    'Swampert','Quagsire','Gastrodon','Steelix','Camerupt','Gliscor',
-    'Torterra','Roserade','Kingdra','Kabutops','Omastar','Crustle'
+    'Nidoking','Bronzong','Cloyster','Steelix','Blastoise','Gliscor',
+    'Seismitoad','Rhyperior','Gengar','Skarmory','Golem','Sableye',
+    'Absol','Walrein','Whiscash','Druddigon','Durant','Forretress',
+    'Tangrowt','Camerupt','Quagsire','Emboar','Sudowoodo','Parasect',
+    'Hippowdon','Amoonguss','Donphan'
   ],
   'Flint': [
-    'Houndoom','Magmortar','Rapidash','Charizard','Infernape','Flareon',
-    'Camerupt','Arcanine','Torkoal','Emboar','Volcarona','Heat Rotom',
-    'Blaziken','Ninetales','Luxray','Manectric','Scizor','Electrivire'
+    'Bronzong','Dragonite','Lucario','Steelix','Salamence','Infernape',
+    'Rotom Horno','Houndoom','Charizard','Arcanine','Haxorus','Flareon',
+    'Ninetales','Cacturne','Ludicolo','Drifblim','Entei','Conkeldurr',
+    'Medicham','Bouffalant','Camerupt','Magmortar','Rapidash',
+    'Maractus','Lopunny','Typhlosion','Blaziken'
   ],
   'Lucian': [
-    'Alakazam','Gothitelle','Musharna','Reuniclus','Gardevoir','Metagross',
-    'Gallade','Jynx','Girafig','Hypno','Slowking','Slowbro',
-    'Bronzong','Espeon','Mismagius','Banette','Dusknor','Claydol'
+    'Golduck','Bronzong','Dragonite','Lucario','Raichu','Metagross',
+    'Alakazam','Hydreigon','Mismagius','Espeon','Ninetales','Absol',
+    'Empoleon','Gallade','Gardevoir','Sigilyph','Medicham','Noctowl',
+    'Girafarig','Kecleon','Stantler'
   ],
   'Cynthia': [
-    'Garchomp','Togekiss','Spiritomb','Lucario','Milotic','Roserade',
-    'Glaceon','Gastrodon','Staraptor','Giratina','Girafig','Umbreon',
-    'Snorlax','Gengar','Heracross','Metagross','Luxray','Lopunny'
+    'Lapras','Togekiss','Nidoqueen','Bronzong','Lucario','Eelektross',
+    'Metagross','Heracross','Umbreon','Mismagius','Tyranitar','Arcanine',
+    'Aerodactyl','Garchomp','Glaceon','Spiritomb','Excadrill','Chandelure',
+    'Serperior','Altaria','Milotic','Roserade','Jellicent',
+    'Braviary','Gastrodon','Licklicky','Bastiodon','Clefable',
+    'Rayquaza'
   ],
   'Shauntal': [
-    'Chandelure','Banette','Dusknor','Drifblim','Mismagius','Cofagrigus',
-    'Spiritomb','Gengar','Froslass','Sableyee','Golurk','Honchkrow',
-    'Skuntank','Amoongus','Cacturne','Drapion','Musharna','Sigilyph'
+    'Bronzong','Banette','Dragonite','Lucario','Eelektross','Gengar',
+    'Hydreigon','Rotom Lavadora','Umbreon','Mismagius','Toxicroak','Jolteon',
+    'Absol','Luxray','Golurk','Froslass','Chandelure','Milotic','Milotic',
+    'Purugly','Bisharp','Drifblim','Liepard'
   ],
   'Grimsley': [
-    'Weavile','Honchkrow','Scrafty','Drapion','Skuntank','Cacturne',
-    'Umbreon','Absol','Tyranitar','Houndoom','Krookodile','Sharpedo',
-    'Sandslash','Nidoking','Electrivire','Manectric','Luxray','Spiritomb'
+    'Staraptor','Salamence','Krookodile','Gyarados','Mismagius','Houndoom',
+    'Crobat','Scrafty','Kingdra','Tyranitar','Garchomp','Haxorus',
+    'Espeon','Absol','Luxray','Spiritomb','Sharpedo','Chandelure',
+    'Honchkrow','Serperior','Roserade','Bisharp','Liepard',
+    'Samurott'
   ],
   'Caitlin': [
-    'Reuniclus','Musharna','Gothitelle','Metagross','Espeon','Alakazam',
-    'Gardevoir','Jynx','Slowbro','Slowking','Girafig','Chandelure',
-    'Sigilyph','Claydol','Froslass','Mismagius','Banette','Lopunny'
+    'Togekiss','Nidoqueen','Bronzong','Raichu','Staraptor','Metagross',
+    'Alakazam','Umbreon','Houndoom','Jolteon','Jolteon','Leafeon',
+    'Vaporeon','Absol','Mienshao','Slowking','Snorlax','Cinccino',
+    'Sigilyph','Reuniclus','Emolga','Entei','Gothitelle','Musharna'
   ],
   'Marshal': [
-    'Machamp','Conkeldurr','Sawk','Throh','Breloom','Medicham',
-    'Hariyama','Hitmonlee','Hitmonchan','Hitmontop','Gallade','Scrafty',
-    'Lucario','Toxicroak','Heracross','Crobat','Krookodile','Bouffalant'
+    'Magnezone','Lucario','Machamp','Metagross','Gliscor','Electivire',
+    'Aggron','Salamence','Seismitoad','Krookodile','Gyarados','Toxicroak',
+    'Tyranitar','Haxorus','Skarmory','Luxray','Golurk','Mienshao',
+    'Crawdaunt','Dusknoir','Carracosta','Conkeldurr','Sawk','Throh',
+    'Breloom','Medicham'
   ],
   'Alder': [
-    'Volcarona','Bouffalant','Escavalier','Accelgor','Druddigon','Vanilluxe',
-    'Conkeldurr','Gigalith','Haxorus','Braviary','Seismitoad','Arcanine',
-    'Gyarados','Snorlax','Roserade','Glisscor','Kingdra','Torterra'
+    'Dragonite','Lucario','Seismitoad','Krookodile','Feraligatr','Sandslash',
+    'Vaporeon','Excadrill','Chandelure','Vanilluxe','Floatzel','Samurott',
+    'Reuniclus','Conkeldurr','Druddigon','Archeops','Volcarona','Manectric',
+    'Bouffalant','Latias','Escavalier','Latios','Accelgor','Gigalith',
+    'Braviary'
   ]
 };
 
@@ -238,7 +274,7 @@ const POKEMON_BADGES = {
   "Feraligatr": { text: "Leyenda", color: "gris" },
   "Flareon": { text: "Leyenda", color: "azul" },
   "Flygon": { text: "Leyenda", color: "rojo" },
-  "Forretres": { text: "Leyenda", color: "amarillo" },
+  "Forretress": { text: "Leyenda", color: "amarillo" },
   "Froslass": { text: "Leyenda", color: "gris" },
   "Frost Rotom": { text: "Leyenda", color: "rosado" },
   "Gallade": { text: "Leyenda", color: "celeste" },
