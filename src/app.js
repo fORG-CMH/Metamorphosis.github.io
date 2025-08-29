@@ -249,7 +249,7 @@ const BADGE_COLORS = {
 
 const POKEMON_BADGES = {
   "Abomasnow": { text: "Leyenda", color: "amarillo" },
-  "Dragonite": { text: "Leyenda", color: "amarillo" },
+  "Dragonite": { text: "trick thunderbolt chandelure 2+2", color: "amarillo" },
   "Vileplume": { text: "Leyenda", color: "amarillo" },
   "Hariyama": { text: "Leyenda", color: "amarillo" },
   "Steelix": { text: "Leyenda", color: "amarillo" },
