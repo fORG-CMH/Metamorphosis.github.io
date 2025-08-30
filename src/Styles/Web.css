@@ -358,12 +358,14 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
     0 8px 18px rgba(0,0,0,0.65);
 }
 
+
 .pokemon-card:hover .poke-badge{
   transform: translateY(-1px);
   box-shadow:
     0 10px 26px rgba(0,0,0,.35),
     inset 0 1px 0 rgba(255,255,255,.08);
 }
+
 
 /* === Hover de Pokémon igual a entrenadores === */
 .pokemon-card{
@@ -401,106 +403,3 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   color:#e11d48;
   text-shadow: 0 1px 12px rgba(225,29,72,.45);
 }
-
-/* ===== MODAL GUÍAS: inicio ===== */
-.guide-overlay {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,.45);
-  backdrop-filter: blur(2px);
-  z-index: 80;
-}
-
-.guide-modal {
-  position: fixed; inset: 0;
-  display: grid; place-items: center;
-  z-index: 81;
-}
-
-.guide-card{
-  width: min(1000px, 92vw);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  box-shadow: 0 12px 40px rgba(0,0,0,.35);
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 0;
-  position: relative;
-  overflow: hidden;
-}
-
-.guide-close{
-  position: absolute; top: 8px; right: 8px;
-  width: 34px; height: 34px; border-radius: 999px;
-  border: 1px solid var(--border);
-  background: rgba(0,0,0,.05);
-  color: var(--text);
-  cursor: pointer; font-size: 16px;
-}
-
-.guide-left{
-  padding: 22px;
-  background: #1b5e20; /* se sobreescribe por JS (getGuideColor) */
-  display: grid; place-items: center;
-}
-.guide-left-inner{
-  width: 100%; height: 100%;
-  border: 1px solid rgba(255,255,255,.15);
-  border-radius: 14px; display: grid;
-  align-content: space-between;
-  padding: 18px;
-}
-.guide-left-title{
-  color: #fff; font-weight: 800; font-size: 22px;
-  text-shadow: 0 2px 12px rgba(0,0,0,.35);
-}
-.guide-left-cta{
-  width: 100%;
-  background: rgba(255,255,255,.12);
-  color: #fff; border: 1px solid rgba(255,255,255,.18);
-  border-radius: 12px; padding: 12px 14px;
-  font-weight: 700; cursor: pointer;
-}
-
-.guide-right{ padding: 18px 18px 12px 18px; background: var(--surface); }
-.guide-right-header{ margin-bottom: 10px; }
-.guide-right-title{
-  color: var(--text); font-weight: 800; font-size: 18px;
-}
-.guide-right-sub{
-  color: var(--muted); font-size: 13px; margin-top: 2px;
-}
-
-.guide-steps{ display: grid; gap: 8px; padding: 6px 2px 14px 2px; }
-
-.guide-step{
-  background: rgba(0,0,0,.03);
-  border: 1px dashed var(--border);
-  border-radius: 12px;
-  display: grid; grid-template-columns: 1fr auto; align-items: center;
-  padding: 10px 12px;
-}
-.guide-step.sub{
-  margin-left: 18px;
-  background: rgba(0,0,0,.02);
-}
-.guide-step-col{ min-width: 0; }
-.guide-step-title{
-  color: var(--text); font-weight: 800; font-size: 14px; line-height: 1.15;
-}
-.guide-step-note{
-  color: #e57373; font-size: 13px; margin-top: 4px;
-}
-.guide-chip{
-  background: rgba(0,0,0,.04);
-  border: 1px solid var(--border);
-  color: var(--text); font-weight: 800; font-size: 12px;
-  padding: 8px 10px; border-radius: 10px; cursor: pointer;
-}
-
-/* Responsive modal */
-@media (max-width: 860px){
-  .guide-card{ grid-template-columns: 1fr; }
-  .guide-left{ min-height: 160px; }
-}
-/* ===== MODAL GUÍAS: fin ===== */
