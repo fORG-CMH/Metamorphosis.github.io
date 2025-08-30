@@ -1,11 +1,11 @@
-// ===== Tema dark/light (persistente) =====
+// ===== Tema dark/light (persistente)
 (function () {
   const root = document.documentElement;
   const btn = document.getElementById('themeToggle');
   const saved = localStorage.getItem('theme');
   if (saved === 'light' || saved === 'dark') {
     root.setAttribute('data-theme', saved);
-    btn.textContent = saved === 'dark' ? '🌙' : '☀️';
+    if (btn) btn.textContent = saved === 'dark' ? '🌙' : '☀️';
   }
   btn?.addEventListener('click', () => {
     const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
@@ -15,24 +15,12 @@
   });
 })();
 
-// ===== Util =====
+// ===== Util
 function displayTrainerName(key){
   return typeof key === 'string' ? key.replace(/_(\d+)$/, '') : key;
 }
 
-function buildBadge(trainerKey, pokemonName){
-  const t = TRAINER_BADGES[trainerKey];
-  if(!t) return null;
-  const cfg = t[pokemonName];
-  if(!cfg) return null;
-  const el = document.createElement("div");
-  el.className = "poke-badge";
-  el.textContent = cfg.text;
-  el.style.backgroundColor = BADGE_COLORS[cfg.color] ?? BADGE_COLORS.azul;
-  return el;
-}
-
-// ===== Referencias a vistas / nodos =====
+// ===== Referencias
 const regionsView     = document.getElementById('regionsView');
 const eliteView       = document.getElementById('eliteView');
 const trainersList    = document.getElementById('trainersList');
@@ -53,7 +41,7 @@ const nextRegionBtn   = document.getElementById('nextRegionBtn');
 
 const selectRegionBtn = document.getElementById('selectRegionBtn');
 
-// ===== Datos base =====
+// ===== Datos base (coinciden con tus sprites y claves *_1 / *_2)
 const REGIONS = ["Kanto", "Johto", "Hoenn", "Sinnoh", "Unova"];
 
 const REGION_IMAGES = {
@@ -72,18 +60,19 @@ const REGION_NAMES = {
   Unova:  ['Shauntal', 'Grimsley', 'Caitlin', 'Marshal', 'Alder']
 };
 
-// ===== Estado =====
+// ===== Estado
 let currentRegion = null;
 let currentRegionIndex = -1;
 let currentTrainerNames = [];
 let currentTrainerIndex = -1;
 
-// ===== Navegación entre vistas =====
+// ===== Vistas
 function showRegions(){
   currentRegion = null;
   currentRegionIndex = -1;
   currentTrainerNames = [];
   currentTrainerIndex = -1;
+
   pokemonView?.classList.remove('active');
   eliteView.classList.remove('active');
   regionsView.classList.add('active');
@@ -108,9 +97,9 @@ function showElite(region){
 
     const card = document.createElement('div');
     card.className = 'trainer';
-    card.dataset.trainer = keyName;
-    card.dataset.region = region;
-    card.dataset.index = String(idx);
+    card.dataset.trainer = keyName;     // clave con sufijo
+    card.dataset.region  = region;
+    card.dataset.index   = String(idx);
 
     const portrait = document.createElement('div');
     portrait.className = 'portrait';
@@ -161,7 +150,10 @@ function showPokemon(trainerKeyName, region){
   }
   updateTrainerPagerButtons();
 
-  const mons = TRAINER_POKEMON[trainerKeyName] || [];
+  // forza el grid correcto para tu CSS
+  pokemonList.classList.add('pokemon-grid');
+
+  const mons = (typeof TRAINER_POKEMON !== 'undefined' ? (TRAINER_POKEMON[trainerKeyName] || []) : []);
   pokemonList.innerHTML = '';
 
   if (!mons.length){
@@ -188,13 +180,22 @@ function showPokemon(trainerKeyName, region){
     const img = document.createElement('img');
     img.src = `src/Pokemones/${encodeURIComponent(monName)}.gif`;
     img.alt = monName;
+
     portrait.appendChild(img);
 
-    monCard.appendChild(nameBar);
-    monCard.appendChild(portrait);
+    monCard.appendChild(nameBar);   // nombre arriba
+    monCard.appendChild(portrait);  // imagen debajo
 
-    const __badge = buildBadge(trainerKeyName, monName);
-    if(__badge) monCard.appendChild(__badge);
+    // Badge por entrenador + pokémon (definido en Badges.js)
+    try {
+      if (typeof buildBadge === 'function') {
+        const badgeEl = buildBadge(trainerKeyName, monName);
+        if (badgeEl) monCard.appendChild(badgeEl);
+      }
+    } catch(_) {}
+
+    // Abrir guía al click (definida en Guides.js)
+    monCard.addEventListener('click', () => openGuide(trainerKeyName, monName));
 
     pokemonList.appendChild(monCard);
   });
@@ -205,7 +206,7 @@ function showPokemon(trainerKeyName, region){
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ===== Listeners =====
+// ===== Navegación base
 selectRegionBtn?.addEventListener('click', showRegions);
 
 document.querySelectorAll('.view-elite').forEach(a => {
@@ -224,6 +225,7 @@ backToEliteBtn?.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
+// Delegación: entrenadores
 if (trainersList) {
   trainersList.addEventListener('click', (e) => {
     const card = e.target.closest('.trainer');
@@ -245,6 +247,7 @@ if (trainersList) {
   });
 }
 
+// ===== Pager entrenadores
 function updateTrainerPagerButtons(){
   if (!prevTrainerBtn || !nextTrainerBtn) return;
   const total = currentTrainerNames.length;
@@ -269,6 +272,7 @@ if (prevTrainerBtn && nextTrainerBtn) {
   });
 }
 
+// ===== Pager regiones
 prevRegionBtn?.addEventListener('click', () => {
   if (currentRegionIndex > 0) {
     const target = REGIONS[currentRegionIndex - 1];
@@ -282,26 +286,29 @@ nextRegionBtn?.addEventListener('click', () => {
   }
 });
 
+// ===== Teclas ← / →
 document.addEventListener('keydown', (e) => {
   const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
   if (tag === 'input' || tag === 'textarea' || e.metaKey || e.ctrlKey || e.altKey) return;
 
+  // En vista Pokémon: ←/→ cambia de entrenador
   if (pokemonView && pokemonView.classList.contains('active')) {
     if (e.key === 'ArrowLeft' && currentTrainerIndex > 0) {
       currentTrainerIndex--;
-      const keyName = currentTrainerNames[currentTrainerIndex];
-      showPokemon(keyName, currentRegion);
+      const name = currentTrainerNames[currentTrainerIndex];
+      showPokemon(name, currentRegion);
       e.preventDefault();
       return;
     } else if (e.key === 'ArrowRight' && currentTrainerIndex < currentTrainerNames.length - 1) {
       currentTrainerIndex++;
-      const keyName = currentTrainerNames[currentTrainerIndex];
-      showPokemon(keyName, currentRegion);
+      const name = currentTrainerNames[currentTrainerIndex];
+      showPokemon(name, currentRegion);
       e.preventDefault();
       return;
     }
   }
 
+  // En vista Elite: ←/→ cambia de región
   if (eliteView && eliteView.classList.contains('active')) {
     if (e.key === 'ArrowLeft' && currentRegionIndex > 0) {
       showElite(REGIONS[currentRegionIndex - 1]);
@@ -314,6 +321,7 @@ document.addEventListener('keydown', (e) => {
     }
   }
 
+  // En vista Regiones: ←/→ entra a Elite y navega
   if (regionsView && regionsView.classList.contains('active')) {
     if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
       if (currentRegionIndex < 0) currentRegionIndex = 0;
@@ -328,3 +336,99 @@ document.addEventListener('keydown', (e) => {
     }
   }
 });
+
+// ===== Modal Guía (usa Guides.js)
+const guideOverlay = document.getElementById('guideOverlay');
+const guideModal   = document.getElementById('guideModal');
+const guideClose   = document.getElementById('guideCloseBtn');
+
+const guideLeftTitle = document.getElementById('guideLeftTitle');
+const guideLeftCta   = document.getElementById('guideLeftCta');
+const guideRightTitle= document.getElementById('guideRightTitle');
+const guideRightSub  = document.getElementById('guideRightSub');
+const guideStepsBox  = document.getElementById('guideSteps');
+
+function openGuide(trainerKey, pokemonName){
+  const keyNoSuffix = displayTrainerName(trainerKey);
+  const sourceA = (typeof POKEMON_GUIDES !== 'undefined' ? POKEMON_GUIDES[trainerKey] : null);
+  const sourceB = (typeof POKEMON_GUIDES !== 'undefined' ? POKEMON_GUIDES[keyNoSuffix] : null);
+  const data = (sourceA && sourceA[pokemonName]) || (sourceB && sourceB[pokemonName]) || null;
+
+  const guide = data || {
+    left:   { text: "No guide yet", color: "gris" },
+    header: { title: `${keyNoSuffix} · ${pokemonName}`, subtitle: "" },
+    steps:  [{ title: "Sin pasos", note: "Aún no has definido una guía para este Pokémon." }]
+  };
+
+  guideLeftTitle.textContent = guide.left?.text || "";
+  const left = document.querySelector('.guide-left');
+  if (left && typeof getGuideColor === 'function') {
+    left.style.background = getGuideColor(guide.left?.color);
+  }
+
+  guideRightTitle.textContent = guide.header?.title || "";
+  guideRightSub.textContent   = guide.header?.subtitle || "";
+
+  guideStepsBox.innerHTML = "";
+  (guide.steps || []).forEach(step => {
+    const row = document.createElement('div');
+    row.className = 'guide-step';
+
+    const col = document.createElement('div');
+    col.className = 'guide-step-col';
+    const h = document.createElement('div');
+    h.className = 'guide-step-title';
+    h.textContent = step.title;
+    const p = document.createElement('div');
+    p.className = 'guide-step-note';
+    p.textContent = step.note || "";
+    col.appendChild(h);
+    if (step.note) col.appendChild(p);
+
+    const chip = document.createElement('button');
+    chip.className = 'guide-chip';
+    chip.textContent = (step.count != null) ? `check team  ${step.count}` : 'check team';
+
+    row.appendChild(col);
+    row.appendChild(chip);
+    guideStepsBox.appendChild(row);
+
+    if (Array.isArray(step.sub) && step.sub.length){
+      step.sub.forEach(s => {
+        const subRow = document.createElement('div');
+        subRow.className = 'guide-step sub';
+        const sc = document.createElement('div');
+        sc.className = 'guide-step-col';
+        const sh = document.createElement('div');
+        sh.className = 'guide-step-title';
+        sh.textContent = `↳ ${s.title}`;
+        const sp = document.createElement('div');
+        sp.className = 'guide-step-note';
+        sp.textContent = s.note || "";
+        sc.appendChild(sh);
+        if (s.note) sc.appendChild(sp);
+        subRow.appendChild(sc);
+        guideStepsBox.appendChild(subRow);
+      });
+    }
+  });
+
+  guideOverlay.hidden = false;
+  guideModal.hidden   = false;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeGuide(){
+  guideOverlay.hidden = true;
+  guideModal.hidden   = true;
+  document.body.style.overflow = '';
+}
+
+guideClose?.addEventListener('click', closeGuide);
+guideOverlay?.addEventListener('click', closeGuide);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !guideModal.hidden) closeGuide();
+});
+
+// ===== Inicio: muestra regiones por defecto
+showRegions();
