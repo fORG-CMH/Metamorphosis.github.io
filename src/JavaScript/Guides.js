@@ -1,18 +1,38 @@
-// ===== Guías por Entrenador/Pokémon (para el modal de detalle) =====
+// src/JavaScript/Guides.js
+// Estructura de ejemplo: puedes añadir más entrenadores/pokémon
 const TRAINER_GUIDES = {
-  'Lorelei': {
-    'Exeggutor': {
-      title: 'switch chandelure',
-      meta: 'Alder · Lucario',
-      checkAllLabel: 'check all teams',
+  "Alder": {
+    "Lucario": {
+      title: "Switch Chandelure",
+      meta: "Alder · Lucario",
+      checkAllLabel: "check all teams",
       steps: [
-        { title: 'Close Combat', notes: ['trick lock stone edge, scrafty 3'], checkTeam: 'check team', badges: [2] },
-        { title: 'High Jump Kick', notes: ['trick'], checkTeam: 'check team', badges: [4,7] },
-        { title: 'Crunch', notes: ['see chandelure whether fainted'], checkTeam: 'check team', badges: [] },
-        { title: 'Chandelure No Faint', notes: ['scrafty 5 or 3x atk, / beat up kill excadrill'], checkTeam: 'check team', badges: [] },
-        { title: 'Chandelure Killed', notes: ['send out metagross trick, lock excadrill, cloyster 4 lucario stay, then trick one time'], checkTeam: 'check team', badges: [] },
-        { title: 'Final Gambit', notes: ['trick change item, scrafty 2, drain punch (absorb) kill sandslash'], checkTeam: 'check team', badges: [7] },
-        { title: 'Faced Krookodile', notes: ['cloyster 4, / ice kill lucario'], checkTeam: 'check team', badges: [2] }
+        {
+          // lo que va a la izquierda
+          leftMain: "lock rhypherior",
+          arrowTo: true,
+          highlight: "hydreigon 2+2",
+          tags: ["hp cannot low75%"],
+          // lo que va a la derecha
+          checkTeam: "check team",
+          teamNums: [9]
+        },
+        {
+          leftMain: "lock magnezone",
+          arrowTo: true,
+          highlight: "garchomp 2+1+2",
+          tags: ["earthquake poliwrath sandslash SASH"],
+          checkTeam: "check team",
+          teamNums: [10,12]
+        },
+        {
+          leftMain: "lock sandslash",
+          arrowTo: true,
+          highlight: "garchomp 2+1+2",
+          tags: ["dual chop +earthquake magnezone"],
+          checkTeam: "check team",
+          teamNums: [10]
+        }
       ]
     }
   }

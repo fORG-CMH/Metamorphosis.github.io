@@ -221,7 +221,6 @@ function showPokemon(trainerKeyName, region){
 // ====== Abrir guía (reemplaza la vista) ======
 function openGuide(trainerKey, pokemonName){
   const data = (typeof TRAINER_GUIDES !== 'undefined' && TRAINER_GUIDES?.[trainerKey]?.[pokemonName]) || null;
-
   const dispTrainer = displayTrainerName(trainerKey);
 
   guideCrumb.textContent   = `${currentRegion ?? '—'} › ${dispTrainer} › ${pokemonName}`;
@@ -242,50 +241,88 @@ function openGuide(trainerKey, pokemonName){
   if (data?.checkAllLabel){
     checkAllBtn.style.display = '';
     checkAllBtn.textContent = data.checkAllLabel;
-    checkAllBtn.onclick = () => alert('All teams — (define acción si quieres)');
+    checkAllBtn.onclick = () => alert('All teams — (define acción)');
   } else {
     checkAllBtn.style.display = 'none';
     checkAllBtn.onclick = null;
   }
 
+  // --- RENDER DE PASOS EN UNA SOLA LÍNEA ---
   guideStepsEl.innerHTML = '';
-  if (!data?.steps?.length){
+  const steps = Array.isArray(data?.steps) ? data.steps : [];
+
+  if (!steps.length){
     const empty = document.createElement('div');
     empty.className = 'step';
-    empty.innerHTML = '<div class="step-title">Sin guía disponible</div>';
+    empty.innerHTML = '<div class="step-left"><div class="step-title">Sin guía disponible</div></div>';
     guideStepsEl.appendChild(empty);
   } else {
-    data.steps.forEach(s => {
-      const step = document.createElement('div');
-      step.className = 'step';
+    steps.forEach(s => {
+      const row = document.createElement('div');
+      row.className = 'step';
 
-      const head = document.createElement('div');
-      head.className = 'step-head';
+      // izquierda
+      const left = document.createElement('div');
+      left.className = 'step-left';
 
-      const ttl = document.createElement('div');
-      ttl.className = 'step-title';
-      ttl.textContent = s.title || 'Step';
-      head.appendChild(ttl);
+      const title = document.createElement('div');
+      title.className = 'step-title';
+
+      // Formato nuevo recomendado
+      if (s.leftMain || s.highlight || s.tags){
+        const arrowHtml = s.arrowTo ? `<span class="arrow">→</span>` : ` <span class="arrow">--></span> `;
+        title.innerHTML =
+          `<strong>${s.leftMain || s.title || ''}</strong>` +
+          (s.arrowTo || s.highlight ? ` ${arrowHtml} ` : ' ') +
+          (s.highlight ? `<span class="highlight">${s.highlight}</span>` : '');
+
+        if (Array.isArray(s.tags)) {
+          s.tags.forEach(t => {
+            const tag = document.createElement('span');
+            tag.className = 'tag';
+            tag.textContent = t;
+            title.appendChild(tag);
+          });
+        }
+      } else {
+        // Fallback formato antiguo
+        title.textContent = s.title || 'Step';
+        if (Array.isArray(s.notes) && s.notes.length){
+          const tag = document.createElement('span');
+          tag.className = 'tag';
+          tag.textContent = s.notes.join(' · ');
+          title.appendChild(tag);
+        }
+      }
+
+      left.appendChild(title);
+      row.appendChild(left);
+
+      // derecha (botón)
+      const right = document.createElement('div');
+      right.className = 'step-right';
 
       if (s.checkTeam){
         const btn = document.createElement('button');
         btn.className = 'btn tiny';
         btn.type = 'button';
-        btn.textContent = s.checkTeam + (s.badges?.length ? ` ${s.badges.join(' · ')}` : '');
+        btn.textContent = s.checkTeam;
+
+        if (Array.isArray(s.teamNums) && s.teamNums.length){
+          s.teamNums.forEach(n => {
+            const span = document.createElement('span');
+            span.className = 'num';
+            span.textContent = n;
+            btn.appendChild(span);
+          });
+        }
+
         btn.addEventListener('click', () => alert('check team — (define acción)'));
-        head.appendChild(btn);
+        right.appendChild(btn);
       }
 
-      step.appendChild(head);
-
-      if (s.notes?.length){
-        const notes = document.createElement('div');
-        notes.className = 'notes';
-        notes.innerHTML = s.notes.map(line => `<span class="sub"><span class="arrow">→</span>${line}</span>`).join('');
-        step.appendChild(notes);
-      }
-
-      guideStepsEl.appendChild(step);
+      row.appendChild(right);
+      guideStepsEl.appendChild(row);
     });
   }
 
