@@ -93,10 +93,34 @@
     </section>
   </main>
 
+  <!-- ===== Modal de Guías ===== -->
+  <div id="guideOverlay" class="guide-overlay" hidden></div>
+  <div id="guideModal" class="guide-modal" hidden>
+    <div class="guide-card">
+      <button id="guideCloseBtn" class="guide-close" aria-label="Close">✕</button>
+
+      <div class="guide-left">
+        <div class="guide-left-inner">
+          <div id="guideLeftTitle" class="guide-left-title">—</div>
+          <button id="guideLeftCta" class="guide-left-cta" type="button">check all teams</button>
+        </div>
+      </div>
+
+      <div class="guide-right">
+        <div class="guide-right-header">
+          <div id="guideRightTitle" class="guide-right-title">—</div>
+          <div id="guideRightSub" class="guide-right-sub"></div>
+        </div>
+        <div id="guideSteps" class="guide-steps"></div>
+      </div>
+    </div>
+  </div>
+  <!-- ===== Fin Modal de Guías ===== -->
+
+  <!-- Scripts (orden importante) -->
   <script src="src/JavaScript/Trainer_Poke.js"></script>
   <script src="src/JavaScript/Badges.js"></script>
+  <script src="src/JavaScript/Guides.js"></script>
   <script src="src/JavaScript/App.js"></script>
 </body>
 </html>
-
-
