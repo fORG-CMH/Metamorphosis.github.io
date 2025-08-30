@@ -1,102 +1,101 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="dark">
+<html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>PokeGuía</title>
-
-  <!-- Fuente -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PokéGuía</title>
   <link rel="stylesheet" href="src/Styles/Web.css" />
 </head>
 <body>
-  <header class="topbar">
-    <div class="brand">
-      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" alt="logo" />
-      <span>PokeGuía</span>
-    </div>
-    <div class="actions">
-      <button class="btn ghost" id="selectRegionBtn" type="button">Select Region</button>
-      <button class="btn icon" id="themeToggle" aria-label="Cambiar tema" title="Cambiar tema">🌙</button>
-    </div>
+  <header class="header">
+    <h1 class="logo">PokéGuía</h1>
+    <nav class="nav">
+      <button id="selectRegionBtn">Select Region</button>
+      <button id="themeToggle">🌙</button>
+    </nav>
   </header>
 
-  <main class="container">
-    <!-- Vista: Regiones -->
+  <!-- ===== Vistas SPA ===== -->
+  <main>
+    <!-- Vista de regiones -->
     <section id="regionsView" class="view active">
-      <h1>Choose a Region</h1>
-      <p class="subtitle">Select a region to see its Elite Four and Champion.</p>
-
-      <section class="grid">
-        <article class="card">
+      <div class="regions-grid">
+        <div class="region-card">
           <h2>Kanto</h2>
-          <a class="btn primary view-elite" data-region="Kanto" href="#">View Elite Four</a>
-        </article>
-
-        <article class="card">
+          <button class="view-elite" data-region="Kanto">View Elite Four</button>
+        </div>
+        <div class="region-card">
           <h2>Johto</h2>
-          <a class="btn primary view-elite" data-region="Johto" href="#">View Elite Four</a>
-        </article>
-
-        <article class="card">
+          <button class="view-elite" data-region="Johto">View Elite Four</button>
+        </div>
+        <div class="region-card">
           <h2>Hoenn</h2>
-          <a class="btn primary view-elite" data-region="Hoenn" href="#">View Elite Four</a>
-        </article>
-
-        <article class="card">
+          <button class="view-elite" data-region="Hoenn">View Elite Four</button>
+        </div>
+        <div class="region-card">
           <h2>Sinnoh</h2>
-          <a class="btn primary view-elite" data-region="Sinnoh" href="#">View Elite Four</a>
-        </article>
-
-        <article class="card">
+          <button class="view-elite" data-region="Sinnoh">View Elite Four</button>
+        </div>
+        <div class="region-card">
           <h2>Unova</h2>
-          <a class="btn primary view-elite" data-region="Unova" href="#">View Elite Four</a>
-        </article>
-      </section>
+          <button class="view-elite" data-region="Unova">View Elite Four</button>
+        </div>
+      </div>
     </section>
 
-    <!-- Vista: Elite Four -->
+    <!-- Vista Elite Four -->
     <section id="eliteView" class="view">
-      <div class="elite-header header-split">
-        <div class="left">
-          <button class="back" id="backBtn" type="button" aria-label="Back">←</button>
-          <span class="crumb">Regions</span>
-        </div>
-        <div class="right">
-          <button class="btn round" id="prevRegionBtn" title="Región anterior">‹</button>
-          <button class="btn round" id="nextRegionBtn" title="Siguiente región">›</button>
+      <div class="toolbar">
+        <button id="backBtn">← Back</button>
+        <h2 id="eliteTitle">Region</h2>
+        <div class="pager">
+          <button id="prevRegionBtn">←</button>
+          <button id="nextRegionBtn">→</button>
         </div>
       </div>
-
-      <h1 id="eliteTitle">Kanto</h1>
-      <div class="trainers" id="trainersList"></div>
+      <div id="trainersList" class="trainers"></div>
     </section>
 
-    <!-- Vista: Pokémon del entrenador -->
+    <!-- Vista Pokémon del entrenador -->
     <section id="pokemonView" class="view">
-      <div class="elite-header header-split">
-        <div class="left">
-          <button class="back" id="backToEliteBtn" type="button" aria-label="Back">←</button>
-          <span class="crumb" id="crumbPath">Kanto › Lance</span>
-        </div>
-        <div class="right">
-          <button class="btn round" id="prevTrainerBtn" title="Entrenador anterior">‹</button>
-          <button class="btn round" id="nextTrainerBtn" title="Siguiente entrenador">›</button>
+      <div class="toolbar">
+        <button id="backToEliteBtn">← Back</button>
+        <h2 id="pokemonTitle">Team</h2>
+        <div id="crumbPath" class="crumb"></div>
+        <div class="pager">
+          <button id="prevTrainerBtn">←</button>
+          <button id="nextTrainerBtn">→</button>
         </div>
       </div>
-
-      <h1 id="pokemonTitle">Team Lance</h1>
-      <div id="pokemonList" class="pokemon-grid"></div>
+      <div id="pokemonList" class="pokemons"></div>
     </section>
   </main>
 
+  <!-- ===== Modal de Guías por Pokémon ===== -->
+  <div id="guideOverlay" class="guide-overlay" hidden></div>
+  <div id="guideModal" class="guide-modal" hidden aria-modal="true" role="dialog">
+    <div class="guide-card">
+      <button class="guide-close" id="guideCloseBtn" aria-label="Close">✕</button>
+      <div class="guide-left">
+        <div class="guide-left-inner">
+          <div class="guide-left-title" id="guideLeftTitle">—</div>
+          <button class="guide-left-cta" id="guideLeftCta">check all teams</button>
+        </div>
+      </div>
+      <div class="guide-right">
+        <div class="guide-right-header">
+          <div class="guide-right-title" id="guideRightTitle">—</div>
+          <div class="guide-right-sub" id="guideRightSub">—</div>
+        </div>
+        <div class="guide-steps" id="guideSteps"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Scripts ===== -->
   <script src="src/JavaScript/Trainer_Poke.js"></script>
   <script src="src/JavaScript/Badges.js"></script>
+  <script src="src/JavaScript/Guides.js"></script>
   <script src="src/JavaScript/App.js"></script>
 </body>
 </html>
-
-
