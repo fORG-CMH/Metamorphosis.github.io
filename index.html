@@ -91,36 +91,42 @@
       <h1 id="pokemonTitle">Team Lance</h1>
       <div id="pokemonList" class="pokemon-grid"></div>
     </section>
+
+    <!-- Vista: Guía (reemplaza a pokemonView cuando se abre) -->
+    <section id="guideView" class="view">
+      <div class="elite-header header-split">
+        <div class="left">
+          <button class="back" id="backToPokemonBtn" type="button" aria-label="Volver a Pokémon">←</button>
+          <span class="crumb" id="guideCrumb">—</span>
+        </div>
+        <div class="right">
+          <!-- botones opcionales aquí -->
+        </div>
+      </div>
+
+      <h1 id="guideTitle">—</h1>
+
+      <div class="guide-layout">
+        <!-- Columna izquierda -->
+        <aside class="guide-card">
+          <div class="guide-left-top">
+            <span class="guide-star" aria-hidden="true">☆</span>
+            <h3 class="guide-left-title" id="guideLeftTitle">—</h3>
+          </div>
+          <div class="guide-meta" id="guideMeta">—</div>
+          <button class="btn primary" id="checkAllTeamsBtn" type="button">check all teams</button>
+        </aside>
+
+        <!-- Columna derecha -->
+        <section class="guide-right" id="guideSteps"></section>
+      </div>
+    </section>
   </main>
 
-  <!-- ===== Modal de Guías ===== -->
-  <div id="guideOverlay" class="guide-overlay" hidden></div>
-  <div id="guideModal" class="guide-modal" hidden>
-    <div class="guide-card">
-      <button id="guideCloseBtn" class="guide-close" aria-label="Close">✕</button>
-
-      <div class="guide-left">
-        <div class="guide-left-inner">
-          <div id="guideLeftTitle" class="guide-left-title">—</div>
-          <button id="guideLeftCta" class="guide-left-cta" type="button">check all teams</button>
-        </div>
-      </div>
-
-      <div class="guide-right">
-        <div class="guide-right-header">
-          <div id="guideRightTitle" class="guide-right-title">—</div>
-          <div id="guideRightSub" class="guide-right-sub"></div>
-        </div>
-        <div id="guideSteps" class="guide-steps"></div>
-      </div>
-    </div>
-  </div>
-  <!-- ===== Fin Modal de Guías ===== -->
-
-  <!-- Scripts (orden importante) -->
+  <!-- Scripts -->
   <script src="src/JavaScript/Trainer_Poke.js"></script>
   <script src="src/JavaScript/Badges.js"></script>
-  <script src="src/JavaScript/Guides.js"></script>
+  <script src="src/JavaScript/Guides.js"></script> <!-- define TRAINER_GUIDES -->
   <script src="src/JavaScript/App.js"></script>
 </body>
 </html>
