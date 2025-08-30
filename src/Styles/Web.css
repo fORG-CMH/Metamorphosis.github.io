@@ -404,61 +404,138 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   text-shadow: 0 1px 12px rgba(225,29,72,.45);
 }
 
+/* =============== VISTA GUÍA (layout + estilos) =============== */
 
-/* ====== Vista de Guía (panel oscuro) ====== */
-#guideView h1{ margin:6px 0 16px; letter-spacing:.3px; }
+/* Título de la vista */
+#guideView h1{
+  margin:6px 0 16px;
+  letter-spacing:.3px;
+}
 
+/* Layout 2 columnas: izquierda (tarjeta) + derecha (pasos) */
 .guide-layout{
-  display:grid; gap:18px;
+  display:grid;
+  gap:18px;
   grid-template-columns: 320px 1fr;
 }
 @media (max-width: 900px){
   .guide-layout{ grid-template-columns: 1fr; }
 }
 
-/* Columna izquierda (tarjeta) */
+/* ---------- Tarjeta izquierda ---------- */
 .guide-card{
-  background: #0e1418;           /* negro azulado */
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 14px;
-  padding: 18px;
-  color: #f3f4f6;                /* texto blanco suave */
-  display:flex; flex-direction:column; gap:14px;
-}
-.guide-left-top{ display:flex; align-items:center; gap:10px; }
-.guide-star{ font-size:18px; opacity:.95; }
-.guide-left-title{ margin:0; font-size:18px; font-weight:700; }
-.guide-meta{ opacity:.85; font-size:14px; }
-
-/* Columna derecha (pasos) */
-.guide-right{ display:flex; flex-direction:column; gap:12px; }
-.step{
-  background:#0c0f14;            /* negro profundo */
+  background-color:#001c01;                /* color pedido */
   border:1px solid rgba(255,255,255,.08);
-  border-radius:12px;
-  padding:14px;
+  border-radius:10px;
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  color:#fff;                               /* texto blanco */
+  box-shadow: 0 0 12px rgba(0,0,0,.6);
+}
+
+.guide-left-top{                            /* estrella + título */
+  width:100%;
+  display:flex; align-items:center; gap:8px;
+  font-weight:700; margin-bottom:6px;
+  color:#fff;
+}
+.guide-star{ color:#ffd700; font-size:1.2rem; }
+.guide-left-title{ margin:0; font-size:1.05rem; text-transform:capitalize; }
+
+.guide-meta{
+  width:100%;
+  font-size:.9rem; color:#c9d1c9;
+  opacity:.9; margin-bottom:12px; text-align:center;
+}
+
+/* Imagen del Pokémon (arriba del botón) */
+.guide-pokemon-img{
+  display:block;
+  margin:0 auto 14px auto;
+  max-width:130px; height:auto;
+  image-rendering:pixelated;
+  filter: drop-shadow(0 0 8px rgba(255,255,255,.15));
+}
+
+/* Botón principal de la tarjeta */
+#checkAllTeamsBtn{
+  margin-top:auto;
+  background:#0b4d0b;
+  color:#fff; font-weight:700;
+  border:1px solid #0f7010;
+  border-radius:8px;
+  padding:10px 14px;
+  cursor:pointer;
+  transition: background .2s ease, transform .15s ease;
+}
+#checkAllTeamsBtn:hover{ background:#128012; transform: translateY(-1px); }
+
+/* ---------- Columna derecha (lista de pasos) ---------- */
+.guide-right{ display:flex; flex-direction:column; gap:10px; }
+
+/* Paso en UNA SOLA LÍNEA con botón a la derecha */
+.step{
+  background:#0c0f14;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;
+  padding:10px 14px;
   color:#e5e7eb;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;            /* texto izq, botón der */
+  gap:12px;
 }
-.step-head{
-  display:flex; align-items:center; justify-content:space-between;
-  gap:10px; margin-bottom:8px;
-}
-.step-title{ font-size:15px; font-weight:600; color:#fff; }
-.step .notes{ color:#fda4af; font-size:13px; line-height:1.35; } /* rojo suave en dark */
-.step .notes .sub{ display:block; margin-left:16px; }
-.step .notes .arrow{ opacity:.9; margin-right:6px; }
 
+/* Contenedores para el layout del paso */
+.step-left  { display:flex; align-items:center; gap:8px; flex:1; min-width:0; }
+.step-right { flex-shrink:0; }
+
+/* Texto del paso (todo en una sola línea) */
+.step-title{
+  font-size:14px;
+  font-weight:700;
+  color:#fff;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.step-title strong{ color:#d1d5db; font-weight:800; }           /* “lock rhypherior” */
+.step-title .arrow{ opacity:.85; margin:0 6px; }                 /* → */
+.step-title .highlight{ color:#e11d48; font-weight:800; }        /* “hydreigon 2+2” */
+
+/* Píldoras (hp cannot low75%, earthquake…) */
+.step .tag{
+  display:inline-block;
+  background:#7c5a0b;
+  color:#fff;
+  font-size:12px;
+  padding:2px 6px;
+  margin-left:6px;
+  border-radius:6px;
+  white-space:nowrap;
+}
+
+/* Botón "check team" a la derecha (con numeritos) */
 .btn.tiny{
-  padding:6px 10px; font-size:12px; border-radius:8px;
-  border:1px solid var(--border); background:transparent; color:#fff;
+  padding:4px 10px;
+  font-size:12px;
+  border-radius:6px;
+  border:1px solid var(--border);
+  background:transparent;
+  color:#fff;
+  cursor:pointer;
+  white-space:nowrap;
+  display:inline-flex; align-items:center; gap:6px;
 }
+.btn.tiny:hover{ background:rgba(255,255,255,.08); }
 
-/* Imagen del Pokémon en la guía */
-.guide-pokemon-img {
-  display: block;
-  margin: 0 auto 14px auto;
-  max-width: 120px;
-  height: auto;
-  image-rendering: pixelated;
-  filter: drop-shadow(0 0 6px rgba(255,255,255,0.15));
+.btn.tiny .num{
+  display:inline-block;
+  padding:0 6px;
+  border-radius:6px;
+  background:rgba(255,255,255,.08);
+  font-weight:700;
+  font-size:11px;
 }
