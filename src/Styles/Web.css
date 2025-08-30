@@ -539,3 +539,56 @@ h1{margin:6px 0 6px; text-align:center; font-size:clamp(26px,3vw,36px); font-wei
   font-weight:700;
   font-size:11px;
 }
+
+/* ===== Responsive (móvil) ===== */
+
+/* Ya pones 1 columna bajo 900px arriba; lo dejamos explícito aquí también */
+@media (max-width: 900px){
+  .guide-layout{ grid-template-columns: 1fr; }
+}
+
+/* Teléfonos medianos */
+@media (max-width: 640px){
+  .guide-card{
+    padding:14px;
+    border-radius:12px;
+  }
+  .guide-left-top{ font-size:1rem; }
+  .guide-meta{ font-size:.85rem; }
+  .guide-pokemon-img{ max-width:110px; }
+
+  /* Cada paso en dos líneas ordenadas: texto arriba, botón a la derecha abajo */
+  .step{
+    padding:10px 12px;
+    gap:10px;
+    flex-wrap:wrap;
+    align-items:flex-start;
+  }
+  .step-left{        /* bloque de texto */
+    flex:1 1 100%;
+    min-width:0;
+  }
+  .step-right{       /* botón */
+    flex:0 0 auto;
+    order:2;
+    margin-left:auto;
+    margin-top:6px;
+  }
+  .step-title{
+    font-size:13px;
+    white-space:normal;   /* permite quebrar en móvil */
+    overflow:visible;
+    text-overflow:clip;
+  }
+  .step .tag{ font-size:11.5px; }
+  .btn.tiny{ font-size:12px; padding:6px 10px; }
+}
+
+/* Teléfonos pequeños */
+@media (max-width: 400px){
+  .guide-pokemon-img{ max-width:92px; }
+  #checkAllTeamsBtn{ width:100%; }
+  .step{ padding:8px 10px; }
+  .step-title{ font-size:12.5px; }
+  .step .tag{ font-size:11px; }
+}
